@@ -1,0 +1,261 @@
+<!DOCTYPE html><html><head><style></style></head><body><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>DiscWeb - Publicador de Sites</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      color: #1f2937;
+    }
+    header {
+      background: linear-gradient(to right, #1e3a8a, #3b82f6);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    label {
+      display: block;
+      margin-top: 1.5rem;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-family: monospace;
+      background: #f9fafb;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 12px 20px;
+      font-size: 1rem;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    button:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .info {
+      margin-top: 1.5rem;
+      background: #fef3c7;
+      padding: 1rem;
+      border-left: 6px solid #f59e0b;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+    #resultado {
+      margin-top: 2rem;
+      background: #ecfdf5;
+      padding: 1rem;
+      border: 1px solid #10b981;
+      border-radius: 8px;
+      color: #065f46;
+    }
+    #progressBar {
+      width: 100%;
+      background-color: #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 1.5rem;
+      height: 28px;
+      display: none;
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.1);
+    }
+    #progressBar div {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(to right, #3b82f6, #6366f1);
+      transition: width 0.5s ease-in-out;
+      border-radius: 12px;
+    }
+    iframe {
+      margin-top: 2rem;
+      width: 100%;
+      height: 420px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+    }
+    .hidden { display: none; }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<header>🚀 DiscWeb - Publicador de Sites com GitHub Pages</header>
+
+<main>
+  <p style="font-size: 1.1rem;">Publique sites simples com HTML e CSS diretamente no GitHub Pages, sem precisar programar ou usar linha de comando.</p>
+
+  <label>🔑 Token do GitHub:</label>
+  <input id="token" placeholder="Cole aqui seu token pessoal do GitHub..." />
+  <button onclick="document.getElementById('ajudaToken').classList.toggle('hidden')">❓ Como gerar o token?</button>
+
+  <div id="ajudaToken" class="info hidden">
+    <strong>Como criar um token no GitHub:</strong><br>
+    1. Acesse <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a><br>
+    2. Clique em "Generate new token (classic)"<br>
+    3. Dê um nome (ex: discweb-token)<br>
+    4. Marque a opção <code>repo</code><br>
+    5. Clique em "Generate token"<br>
+    6. Copie o token e cole no campo acima
+  </div>
+
+  <label>🌐 Nome do site:</label>
+  <input id="siteName" placeholder="Ex: meuportfolio" />
+
+  <label>📝 HTML:</label>
+  <textarea id="html" rows="6" placeholder="Cole aqui seu HTML..."></textarea>
+
+  <label>🎨 CSS:</label>
+  <textarea id="css" rows="4" placeholder="Cole aqui seu CSS..."></textarea>
+
+  <div class="button-group">
+    <button onclick="visualizar()">👁 Visualizar</button>
+    <button onclick="publicar()">🚀 Publicar</button>
+    <button disabled title="Funcionalidade ainda não disponível">✏️ Editar site (em breve)</button>
+  </div>
+
+  <iframe id="previewFrame"></iframe>
+  <div id="progressBar"><div></div></div>
+  <div id="resultado"></div>
+</main>
+
+<script>
+function visualizar() {
+  const html = document.getElementById("html").value;
+  const css = document.getElementById("css").value;
+  const output = `<!DOCTYPE html><html><head><style>${css}</style></head><body>${html}</body></html>`;
+  document.getElementById("previewFrame").srcdoc = output;
+}
+
+async function publicar() {
+  const token = document.getElementById('token').value.trim();
+  const repo = document.getElementById('siteName').value.trim();
+  const html = document.getElementById('html').value;
+  const css = document.getElementById('css').value;
+  const fullHTML = `<!DOCTYPE html><html><head><style>${css}</style></head><body>${html}</body></html>`;
+
+  const headers = {
+    Authorization: `token ${token}`,
+    Accept: "application/vnd.github.v3+json"
+  };
+
+  const progress = document.getElementById("progressBar");
+  const progressBar = progress.querySelector("div");
+  const resultado = document.getElementById("resultado");
+  progress.style.display = "block";
+  progressBar.style.width = "0%";
+  resultado.innerHTML = "";
+
+  const userResp = await fetch('https://api.github.com/user', { headers });
+  const userData = await userResp.json();
+  const username = userData.login;
+
+  if (!username) {
+    alert("Token inválido ou expirado.");
+    return;
+  }
+
+  progressBar.style.width = "20%";
+
+  await fetch("https://api.github.com/user/repos", {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      name: repo,
+      auto_init: true,
+      private: false,
+      description: "Site criado com DiscWeb"
+    })
+  });
+
+  progressBar.style.width = "40%";
+
+  await fetch(`https://api.github.com/repos/${username}/${repo}/contents/index.html`, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({
+      message: "Publicar site",
+      content: btoa(unescape(encodeURIComponent(fullHTML)))
+    })
+  });
+
+  progressBar.style.width = "60%";
+
+  await fetch(`https://api.github.com/repos/${username}/${repo}/pages`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ source: { branch: "main", path: "/" } })
+  });
+
+  progressBar.style.width = "90%";
+
+  const siteUrl = `https://${username}.github.io/${repo}/`;
+  let tentativas = 0;
+  const maxTentativas = 30;
+
+  const verificarDisponibilidade = async () => {
+    try {
+      const resposta = await fetch(siteUrl, { cache: "no-store" });
+      if (resposta.ok) {
+        progressBar.style.width = "100%";
+        resultado.innerHTML = `✅ Site publicado com sucesso!<br><a href="${siteUrl}" target="_blank">${siteUrl}</a>`;
+      } else {
+        throw new Error("Ainda não disponível.");
+      }
+    } catch {
+      tentativas++;
+      if (tentativas < maxTentativas) {
+        const progresso = 90 + Math.floor((tentativas / maxTentativas) * 10);
+        progressBar.style.width = `${progresso}%`;
+        setTimeout(verificarDisponibilidade, 3000);
+      } else {
+        resultado.innerHTML = `⚠️ Publicado, mas o GitHub Pages ainda não ativou o link.<br>Tente novamente em alguns minutos:<br><a href="${siteUrl}" target="_blank">${siteUrl}</a>`;
+      }
+    }
+  };
+
+  verificarDisponibilidade();
+}
+</script>
+
+</body>
+</html>
+</body></html>
