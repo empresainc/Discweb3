@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discover Cloud - Hospedagem Rápida e Confiável</title>
+    <title>Discover Cloud - A Plataforma de Hospedagem Profissional e Instantânea</title>
     
     <meta property="og:title" content="Discover Cloud: Sua Nuvem de Hospedagem Pessoal e Instantânea">
     <meta property="og:description" content="Publique seus projetos em segundos! Conheça os planos Grátis e Premium (R$165/mês).">
     <meta property="og:image" content="https://compared-reactions-took-rangers.trycloudflare.com/Gemini_Generated_Image_pu228zpu228zpu22.png"> 
     <meta property="og:url" content="https://compared-reactions-took-rangers.trycloudflare.com/">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:alt" content="Logo Discover Cloud com tema de nuvem e descoberta.">
     
     <style>
-        /* --- Variáveis de Cor e Reset --- */
+        /* --- Configurações Básicas e Variáveis --- */
         :root {
-            --color-primary: #1e3c72; /* Azul Escuro (Fundo) */
-            --color-secondary: #2a5298; /* Azul Médio */
-            --color-accent: #ff9800; /* Laranja Vibrante */
-            --color-text-light: #f3f3f3;
-            --color-support: #00bcd4; /* Ciano/Azul Claro */
-            --color-success: #4caf50;
+            --color-dark-bg: #0d1226; /* Fundo Muito Escuro */
+            --color-mid-bg: #1c2a4d; /* Seção Intermediária */
+            --color-primary-blue: #2a5298; /* Azul da Marca */
+            --color-accent: #ff9800; /* Laranja (Destaque) */
+            --color-support: #00bcd4; /* Ciano (Suporte/Grátis) */
+            --color-text-light: #e0e6f8;
+            --color-text-faded: #a0a6b8;
             --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
@@ -28,80 +28,82 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
         }
 
         body {
             font-family: var(--font-family);
             line-height: 1.6;
             color: var(--color-text-light);
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            background: var(--color-dark-bg);
             min-height: 100vh;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        h2 {
-            font-size: 2.5em;
-            text-align: center;
-            margin-bottom: 50px;
-            font-weight: 700;
+        /* --- Header/Nav Bar --- */
+        .header {
+            background-color: rgba(13, 18, 38, 0.95);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo-img {
+            height: 40px; 
+            filter: drop-shadow(0 0 5px rgba(255, 152, 0, 0.5)); 
+        }
+
+        .nav-links a {
             color: var(--color-text-light);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-            padding-top: 40px;
-        }
-
-        /* --- Botões --- */
-        .btn {
-            display: inline-block;
-            padding: 14px 30px;
-            border-radius: 50px;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             text-decoration: none;
-            letter-spacing: 0.5px;
-            margin-top: 20px;
-            border: 2px solid transparent;
+            margin-left: 30px;
+            font-weight: 500;
+            padding: 5px 0;
+            position: relative;
         }
 
-        .btn-primary {
-            background-color: var(--color-accent);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #fb8c00;
-            box-shadow: 0 7px 20px rgba(255, 152, 0, 0.5);
-            transform: translateY(-2px);
+        .nav-links a:hover {
+            color: var(--color-accent);
         }
         
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--color-support);
-            border-color: var(--color-support);
+        /* Underline effect */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-accent);
+            transition: width 0.3s ease;
         }
 
-        .btn-secondary:hover {
-            background-color: var(--color-support);
-            color: var(--color-primary);
-            transform: translateY(-2px);
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
-        /* --- Hero Section (Header) --- */
+
+        /* --- Hero Section (Destaque) --- */
         .hero-section {
-            background: url('Gemini_Generated_Image_pu228zpu228zpu22.png') no-repeat center center/cover; /* Banner como fundo */
-            min-height: 60vh;
+            background: url('Gemini_Generated_Image_pu228zpu228zpu22.png') no-repeat center center/cover;
+            min-height: 80vh;
             display: flex;
             align-items: center;
-            justify-content: center;
             position: relative;
-            text-align: center;
-            padding: 60px 20px;
+            padding: 100px 0;
         }
 
         .hero-section::before { 
@@ -111,53 +113,103 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(30, 60, 114, 0.5); /* Overlay */
+            background: rgba(13, 18, 38, 0.7); 
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
-            /* centralizar o logo no banner */
+            max-width: 600px;
         }
 
-        .hero-logo {
-            width: 350px; /* Tamanho da logo */
-            height: auto;
+        .hero-content h1 {
+            font-size: 3.5em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+
+        .hero-content p {
+            font-size: 1.3em;
             margin-bottom: 30px;
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+            color: var(--color-text-faded);
         }
 
-        .tagline {
-            font-size: 1.5em;
-            font-weight: 300;
-            margin-top: 10px;
-            color: var(--color-text-light);
+        /* --- Global Títulos --- */
+        .section-title {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: 700;
+            color: white;
+            padding-top: 60px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title span {
+            color: var(--color-accent);
+        }
+
+        /* --- Botões --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--color-accent) 0%, #ffc107 100%);
+            color: var(--color-dark-bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
         }
         
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-support);
+            border-color: var(--color-support);
+            margin-left: 15px;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-support);
+            color: var(--color-dark-bg);
+        }
+
         /* --- Features Section --- */
         .features-section {
-            padding: 60px 0;
-            background-color: var(--color-secondary);
+            padding: 80px 0;
+            background-color: var(--color-mid-bg);
         }
 
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            padding-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
         }
 
         .feature-item {
-            background-color: rgba(0, 0, 0, 0.15); /* Fundo semi-transparente */
+            background-color: rgba(0, 0, 0, 0.2);
             padding: 30px;
-            border-radius: 15px;
-            border-left: 5px solid var(--color-support);
-            transition: transform 0.3s ease;
+            border-radius: 12px;
+            border-top: 3px solid var(--color-primary-blue);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .feature-item:hover {
+            border-top-color: var(--color-accent);
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
         }
 
         .feature-item .icon {
@@ -166,11 +218,20 @@
             margin-bottom: 15px;
             color: var(--color-accent);
         }
+        
+        .feature-item h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .feature-item p {
+            color: var(--color-text-faded);
+        }
 
         /* --- Plans Section --- */
         .plans-section {
             padding: 80px 0;
-            background-color: var(--color-primary);
+            background-color: var(--color-dark-bg);
         }
 
         .plan-cards {
@@ -181,23 +242,26 @@
         }
 
         .plan-card {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            background-color: var(--color-mid-bg);
+            border-radius: 15px;
             padding: 40px 30px;
             width: 100%;
             max-width: 350px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             border: 3px solid transparent;
             position: relative;
+        }
+        
+        .plan-card:hover {
+             transform: translateY(-5px);
         }
 
         .plan-card.premium {
             border-color: var(--color-accent);
-            background: linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(30, 60, 114, 0.8) 100%);
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(255, 152, 0, 0.2);
+            background: linear-gradient(145deg, var(--color-mid-bg) 0%, rgba(255, 152, 0, 0.1) 100%);
+            transform: scale(1.05); /* Destaque */
+            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.2);
         }
 
         .plan-card .tag {
@@ -206,16 +270,11 @@
             left: 50%;
             transform: translateX(-50%);
             background-color: var(--color-support);
-            color: var(--color-primary);
+            color: var(--color-dark-bg);
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.8em;
             font-weight: bold;
-        }
-
-        .plan-card .tag.best-value {
-            background-color: var(--color-accent);
-            color: white;
         }
 
         .plan-card .price {
@@ -233,7 +292,7 @@
             font-size: 0.5em;
             font-weight: 400;
             opacity: 0.8;
-            color: var(--color-text-light);
+            color: var(--color-text-faded);
         }
 
         .plan-card ul {
@@ -245,47 +304,52 @@
 
         .plan-card ul li {
             padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            color: var(--color-text-faded);
         }
 
         .plan-card .check {
             color: var(--color-success);
             font-weight: bold;
             margin-right: 10px;
+            flex-shrink: 0;
         }
 
-        /* --- Contact Section --- */
+        /* --- Payment & Contact Section --- */
         .contact-section {
             padding: 60px 0 80px 0;
             text-align: center;
-            background-color: var(--color-secondary);
+            background-color: var(--color-mid-bg);
+        }
+        
+        .contact-section h2 {
+            padding-top: 0; 
         }
 
         .payment-methods {
             display: flex;
             justify-content: center;
-            gap: 25px;
+            gap: 30px;
             flex-wrap: wrap;
-            margin-top: 20px;
-            margin-bottom: 40px;
+            margin-top: 30px;
+            margin-bottom: 50px;
         }
 
         .payment-item {
             display: flex;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.3);
-            padding: 10px 20px;
-            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 12px 25px;
+            border-radius: 50px;
             font-weight: 600;
-            border: 1px solid var(--color-support);
-            transition: all 0.3s ease;
+            border: 1px solid var(--color-primary-blue);
         }
-
+        
         .payment-item:hover {
-            background-color: rgba(0, 0, 0, 0.5);
             border-color: var(--color-accent);
+            background-color: rgba(255, 152, 0, 0.1);
         }
 
         .payment-item .icon {
@@ -293,18 +357,14 @@
             margin-right: 10px;
             color: var(--color-support);
         }
-        
-        .payment-item:nth-child(2) .icon { /* Revolut com cor de destaque */
-            color: #ff0056; 
-        }
 
         .contact-info {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            max-width: 500px;
-            margin: 20px auto;
-            border-left: 5px solid var(--color-accent);
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid var(--color-primary-blue);
         }
 
         .contact-info a {
@@ -318,57 +378,78 @@
         .footer-section {
             padding: 30px 0;
             text-align: center;
-            background-color: #112a52; 
+            background-color: #080c1c; 
             font-size: 0.9em;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--color-text-faded);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .footer-section a {
             color: var(--color-support);
+            text-decoration: none;
         }
 
-        /* --- Media Queries (Responsividade) --- */
+        /* --- Responsividade --- */
         @media (max-width: 768px) {
-            h2 {
+            .nav-content {
+                flex-direction: column;
+            }
+            .nav-links {
+                margin-top: 15px;
+            }
+            .nav-links a {
+                margin: 0 10px;
+            }
+            .hero-content h1 {
+                font-size: 2.5em;
+            }
+            .section-title {
                 font-size: 2em;
-            }
-            .hero-logo {
-                width: 200px;
-            }
-            .tagline {
-                font-size: 1.2em;
             }
         }
     </style>
 </head>
 <body>
-
-    <header class="hero-section">
-        <div class="hero-content">
-            <img src="Gemini_Generated_Image_47non947non947no.png" alt="Logo Discover Cloud" class="hero-logo">
-            <p class="tagline">A forma mais rápida e profissional de hospedar seu projeto.</p>
-            <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn btn-primary">ACESSAR O PAINEL</a>
+    <header class="header">
+        <div class="container nav-content">
+            <a href="#hero">
+                <img src="Gemini_Generated_Image_47non947non947no.png" alt="Discover Cloud Logo" class="nav-logo-img">
+            </a>
+            <nav class="nav-links">
+                <a href="#features">Recursos</a>
+                <a href="#plans">Planos</a>
+                <a href="#contact">Suporte</a>
+            </nav>
         </div>
     </header>
 
+    <section id="hero" class="hero-section">
+        <div class="container hero-content">
+            <h1>Hospedagem Cloud **Profissional** e Instantânea.</h1>
+            <p>Descubra a solução definitiva para subir seus projetos HTML em segundos, diretamente do seu dispositivo. Confiável, rápido e feito para empresas.</p>
+            <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn btn-primary">ACESSAR LOGIN / REGISTRO</a>
+            <a href="#plans" class="btn btn-secondary">Ver Planos</a>
+        </div>
+    </section>
+
     <section id="features" class="features-section">
         <div class="container">
-            <h2>Por que escolher a Nuvem Discover Cloud?</h2>
+            <h2 class="section-title">Por que Escolher a **Nuvem** Discover Cloud?</h2>
             <div class="feature-grid">
                 <div class="feature-item">
-                    <span class="icon">🚀</span>
-                    <h3>Desempenho Profissional</h3>
-                    <p>Velocidade e estabilidade de nível corporativo para seus projetos HTML.</p>
+                    <span class="icon">⚡</span>
+                    <h3>Desempenho de Elite</h3>
+                    <p>Infraestrutura otimizada para máxima velocidade de carregamento, essencial para qualquer negócio online.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🔒</span>
+                    <h3>Segurança Garantida</h3>
+                    <p>Seus dados e projetos são protegidos por protocolos de segurança de ponta, 24 horas por dia.</p>
                 </div>
                 <div class="feature-item">
                     <span class="icon">📱</span>
-                    <h3>Gerenciamento Mobile</h3>
-                    <p>Publique e gerencie seu site diretamente do seu dispositivo Android de forma simples.</p>
-                </div>
-                <div class="feature-item">
-                    <span class="icon">🔗</span>
-                    <h3>URL Público Estável</h3>
-                    <p>Link permanente e profissional para você compartilhar seu trabalho com o mundo.</p>
+                    <h3>Deploy Mobile Fácil</h3>
+                    <p>A única plataforma que permite a publicação e gerenciamento completo do seu site via Android.</p>
                 </div>
             </div>
         </div>
@@ -376,33 +457,33 @@
 
     <section id="plans" class="plans-section">
         <div class="container">
-            <h2>Escolha seu Plano</h2>
+            <h2 class="section-title">A Nuvem Certa para o Seu Projeto</h2>
             <div class="plan-cards">
                 
-                <div class="plan-card free">
-                    <p class="tag">Para Iniciantes</p>
+                <div class="plan-card">
+                    <p class="tag" style="background-color: var(--color-support); color: var(--color-dark-bg);">Para Teste</p>
                     <h3>Plano Grátis</h3>
-                    <p class="price">R$ 0<span class="per-month">/48h</span></p>
+                    <p class="price">R$ 0<span class="per-month">/48 horas</span></p>
                     <ul>
                         <li><span class="check">✔</span> Publicação Imediata</li>
-                        <li><span class="check">✔</span> Hospedagem de 48 horas</li>
-                        <li><span class="check">✔</span> Link de acesso temporário</li>
-                        <li><span class="check">✔</span> Suporte Básico</li>
+                        <li><span class="check">✔</span> Link de Acesso Público Temporário</li>
+                        <li><span class="check">✔</span> Suporte Comunitário</li>
+                        <li><span class="check">✔</span> Hospedagem de 48h</li>
                     </ul>
-                    <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn btn-secondary">Começar Grátis</a>
+                    <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn btn-secondary">Iniciar Grátis</a>
                 </div>
 
                 <div class="plan-card premium">
-                    <p class="tag best-value">PREMIUM</p>
-                    <h3>Plano Mensal Completo</h3>
+                    <p class="tag" style="background-color: var(--color-accent); color: white;">VALOR DE EMPRESA</p>
+                    <h3>Plano Premium</h3>
                     <p class="price">R$ 165<span class="per-month">/mês</span></p>
                     <ul>
                         <li><span class="check">✔</span> Hospedagem Ilimitada</li>
-                        <li><span class="check">✔</span> Mais de 89 GB de Espaço</li>
-                        <li><span class="check">✔</span> Múltiplos Projetos Online</li>
+                        <li><span class="check">✔</span> **89 GB** de Espaço Cloud</li>
+                        <li><span class="check">✔</span> Múltiplos Projetos/Sites</li>
                         <li><span class="check">✔</span> Suporte Prioritário 24/7</li>
                     </ul>
-                    <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn btn-primary">Fazer Upgrade</a>
+                    <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn btn-primary">Adquirir Plano</a>
                 </div>
             </div>
         </div>
@@ -410,8 +491,10 @@
 
     <section id="contact" class="contact-section">
         <div class="container">
-            <h2>Contate-nos e Pagamentos</h2>
+            <h2 class="section-title" style="color: var(--color-accent);">Suporte e Formas de Pagamento</h2>
             
+            <p style="margin-bottom: 20px;">Aceitamos as principais formas de pagamento internacionais:</p>
+
             <div class="payment-methods">
                 <div class="payment-item">
                     <span class="icon" style="color:#0070ba;">🏦</span> PayPal
@@ -421,18 +504,17 @@
                 </div>
             </div>
             
-            <p>Para suporte ou informações sobre pagamento, utilize o e-mail oficial:</p>
-
             <div class="contact-info">
-                <p>Suporte: <a href="mailto:discovervs24@gmail.com">discovervs24@gmail.com</a></p>
+                <p>Para **Suporte e Confirmação de Pagamentos**, utilize nosso canal de e-mail exclusivo:</p>
+                <p style="margin-top: 10px; font-size: 1.1em;">E-mail: <a href="mailto:discovervs24@gmail.com">discovervs24@gmail.com</a></p>
             </div>
         </div>
     </section>
 
     <footer class="footer-section">
         <div class="container">
-            <p>&copy; 2024 Discover Cloud. Hospedagem que evolui com você.</p>
-            <p><a href="https://compared-reactions-took-rangers.trycloudflare.com/">Acessar Login</a></p>
+            <p>&copy; 2024 Discover Cloud | Todos os direitos reservados.</p>
+            <p>Conecte-se: <a href="https://compared-reactions-took-rangers.trycloudflare.com/">Painel de Acesso</a></p>
         </div>
     </footer>
 
