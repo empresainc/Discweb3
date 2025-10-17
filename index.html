@@ -7,7 +7,7 @@
     
     <meta property="og:title" content="Discover Cloud: Sua Nuvem de Hospedagem Pessoal e Instantânea">
     <meta property="og:description" content="Publique seus projetos em segundos! Conheça os planos Grátis e Premium (R$165/mês).">
-    <meta property="og:image" content="https://compared-reactions-took-rangers.trycloudflare.com/Gemini_Generated_Image_pu228zpu228zpu22.png"> 
+    <meta property="og:image" content="https://compared-reactions-took-rangers.trycloudflare.com/banner.png"> 
     <meta property="og:url" content="https://compared-reactions-took-rangers.trycloudflare.com/">
     <meta name="twitter:card" content="summary_large_image">
     
@@ -37,6 +37,7 @@
             color: var(--color-text-light);
             background: var(--color-dark-bg);
             min-height: 100vh;
+            overflow-x: hidden; /* Evita scroll horizontal em animações */
         }
 
         .container {
@@ -98,7 +99,7 @@
 
         /* --- Hero Section (Destaque) --- */
         .hero-section {
-            background: url('Gemini_Generated_Image_pu228zpu228zpu22.png') no-repeat center center/cover;
+            background: url('banner.png') no-repeat center center/cover;
             min-height: 80vh;
             display: flex;
             align-items: center;
@@ -119,21 +120,38 @@
         .hero-content {
             position: relative;
             z-index: 1;
-            max-width: 600px;
+            max-width: 700px; /* Mais espaço para o texto */
         }
 
         .hero-content h1 {
-            font-size: 3.5em;
+            font-size: 3.8em; /* Fonte maior */
             font-weight: 900;
             margin-bottom: 20px;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
             color: white;
+            line-height: 1.2;
         }
 
         .hero-content p {
             font-size: 1.3em;
             margin-bottom: 30px;
             color: var(--color-text-faded);
+        }
+
+        /* Animação do Título */
+        .animated-text {
+            display: inline-block;
+            background: linear-gradient(90deg, #00bcd4, #ff9800, #4CAF50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: text-flow 4s linear infinite;
+        }
+
+        @keyframes text-flow {
+            to {
+                background-position: 200% center;
+            }
         }
 
         /* --- Global Títulos --- */
@@ -154,25 +172,27 @@
         /* --- Botões --- */
         .btn {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 14px 35px; /* Botões maiores */
             border-radius: 8px;
             font-weight: bold;
             text-transform: uppercase;
             text-decoration: none;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px; /* Mais espaçamento */
             border: 2px solid transparent;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: 1.05em; /* Fonte ligeiramente maior */
         }
 
         .btn-primary {
             background: linear-gradient(90deg, var(--color-accent) 0%, #ffc107 100%);
             color: var(--color-dark-bg);
+            border-radius: 50px; /* Mais arredondado */
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+            box-shadow: 0 8px 25px rgba(255, 152, 0, 0.6);
         }
         
         .btn-secondary {
@@ -180,17 +200,20 @@
             color: var(--color-support);
             border-color: var(--color-support);
             margin-left: 15px;
+            border-radius: 50px; /* Mais arredondado */
         }
 
         .btn-secondary:hover {
             background-color: var(--color-support);
             color: var(--color-dark-bg);
+            border-color: var(--color-support);
         }
 
         /* --- Features Section --- */
         .features-section {
             padding: 80px 0;
             background-color: var(--color-mid-bg);
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
         .feature-grid {
@@ -200,38 +223,43 @@
         }
 
         .feature-item {
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.25); /* Fundo mais escuro */
+            padding: 35px; /* Mais padding */
             border-radius: 12px;
             border-top: 3px solid var(--color-primary-blue);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.4);
         }
 
         .feature-item:hover {
             border-top-color: var(--color-accent);
-            transform: translateY(-5px);
+            transform: translateY(-8px); /* Mais destaque */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
         }
 
         .feature-item .icon {
-            font-size: 2.5em;
+            font-size: 3em; /* Ícones maiores */
             display: block;
-            margin-bottom: 15px;
-            color: var(--color-accent);
+            margin-bottom: 20px;
+            color: var(--color-support); /* Ciano para os ícones */
+            text-shadow: 0 0 10px rgba(0, 188, 212, 0.5); /* Sombra nos ícones */
         }
         
         .feature-item h3 {
             color: white;
             margin-bottom: 10px;
+            font-size: 1.6em; /* Título de recurso maior */
         }
         
         .feature-item p {
             color: var(--color-text-faded);
+            font-size: 1.05em;
         }
 
         /* --- Plans Section --- */
         .plans-section {
             padding: 80px 0;
             background-color: var(--color-dark-bg);
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
         .plan-cards {
@@ -246,39 +274,40 @@
             border-radius: 15px;
             padding: 40px 30px;
             width: 100%;
-            max-width: 350px;
+            max-width: 380px; /* Cards um pouco maiores */
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
             border: 3px solid transparent;
             position: relative;
         }
         
         .plan-card:hover {
-             transform: translateY(-5px);
+             transform: translateY(-8px); /* Mais destaque */
+             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
         }
 
         .plan-card.premium {
             border-color: var(--color-accent);
-            background: linear-gradient(145deg, var(--color-mid-bg) 0%, rgba(255, 152, 0, 0.1) 100%);
-            transform: scale(1.05); /* Destaque */
-            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.2);
+            background: linear-gradient(145deg, var(--color-mid-bg) 0%, rgba(255, 152, 0, 0.15) 100%);
+            transform: scale(1.08) translateY(-10px); /* Destaque maior */
+            box-shadow: 0 18px 40px rgba(255, 152, 0, 0.3);
         }
 
         .plan-card .tag {
             position: absolute;
-            top: -15px;
+            top: -18px; /* Mais para cima */
             left: 50%;
             transform: translateX(-50%);
             background-color: var(--color-support);
             color: var(--color-dark-bg);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8em;
+            padding: 8px 20px; /* Tag maior */
+            border-radius: 25px; /* Mais arredondado */
+            font-size: 0.9em;
             font-weight: bold;
         }
 
         .plan-card .price {
-            font-size: 3em;
+            font-size: 3.5em; /* Preço maior */
             font-weight: 900;
             color: var(--color-accent);
             margin-bottom: 25px;
@@ -289,7 +318,7 @@
         }
 
         .plan-card .per-month {
-            font-size: 0.5em;
+            font-size: 0.6em; /* Texto menor */
             font-weight: 400;
             opacity: 0.8;
             color: var(--color-text-faded);
@@ -299,22 +328,24 @@
             list-style: none;
             text-align: left;
             padding: 0;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .plan-card ul li {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 0; /* Mais espaçamento */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Linha mais visível */
             display: flex;
             align-items: flex-start;
             color: var(--color-text-faded);
+            font-size: 1.05em;
         }
 
         .plan-card .check {
-            color: var(--color-success);
+            color: #69f0ae; /* Verde claro mais vibrante */
             font-weight: bold;
-            margin-right: 10px;
+            margin-right: 12px;
             flex-shrink: 0;
+            font-size: 1.2em;
         }
 
         /* --- Payment & Contact Section --- */
@@ -322,10 +353,12 @@
             padding: 60px 0 80px 0;
             text-align: center;
             background-color: var(--color-mid-bg);
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
         
         .contact-section h2 {
             padding-top: 0; 
+            color: var(--color-accent); /* Título laranja */
         }
 
         .payment-methods {
@@ -340,31 +373,38 @@
         .payment-item {
             display: flex;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 12px 25px;
+            background-color: rgba(255, 255, 255, 0.08); /* Mais visível */
+            padding: 15px 30px; /* Maior */
             border-radius: 50px;
             font-weight: 600;
-            border: 1px solid var(--color-primary-blue);
+            border: 2px solid var(--color-primary-blue);
         }
         
         .payment-item:hover {
             border-color: var(--color-accent);
-            background-color: rgba(255, 152, 0, 0.1);
+            background-color: rgba(255, 152, 0, 0.15);
+            transform: translateY(-5px);
         }
 
         .payment-item .icon {
-            font-size: 1.5em;
-            margin-right: 10px;
+            font-size: 1.8em; /* Ícones maiores */
+            margin-right: 15px;
             color: var(--color-support);
         }
 
+        /* Cores específicas para ícones de pagamento */
+        .payment-item:nth-child(1) .icon { color: #0070ba; } /* PayPal Blue */
+        .payment-item:nth-child(2) .icon { color: #ff0056; } /* Revolut Pink */
+
+
         .contact-info {
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.08);
             padding: 30px;
             border-radius: 10px;
             max-width: 600px;
             margin: 0 auto;
-            border: 1px solid var(--color-primary-blue);
+            border-left: 5px solid var(--color-accent);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .contact-info a {
@@ -372,6 +412,7 @@
             text-decoration: none;
             font-weight: bold;
             word-break: break-all;
+            font-size: 1.15em;
         }
 
         /* --- Footer --- */
@@ -401,10 +442,24 @@
                 margin: 0 10px;
             }
             .hero-content h1 {
-                font-size: 2.5em;
+                font-size: 2.2em;
+            }
+            .hero-content p {
+                font-size: 1.1em;
             }
             .section-title {
-                font-size: 2em;
+                font-size: 1.8em;
+            }
+            .btn {
+                padding: 10px 25px;
+                font-size: 0.95em;
+            }
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 15px; /* Espaço entre os botões */
+            }
+            .plan-card.premium {
+                transform: scale(1.03) translateY(-5px);
             }
         }
     </style>
@@ -413,7 +468,7 @@
     <header class="header">
         <div class="container nav-content">
             <a href="#hero">
-                <img src="Gemini_Generated_Image_47non947non947no.png" alt="Discover Cloud Logo" class="nav-logo-img">
+                <img src="logo.png" alt="Discover Cloud Logo" class="nav-logo-img">
             </a>
             <nav class="nav-links">
                 <a href="#features">Recursos</a>
@@ -425,9 +480,9 @@
 
     <section id="hero" class="hero-section">
         <div class="container hero-content">
-            <h1>Hospedagem Cloud **Profissional** e Instantânea.</h1>
-            <p>Descubra a solução definitiva para subir seus projetos HTML em segundos, diretamente do seu dispositivo. Confiável, rápido e feito para empresas.</p>
-            <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn btn-primary">ACESSAR LOGIN / REGISTRO</a>
+            <h1>Hospedagem Cloud <span class="animated-text">Profissional. Rápida. Segura.</span></h1>
+            <p>Descubra a solução definitiva para subir seus projetos HTML em segundos, diretamente do seu dispositivo. Desenvolvido para agilidade e confiabilidade empresarial.</p>
+            <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn btn-primary">ACESSAR PAINEL AGORA</a>
             <a href="#plans" class="btn btn-secondary">Ver Planos</a>
         </div>
     </section>
@@ -437,7 +492,7 @@
             <h2 class="section-title">Por que Escolher a **Nuvem** Discover Cloud?</h2>
             <div class="feature-grid">
                 <div class="feature-item">
-                    <span class="icon">⚡</span>
+                    <span class="icon">🚀</span>
                     <h3>Desempenho de Elite</h3>
                     <p>Infraestrutura otimizada para máxima velocidade de carregamento, essencial para qualquer negócio online.</p>
                 </div>
@@ -461,7 +516,7 @@
             <div class="plan-cards">
                 
                 <div class="plan-card">
-                    <p class="tag" style="background-color: var(--color-support); color: var(--color-dark-bg);">Para Teste</p>
+                    <p class="tag">Para Teste</p>
                     <h3>Plano Grátis</h3>
                     <p class="price">R$ 0<span class="per-month">/48 horas</span></p>
                     <ul>
@@ -474,7 +529,7 @@
                 </div>
 
                 <div class="plan-card premium">
-                    <p class="tag" style="background-color: var(--color-accent); color: white;">VALOR DE EMPRESA</p>
+                    <p class="tag">VALOR DE EMPRESA</p>
                     <h3>Plano Premium</h3>
                     <p class="price">R$ 165<span class="per-month">/mês</span></p>
                     <ul>
@@ -491,22 +546,22 @@
 
     <section id="contact" class="contact-section">
         <div class="container">
-            <h2 class="section-title" style="color: var(--color-accent);">Suporte e Formas de Pagamento</h2>
+            <h2 class="section-title">Suporte e Formas de <span style="color:white;">Pagamento</span></h2>
             
-            <p style="margin-bottom: 20px;">Aceitamos as principais formas de pagamento internacionais:</p>
+            <p style="margin-bottom: 20px; font-size: 1.1em; color: var(--color-text-faded);">Aceitamos as principais formas de pagamento internacionais para sua conveniência:</p>
 
             <div class="payment-methods">
                 <div class="payment-item">
-                    <span class="icon" style="color:#0070ba;">🏦</span> PayPal
+                    <span class="icon">🏦</span> PayPal
                 </div>
                 <div class="payment-item">
-                    <span class="icon" style="color:#ff0056;">💳</span> Revolut
+                    <span class="icon">💳</span> Revolut
                 </div>
             </div>
             
             <div class="contact-info">
-                <p>Para **Suporte e Confirmação de Pagamentos**, utilize nosso canal de e-mail exclusivo:</p>
-                <p style="margin-top: 10px; font-size: 1.1em;">E-mail: <a href="mailto:discovervs24@gmail.com">discovervs24@gmail.com</a></p>
+                <p>Para **Suporte Exclusivo** e **Confirmação de Pagamentos**, utilize nosso e-mail oficial:</p>
+                <p style="margin-top: 10px; font-size: 1.2em;">E-mail: <a href="mailto:discovervs24@gmail.com">discovervs24@gmail.com</a></p>
             </div>
         </div>
     </section>
