@@ -1,261 +1,451 @@
-<!DOCTYPE html><html><head><style></style></head><body><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>DiscWeb - Publicador de Sites</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f9fafb;
-      margin: 0;
-      color: #1f2937;
-    }
-    header {
-      background: linear-gradient(to right, #1e3a8a, #3b82f6);
-      color: white;
-      padding: 2rem;
-      text-align: center;
-      font-size: 2rem;
-      font-weight: 700;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      background: white;
-      padding: 2.5rem;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-    }
-    label {
-      display: block;
-      margin-top: 1.5rem;
-      margin-bottom: 0.3rem;
-      font-weight: 600;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      font-size: 1rem;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      font-family: monospace;
-      background: #f9fafb;
-    }
-    button {
-      margin-top: 1.5rem;
-      padding: 12px 20px;
-      font-size: 1rem;
-      background: #3b82f6;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-    }
-    button:hover {
-      background: #2563eb;
-      transform: translateY(-1px);
-    }
-    .button-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    .info {
-      margin-top: 1.5rem;
-      background: #fef3c7;
-      padding: 1rem;
-      border-left: 6px solid #f59e0b;
-      border-radius: 8px;
-      font-size: 0.95rem;
-    }
-    #resultado {
-      margin-top: 2rem;
-      background: #ecfdf5;
-      padding: 1rem;
-      border: 1px solid #10b981;
-      border-radius: 8px;
-      color: #065f46;
-    }
-    #progressBar {
-      width: 100%;
-      background-color: #e5e7eb;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-top: 1.5rem;
-      height: 28px;
-      display: none;
-      box-shadow: inset 0 1px 4px rgba(0,0,0,0.1);
-    }
-    #progressBar div {
-      height: 100%;
-      width: 0;
-      background: linear-gradient(to right, #3b82f6, #6366f1);
-      transition: width 0.5s ease-in-out;
-      border-radius: 12px;
-    }
-    iframe {
-      margin-top: 2rem;
-      width: 100%;
-      height: 420px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-    }
-    .hidden { display: none; }
-    a {
-      color: #2563eb;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Cloud - Hospedagem Instantânea no seu Android</title>
+    
+    <meta property="og:title" content="Discover Cloud - Sua Nuvem de Hospedagem Pessoal">
+    <meta property="og:description" content="Publique seus projetos HTML em segundos com planos Grátis e Premium (R$30/mês).">
+    <meta property="og:image" content="https://compared-reactions-took-rangers.trycloudflare.com/banner.png"> 
+    <meta property="og:url" content="https://compared-reactions-took-rangers.trycloudflare.com/">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <style>
+        /* --- Variáveis de Cor e Reset --- */
+        :root {
+            --color-primary: #1e3c72; /* Azul Escuro (Fundo) */
+            --color-secondary: #2a5298; /* Azul Médio */
+            --color-accent: #ff9800; /* Laranja Vibrante */
+            --color-text-light: #f3f3f3;
+            --color-success: #4caf50;
+            --color-support: #00bcd4; /* Azul Claro/Ciano */
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--color-text-light);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+            color: var(--color-text-light);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            padding-top: 40px;
+        }
+        
+        /* --- Hero Section (Header) --- */
+        .hero-section {
+            background: url('banner.png') no-repeat center center/cover;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero-section::before { /* Overlay escuro para legibilidade */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(30, 60, 114, 0.7); 
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-logo {
+            width: 350px; /* Logo maior para destaque */
+            height: auto;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+        }
+
+        .tagline {
+            font-size: 1.5em;
+            font-weight: 300;
+            margin-top: 10px;
+        }
+        
+        /* --- Botões --- */
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            margin-top: 20px;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--color-accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #fb8c00;
+            box-shadow: 0 7px 20px rgba(255, 152, 0, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        /* --- Features Section --- */
+        .features-section {
+            padding: 60px 0;
+            background-color: var(--color-secondary);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding-bottom: 40px;
+        }
+
+        .feature-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid var(--color-accent);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-item h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .feature-item .icon {
+            font-size: 2em;
+            display: block;
+            margin-bottom: 15px;
+            color: var(--color-support); /* Ciano para o ícone */
+        }
+
+        /* --- Plans Section --- */
+        .plans-section {
+            padding: 80px 0;
+            background-color: var(--color-primary);
+        }
+
+        .plan-cards {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .plan-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .plan-card.premium {
+            border-color: var(--color-accent);
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(30, 60, 114, 0.8) 100%);
+        }
+
+        .plan-card .tag {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-support);
+            color: var(--color-primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .plan-card .tag.best-value {
+            background-color: var(--color-accent);
+            color: white;
+        }
+
+        .plan-card h3 {
+            font-size: 1.8em;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .plan-card .price {
+            font-size: 3em;
+            font-weight: 900;
+            color: var(--color-accent);
+            margin-bottom: 25px;
+        }
+
+        .plan-card.free .price {
+            color: var(--color-support);
+        }
+
+        .plan-card .per-month {
+            font-size: 0.5em;
+            font-weight: 400;
+            opacity: 0.8;
+            color: var(--color-text-light);
+        }
+
+        .plan-card ul {
+            list-style: none;
+            text-align: left;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .plan-card ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .plan-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .plan-card .check {
+            color: var(--color-success);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .plan-card .x {
+            color: var(--color-danger);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .plan-card .faded {
+            opacity: 0.6;
+        }
+
+        /* --- Payment & Contact Section --- */
+        .contact-section {
+            padding: 60px 0 80px 0;
+            text-align: center;
+            background-color: var(--color-secondary);
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .payment-item {
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .payment-item:hover {
+            border-color: var(--color-support);
+        }
+
+        .payment-item .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+            color: var(--color-support);
+        }
+
+        .contact-info {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .contact-info a {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* --- Footer --- */
+        .footer-section {
+            padding: 30px 0;
+            text-align: center;
+            background-color: #112a52; /* Um pouco mais escuro */
+            font-size: 0.9em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-section a {
+            color: var(--color-support);
+        }
+
+        /* --- Media Queries (Responsividade) --- */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 2em;
+            }
+            .hero-logo {
+                width: 250px;
+            }
+            .tagline {
+                font-size: 1.2em;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<header>🚀 DiscWeb - Publicador de Sites com GitHub Pages</header>
+    <header class="hero-section">
+        <div class="hero-content">
+            <img src="logo.png" alt="Logo Discover Cloud" class="hero-logo">
+            <p class="tagline">A forma mais rápida de publicar seu site em minutos.</p>
+            <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn btn-primary">ENTRE AGORA NO APP</a>
+        </div>
+    </header>
 
-<main>
-  <p style="font-size: 1.1rem;">Publique sites simples com HTML e CSS diretamente no GitHub Pages, sem precisar programar ou usar linha de comando.</p>
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2>Hospedagem de Sites para a Era Móvel</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="icon">⚡</span>
+                    <h3>Publicação Instantânea</h3>
+                    <p>Suba seus arquivos HTML, CSS e JS em segundos, diretamente do seu Android.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🔒</span>
+                    <h3>Segurança e Confiabilidade</h3>
+                    <p>Sua página fica online em um ambiente seguro, garantindo acesso rápido e ininterrupto.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">☁️</span>
+                    <h3>Feito para Cloud</h3>
+                    <p>Arquitetura moderna e leve, perfeita para desenvolvedores e projetos de teste rápidos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <label>🔑 Token do GitHub:</label>
-  <input id="token" placeholder="Cole aqui seu token pessoal do GitHub..." />
-  <button onclick="document.getElementById('ajudaToken').classList.toggle('hidden')">❓ Como gerar o token?</button>
+    <section id="plans" class="plans-section">
+        <div class="container">
+            <h2>Planos de Hospedagem Flexíveis</h2>
+            <div class="plan-cards">
+                
+                <div class="plan-card free">
+                    <p class="tag">Para Testar</p>
+                    <h3>Plano Grátis</h3>
+                    <p class="price">R$ 0<span class="per-month">/48h</span></p>
+                    <ul>
+                        <li><span class="check">✔</span> Publicação Imediata</li>
+                        <li><span class="check">✔</span> Link Público Temporário</li>
+                        <li><span class="check">✔</span> Até 25 MB de Espaço</li>
+                        <li class="faded"><span class="x">✖</span> Sem Suporte Premium</li>
+                    </ul>
+                    <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn btn-primary">Começar Grátis</a>
+                </div>
 
-  <div id="ajudaToken" class="info hidden">
-    <strong>Como criar um token no GitHub:</strong><br>
-    1. Acesse <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a><br>
-    2. Clique em "Generate new token (classic)"<br>
-    3. Dê um nome (ex: discweb-token)<br>
-    4. Marque a opção <code>repo</code><br>
-    5. Clique em "Generate token"<br>
-    6. Copie o token e cole no campo acima
-  </div>
+                <div class="plan-card premium">
+                    <p class="tag best-value">MAIS POPULAR</p>
+                    <h3>Premium (Mensal)</h3>
+                    <p class="price">R$ 30<span class="per-month">/mês</span></p>
+                    <ul>
+                        <li><span class="check">✔</span> Hospedagem Ilimitada</li>
+                        <li><span class="check">✔</span> **89 GB** de Espaço</li>
+                        <li><span class="check">✔</span> Múltiplos Sites Ativos</li>
+                        <li><span class="check">✔</span> Suporte Prioritário 24/7</li>
+                    </ul>
+                    <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn btn-primary">Fazer Upgrade</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <label>🌐 Nome do site:</label>
-  <input id="siteName" placeholder="Ex: meuportfolio" />
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Pagamentos e Suporte</h2>
+            <p>Selecione seu plano e utilize uma de nossas formas de pagamento seguras. Para suporte, entre em contato via e-mail.</p>
+            
+            <div class="payment-methods">
+                <div class="payment-item">
+                    <span class="icon">💳</span> PayPal
+                </div>
+                <div class="payment-item">
+                    <span class="icon">🔄</span> Revolut
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                <p>Para **Suporte e Pagamentos**, use:</p>
+                <p>E-mail: <a href="mailto:discovervs24@gmail.com">discovervs24@gmail.com</a></p>
+            </div>
+        </div>
+    </section>
 
-  <label>📝 HTML:</label>
-  <textarea id="html" rows="6" placeholder="Cole aqui seu HTML..."></textarea>
-
-  <label>🎨 CSS:</label>
-  <textarea id="css" rows="4" placeholder="Cole aqui seu CSS..."></textarea>
-
-  <div class="button-group">
-    <button onclick="visualizar()">👁 Visualizar</button>
-    <button onclick="publicar()">🚀 Publicar</button>
-    <button disabled title="Funcionalidade ainda não disponível">✏️ Editar site (em breve)</button>
-  </div>
-
-  <iframe id="previewFrame"></iframe>
-  <div id="progressBar"><div></div></div>
-  <div id="resultado"></div>
-</main>
-
-<script>
-function visualizar() {
-  const html = document.getElementById("html").value;
-  const css = document.getElementById("css").value;
-  const output = `<!DOCTYPE html><html><head><style>${css}</style></head><body>${html}</body></html>`;
-  document.getElementById("previewFrame").srcdoc = output;
-}
-
-async function publicar() {
-  const token = document.getElementById('token').value.trim();
-  const repo = document.getElementById('siteName').value.trim();
-  const html = document.getElementById('html').value;
-  const css = document.getElementById('css').value;
-  const fullHTML = `<!DOCTYPE html><html><head><style>${css}</style></head><body>${html}</body></html>`;
-
-  const headers = {
-    Authorization: `token ${token}`,
-    Accept: "application/vnd.github.v3+json"
-  };
-
-  const progress = document.getElementById("progressBar");
-  const progressBar = progress.querySelector("div");
-  const resultado = document.getElementById("resultado");
-  progress.style.display = "block";
-  progressBar.style.width = "0%";
-  resultado.innerHTML = "";
-
-  const userResp = await fetch('https://api.github.com/user', { headers });
-  const userData = await userResp.json();
-  const username = userData.login;
-
-  if (!username) {
-    alert("Token inválido ou expirado.");
-    return;
-  }
-
-  progressBar.style.width = "20%";
-
-  await fetch("https://api.github.com/user/repos", {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      name: repo,
-      auto_init: true,
-      private: false,
-      description: "Site criado com DiscWeb"
-    })
-  });
-
-  progressBar.style.width = "40%";
-
-  await fetch(`https://api.github.com/repos/${username}/${repo}/contents/index.html`, {
-    method: "PUT",
-    headers,
-    body: JSON.stringify({
-      message: "Publicar site",
-      content: btoa(unescape(encodeURIComponent(fullHTML)))
-    })
-  });
-
-  progressBar.style.width = "60%";
-
-  await fetch(`https://api.github.com/repos/${username}/${repo}/pages`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({ source: { branch: "main", path: "/" } })
-  });
-
-  progressBar.style.width = "90%";
-
-  const siteUrl = `https://${username}.github.io/${repo}/`;
-  let tentativas = 0;
-  const maxTentativas = 30;
-
-  const verificarDisponibilidade = async () => {
-    try {
-      const resposta = await fetch(siteUrl, { cache: "no-store" });
-      if (resposta.ok) {
-        progressBar.style.width = "100%";
-        resultado.innerHTML = `✅ Site publicado com sucesso!<br><a href="${siteUrl}" target="_blank">${siteUrl}</a>`;
-      } else {
-        throw new Error("Ainda não disponível.");
-      }
-    } catch {
-      tentativas++;
-      if (tentativas < maxTentativas) {
-        const progresso = 90 + Math.floor((tentativas / maxTentativas) * 10);
-        progressBar.style.width = `${progresso}%`;
-        setTimeout(verificarDisponibilidade, 3000);
-      } else {
-        resultado.innerHTML = `⚠️ Publicado, mas o GitHub Pages ainda não ativou o link.<br>Tente novamente em alguns minutos:<br><a href="${siteUrl}" target="_blank">${siteUrl}</a>`;
-      }
-    }
-  };
-
-  verificarDisponibilidade();
-}
-</script>
+    <footer class="footer-section">
+        <div class="container">
+            <p>&copy; 2024 Discover Cloud. Todos os direitos reservados.</p>
+            <p><a href="https://compared-reactions-took-rangers.trycloudflare.com/">Acessar Painel de Login</a></p>
+        </div>
+    </footer>
 
 </body>
 </html>
-</body></html>
