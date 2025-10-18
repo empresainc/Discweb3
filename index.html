@@ -1,334 +1,1228 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Discover Cloud - Hospedagem Profissional e Instantânea</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discover Cloud — Infraestrutura em Nuvem Premium</title>
+    <meta
+        name="description"
+        content="Descubra uma plataforma cloud enterprise com segurança, escalabilidade e suporte 24/7 para acelerar seus produtos digitais."
+    />
 
-  <meta property="og:title" content="Discover Cloud — Infraestrutura em Nuvem Premium" />
-  <meta property="og:description" content="Hospede aplicações com desempenho máximo, segurança empresarial e experiência impecável. Planos flexíveis com suporte 24/7." />
-  <meta property="og:image" content="https://compared-reactions-took-rangers.trycloudflare.com/banner.png" />
-  <meta property="og:url" content="https://compared-reactions-took-rangers.trycloudflare.com/" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image:alt" content="Discover Cloud - Hospedagem Profissional na Nuvem" />
+    <meta property="og:title" content="Discover Cloud — Infraestrutura em Nuvem Premium" />
+    <meta property="og:description" content="Hospede aplicações com máxima performance, segurança empresarial e experiência impecável. Planos flexíveis com suporte 24/7." />
+    <meta property="og:image" content="https://compared-reactions-took-rangers.trycloudflare.com/banner.png" />
+    <meta property="og:url" content="https://compared-reactions-took-rangers.trycloudflare.com/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image:alt" content="Discover Cloud - Hospedagem Profissional na Nuvem" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
 
-  <style>
-    :root {
-      --color-dark-bg: #0d1226;
-      --color-mid-bg: #1c2a4d;
-      --color-primary: #2a5298;
-      --color-accent: #ff9800;
-      --color-support: #00bcd4;
-      --color-text-light: #e0e6f8;
-      --color-text-faded: #a0a6b8;
-      --font-base: 'Inter', sans-serif;
-    }
+    <style>
+        :root {
+            --bg-primary: radial-gradient(circle at 10% 20%, #13182b 0%, #040610 40%, #02040a 100%);
+            --bg-secondary: linear-gradient(135deg, rgba(24, 31, 58, 0.75) 0%, rgba(18, 23, 43, 0.95) 100%);
+            --brand: #4f8cff;
+            --brand-alt: #3dd5f3;
+            --accent: #ff9d45;
+            --surface: rgba(14, 22, 42, 0.8);
+            --surface-strong: rgba(18, 27, 55, 0.95);
+            --neutral-100: #ffffff;
+            --neutral-300: #c7d3ff;
+            --neutral-500: #9aa7d4;
+            --neutral-700: #5a678f;
+            --success: #4adf86;
+            --shadow-glow: 0 20px 70px rgba(33, 118, 255, 0.18);
+            --radius-lg: 28px;
+            --radius-md: 20px;
+            --radius-sm: 12px;
+            --font-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-display: 'Poppins', var(--font-base);
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: var(--font-base);
-      color: var(--color-text-light);
-      background: var(--color-dark-bg);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+        body {
+            font-family: var(--font-base);
+            color: var(--neutral-100);
+            background: var(--bg-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-    header {
-      background: rgba(13, 18, 38, 0.98);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-    }
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--neutral-100);
+            color: #05060f;
+            padding: 12px 20px;
+            border-radius: 999px;
+            font-weight: 600;
+            transition: top 0.3s ease;
+            z-index: 100;
+        }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+        .skip-link:focus {
+            top: 20px;
+        }
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 0;
-    }
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            width: 520px;
+            height: 520px;
+            filter: blur(180px);
+            opacity: 0.35;
+            z-index: -2;
+        }
 
-    nav a {
-      color: var(--color-text-light);
-      text-decoration: none;
-      margin-left: 30px;
-      font-weight: 600;
-    }
+        body::before {
+            background: #4f8cff;
+            top: -140px;
+            left: -160px;
+        }
 
-    nav a:hover {
-      color: var(--color-accent);
-    }
+        body::after {
+            background: #673ab7;
+            bottom: -240px;
+            right: -180px;
+        }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-    .brand img {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-    }
+        img {
+            max-width: 100%;
+            display: block;
+        }
 
-    .btn-primary, .btn-secondary {
-      display: inline-block;
-      padding: 12px 24px;
-      border-radius: 999px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: 0.3s;
-    }
+        .container {
+            width: min(1180px, 92vw);
+            margin: 0 auto;
+        }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #4f8cff, #3dd5f3);
-      color: #05060f;
-    }
+        /* HEADER */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(18px);
+            background: rgba(3, 6, 15, 0.78);
+            border-bottom: 1px solid rgba(79, 140, 255, 0.12);
+        }
 
-    .btn-primary:hover {
-      transform: translateY(-3px);
-    }
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 0;
+        }
 
-    .btn-secondary {
-      border: 1px solid rgba(79, 140, 255, 0.4);
-      color: var(--color-support);
-    }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.04em;
+        }
 
-    .btn-secondary:hover {
-      background: rgba(79, 140, 255, 0.1);
-    }
+        .brand img {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: linear-gradient(145deg, rgba(79, 140, 255, 0.6) 0%, rgba(61, 213, 243, 0.4) 100%);
+            padding: 6px;
+            box-shadow: 0 18px 40px rgba(79, 140, 255, 0.25);
+        }
 
-    /* Hero */
-    .hero {
-      background: url('https://compared-reactions-took-rangers.trycloudflare.com/banner.png') no-repeat center center/cover;
-      min-height: 85vh;
-      display: flex;
-      align-items: center;
-      text-align: left;
-      position: relative;
-    }
+        nav ul {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(10, 15, 35, 0.85);
-    }
+        nav a {
+            font-size: 0.98rem;
+            font-weight: 500;
+            color: var(--neutral-300);
+            position: relative;
+            padding: 6px 0;
+        }
 
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 700px;
-      padding: 0 20px;
-    }
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--brand), var(--brand-alt));
+            transition: width 0.3s ease;
+        }
 
-    .hero-content h1 {
-      font-size: 3rem;
-      line-height: 1.2;
-      font-weight: 900;
-      margin-bottom: 20px;
-    }
+        nav a:hover,
+        nav a:focus {
+            color: var(--neutral-100);
+        }
 
-    .hero-content h1 span {
-      color: var(--color-accent);
-    }
+        nav a:hover::after,
+        nav a:focus::after {
+            width: 100%;
+        }
 
-    .typed-text {
-      color: var(--color-support);
-      border-right: 3px solid var(--color-accent);
-      white-space: nowrap;
-      overflow: hidden;
-      display: inline-block;
-    }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 26px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-alt) 100%);
+            color: #05060f;
+            font-weight: 600;
+            font-size: 0.98rem;
+            letter-spacing: 0.02em;
+            box-shadow: 0 16px 30px rgba(79, 140, 255, 0.25);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    .hero-content p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      color: var(--color-text-faded);
-    }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 22px 45px rgba(79, 140, 255, 0.3);
+        }
 
-    section {
-      padding: 80px 0;
-    }
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 22px;
+            border-radius: 999px;
+            border: 1px solid rgba(79, 140, 255, 0.4);
+            color: var(--neutral-300);
+            font-weight: 500;
+            transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+        }
 
-    .section-title {
-      text-align: center;
-      font-size: 2.4rem;
-      margin-bottom: 20px;
-      font-weight: 800;
-    }
+        .btn-ghost:hover {
+            background: rgba(79, 140, 255, 0.12);
+            color: var(--neutral-100);
+        }
 
-    .section-title span {
-      color: var(--color-accent);
-    }
+        /* HERO */
+        .hero {
+            padding: 110px 0 100px;
+            position: relative;
+        }
 
-    .section-subtitle {
-      text-align: center;
-      color: var(--color-text-faded);
-      max-width: 700px;
-      margin: 0 auto 50px;
-    }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(79, 140, 255, 0.08) 0%, rgba(20, 24, 45, 0.5) 60%, rgba(3, 6, 15, 0.9) 100%);
+            mask-image: radial-gradient(circle at top right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 72%);
+            -webkit-mask-image: radial-gradient(circle at top right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 72%);
+            z-index: -1;
+        }
 
-    footer {
-      background: #080c1c;
-      text-align: center;
-      color: var(--color-text-faded);
-      padding: 40px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
 
-    footer a {
-      color: var(--color-support);
-      text-decoration: none;
-    }
+        .hero-headline {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(2.6rem, 5vw, 3.5rem);
+            line-height: 1.15;
+            margin-bottom: 24px;
+        }
 
-    footer a:hover {
-      color: var(--color-accent);
-    }
+        .hero-headline span {
+            background: linear-gradient(120deg, var(--brand) 0%, var(--accent) 60%, var(--brand-alt) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-      }
-      nav a {
-        margin: 10px 0;
-      }
-      .hero-content h1 {
-        font-size: 2.2rem;
-      }
-      .hero-content p {
-        font-size: 1rem;
-      }
-    }
-  </style>
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--neutral-300);
+            max-width: 520px;
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        .hero-ctas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-bottom: 38px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 28px;
+        }
+
+        .stat-card {
+            padding: 18px 22px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(79, 140, 255, 0.18);
+            backdrop-filter: blur(16px);
+            min-width: 150px;
+        }
+
+        .stat-card strong {
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 6px;
+            color: var(--neutral-100);
+        }
+
+        .stat-card span {
+            font-size: 0.9rem;
+            color: var(--neutral-500);
+        }
+
+        .hero-media {
+            position: relative;
+            padding: 26px;
+            border-radius: var(--radius-lg);
+            background: var(--surface-strong);
+            box-shadow: var(--shadow-glow);
+            overflow: hidden;
+        }
+
+        .hero-media::before,
+        .hero-media::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(79, 140, 255, 0.25) 0%, rgba(79, 140, 255, 0) 70%);
+            filter: blur(6px);
+            animation: float 12s infinite ease-in-out;
+        }
+
+        .hero-media::before {
+            width: 420px;
+            height: 420px;
+            top: -240px;
+            right: -160px;
+        }
+
+        .hero-media::after {
+            width: 320px;
+            height: 320px;
+            bottom: -180px;
+            left: -120px;
+            animation-delay: -4s;
+        }
+
+        .hero-card {
+            position: relative;
+            z-index: 2;
+            background: rgba(7, 12, 24, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-md);
+            padding: 32px;
+        }
+
+        .hero-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+        }
+
+        .hero-card ul {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+            color: var(--neutral-300);
+        }
+
+        .hero-card li {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .hero-card li span {
+            display: inline-flex;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(74, 223, 134, 0.16);
+            color: var(--success);
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-18px);
+            }
+        }
+
+        /* TRUST & LOGOS */
+        .trust-section {
+            padding: 40px 0 70px;
+        }
+
+        .trust-card {
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(79, 140, 255, 0.1);
+            background: rgba(10, 15, 32, 0.9);
+            padding: 26px 34px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .trust-card p {
+            font-size: 0.95rem;
+            color: var(--neutral-500);
+            max-width: 280px;
+            line-height: 1.6;
+        }
+
+        .logo-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px 28px;
+        }
+
+        .logo-pill {
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--neutral-300);
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        /* FEATURE GRID */
+        .section-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 2.1rem;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--neutral-500);
+            max-width: 580px;
+            margin: 0 auto 48px;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 26px;
+        }
+
+        .feature-card {
+            padding: 32px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(160deg, rgba(13, 20, 42, 0.92) 0%, rgba(21, 27, 52, 0.82) 100%);
+            border: 1px solid rgba(79, 140, 255, 0.16);
+            box-shadow: 0 18px 40px rgba(7, 15, 32, 0.45);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            top: -60px;
+            right: -40px;
+            background: radial-gradient(circle, rgba(79, 140, 255, 0.2) 0%, rgba(79, 140, 255, 0) 70%);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            background: rgba(79, 140, 255, 0.15);
+            display: grid;
+            place-items: center;
+            font-size: 1.4rem;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 14px;
+        }
+
+        .feature-card p {
+            color: var(--neutral-300);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* ARCHITECTURE */
+        .architecture {
+            padding: 110px 0;
+        }
+
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .architecture-visual {
+            position: relative;
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            background: linear-gradient(160deg, rgba(11, 16, 34, 0.95) 0%, rgba(14, 20, 41, 0.85) 100%);
+            border: 1px solid rgba(79, 140, 255, 0.18);
+            overflow: hidden;
+        }
+
+        .architecture-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(61, 213, 243, 0.18) 0%, rgba(61, 213, 243, 0) 70%);
+        }
+
+        .layer {
+            position: relative;
+            padding: 26px;
+            border-radius: var(--radius-md);
+            background: rgba(7, 12, 24, 0.9);
+            border: 1px solid rgba(79, 140, 255, 0.18);
+            backdrop-filter: blur(12px);
+            margin-bottom: 18px;
+        }
+
+        .layer::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -14px;
+            left: 24px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            background: rgba(79, 140, 255, 0.18);
+            color: var(--brand-alt);
+        }
+
+        .layer:last-child {
+            margin-bottom: 0;
+        }
+
+        .layer strong {
+            display: block;
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+        }
+
+        .layer span {
+            color: var(--neutral-500);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        .architecture-visual::after {
+            content: '';
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(61, 213, 243, 0.22) 0%, rgba(61, 213, 243, 0) 70%);
+            bottom: -150px;
+            right: -120px;
+        }
+
+        .architecture-list {
+            display: grid;
+            gap: 22px;
+        }
+
+        .architecture-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .architecture-item span {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: rgba(79, 140, 255, 0.18);
+            color: var(--brand);
+            font-weight: 600;
+        }
+
+        .architecture-item p {
+            color: var(--neutral-300);
+            line-height: 1.7;
+            font-size: 0.96rem;
+        }
+
+        /* PRICING */
+        .pricing {
+            margin-top: 100px;
+            padding: 80px 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 28px;
+        }
+
+        .price-card {
+            padding: 38px;
+            border-radius: var(--radius-lg);
+            background: rgba(9, 14, 28, 0.92);
+            border: 1px solid rgba(79, 140, 255, 0.14);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 24px 50px rgba(4, 7, 16, 0.7);
+        }
+
+        .price-card.premium {
+            background: linear-gradient(140deg, rgba(9, 16, 35, 0.96) 0%, rgba(16, 35, 70, 0.94) 50%, rgba(14, 32, 78, 0.9) 100%);
+            border: 1px solid rgba(255, 157, 69, 0.35);
+        }
+
+        .price-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(140deg, rgba(79, 140, 255, 0.12) 0%, rgba(61, 213, 243, 0.05) 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .price-card:hover::after {
+            opacity: 1;
+        }
+
+        .price-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+        }
+
+        .price-card .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            background: rgba(79, 140, 255, 0.18);
+            color: var(--brand-alt);
+        }
+
+        .price-card.premium .tag {
+            background: rgba(255, 157, 69, 0.15);
+            color: var(--accent);
+        }
+
+        .price {
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--neutral-500);
+            font-weight: 500;
+            margin-left: 6px;
+        }
+
+        .price-card ul {
+            list-style: none;
+            margin: 26px 0 34px;
+            display: grid;
+            gap: 14px;
+        }
+
+        .price-card li {
+            display: flex;
+            gap: 12px;
+            color: var(--neutral-300);
+            font-size: 0.96rem;
+            line-height: 1.6;
+        }
+
+        .price-card li::before {
+            content: '✔';
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            margin-top: 90px;
+            padding: 70px 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 26px;
+        }
+
+        .testimonial-card {
+            background: rgba(11, 16, 32, 0.9);
+            border: 1px solid rgba(79, 140, 255, 0.12);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::after {
+            content: '“';
+            position: absolute;
+            top: -40px;
+            right: 20px;
+            font-size: 8rem;
+            color: rgba(79, 140, 255, 0.09);
+            font-family: var(--font-display);
+        }
+
+        .testimonial-card p {
+            color: var(--neutral-300);
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(79, 140, 255, 0.35) 0%, rgba(61, 213, 243, 0.3) 100%);
+            display: grid;
+            place-items: center;
+            font-weight: 600;
+            color: var(--neutral-100);
+        }
+
+        .testimonial-author span {
+            display: block;
+            font-weight: 600;
+        }
+
+        .testimonial-author small {
+            color: var(--neutral-500);
+            font-size: 0.8rem;
+        }
+
+        /* FAQ */
+        .faq {
+            margin-top: 90px;
+            padding: 70px 0;
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 18px;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            padding: 24px 28px;
+            border-radius: var(--radius-md);
+            background: rgba(10, 15, 32, 0.88);
+            border: 1px solid rgba(79, 140, 255, 0.1);
+        }
+
+        .faq-item h4 {
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+        }
+
+        .faq-item p {
+            color: var(--neutral-500);
+            line-height: 1.7;
+        }
+
+        /* CTA */
+        .cta {
+            margin-top: 90px;
+            padding: 90px 0 110px;
+        }
+
+        .cta-card {
+            border-radius: var(--radius-lg);
+            background: linear-gradient(140deg, rgba(13, 22, 46, 0.92) 0%, rgba(10, 14, 30, 0.92) 100%);
+            border: 1px solid rgba(79, 140, 255, 0.18);
+            padding: 60px;
+            display: grid;
+            gap: 24px;
+            text-align: center;
+            box-shadow: 0 26px 60px rgba(5, 9, 20, 0.65);
+        }
+
+        .cta-card h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 2.6rem);
+        }
+
+        .cta-card p {
+            color: var(--neutral-300);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 70px 0 50px;
+            background: rgba(5, 8, 18, 0.92);
+            border-top: 1px solid rgba(79, 140, 255, 0.12);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand p {
+            color: var(--neutral-500);
+            line-height: 1.6;
+            margin-top: 16px;
+        }
+
+        .footer-links {
+            display: grid;
+            gap: 10px;
+            color: var(--neutral-300);
+            font-size: 0.92rem;
+        }
+
+        .footer-meta {
+            margin-top: 34px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 24px;
+            color: var(--neutral-700);
+            font-size: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: space-between;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero-grid,
+            .architecture-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-media {
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding-top: 80px;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .feature-grid,
+            .testimonial-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-card {
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .hero-ctas {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-primary,
+            .btn-ghost {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .trust-card {
+                padding: 24px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .hero-media::before,
+            .hero-media::after {
+                animation: none;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <header>
-    <div class="container">
-      <nav>
-        <a class="brand" href="#topo">
-          <img src="https://compared-reactions-took-rangers.trycloudflare.com/logo.png" alt="Discover Cloud">
-          Discover Cloud
-        </a>
-        <div>
-          <a href="#recursos">Recursos</a>
-          <a href="#planos">Planos</a>
-          <a href="#contato">Contato</a>
+    <a class="skip-link" href="#topo">Pular para o conteúdo principal</a>
+    <header>
+        <div class="container nav">
+            <a class="brand" href="#topo">
+                <img src="https://compared-reactions-took-rangers.trycloudflare.com/logo.png" alt="Discover Cloud" />
+                Discover Cloud
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#arquitetura">Arquitetura</a></li>
+                    <li><a href="#planos">Planos</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <a class="btn-ghost" href="https://compared-reactions-took-rangers.trycloudflare.com/">Acessar Painel</a>
         </div>
-      </nav>
-    </div>
-  </header>
+    </header>
 
-  <section class="hero" id="hero">
-    <div class="container hero-content">
-      <h1>Hospedagem Cloud <br><span class="typed-text" id="typed"></span></h1>
-      <p>A solução definitiva para publicar seus projetos HTML em segundos, diretamente do seu dispositivo. Desenvolvido para agilidade e confiabilidade.</p>
-      <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn-primary">Acessar Painel</a>
-      <a href="#planos" class="btn-secondary">Ver Planos</a>
-    </div>
-  </section>
+    <main>
+        <section class="hero" id="topo">
+            <div class="container hero-grid">
+                <div>
+                    <p class="btn-ghost" style="padding: 10px 20px; border-radius: 999px; margin-bottom: 20px; background: rgba(79, 140, 255, 0.12); border: 1px solid rgba(79, 140, 255, 0.22); color: var(--brand-alt); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;">Cloud Native • Segurança Enterprise • Performance Global</p>
+                    <h1 class="hero-headline">Infraestrutura em nuvem <span>feita para crescer</span> com o seu negócio</h1>
+                    <p class="hero-subtitle">A Discover Cloud entrega ambientes de produção em minutos, com observabilidade integrada, zero downtime e suporte humano 24/7. Conquiste escalabilidade e confiança desde o primeiro deploy.</p>
+                    <div class="hero-ctas">
+                        <a class="btn-primary" href="https://compared-reactions-took-rangers.trycloudflare.com/" target="_blank" rel="noopener">Começar agora</a>
+                        <a class="btn-ghost" href="#planos">Ver planos</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <strong>99,99%</strong>
+                            <span>Disponibilidade garantida SLA</span>
+                        </div>
+                        <div class="stat-card">
+                            <strong>12 regiões</strong>
+                            <span>Deploy instantâneo multi-cloud</span>
+                        </div>
+                        <div class="stat-card">
+                            <strong>5 min</strong>
+                            <span>Média para lançar uma nova release</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-media">
+                    <div class="hero-card">
+                        <h3>Console inteligente Discover</h3>
+                        <ul>
+                            <li><span>✓</span> Deploy automatizado com rollback em 1 clique</li>
+                            <li><span>✓</span> Monitoramento de latência e custo em tempo real</li>
+                            <li><span>✓</span> Integração nativa com GitHub, GitLab e Bitbucket</li>
+                            <li><span>✓</span> Criptografia ponta a ponta com gestão de chaves</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <section id="planos">
-    <div class="container">
-      <h2 class="section-title">Planos <span>Flexíveis</span></h2>
-      <p class="section-subtitle">Comece em minutos com o plano gratuito ou evolua para o premium com suporte completo.</p>
+        <section class="trust-section" aria-label="Clientes e parceiros">
+            <div class="container">
+                <div class="trust-card">
+                    <p>Escolhida por scale-ups, fintechs e equipes globais que não aceitam compromissos em segurança e performance.</p>
+                    <div class="logo-group">
+                        <span class="logo-pill">FinNova</span>
+                        <span class="logo-pill">Atlas Digital</span>
+                        <span class="logo-pill">NXT Bank</span>
+                        <span class="logo-pill">FlowCommerce</span>
+                        <span class="logo-pill">CloudOps Labs</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <div style="display:flex;flex-wrap:wrap;gap:30px;justify-content:center;">
-        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:15px;padding:30px;max-width:350px;">
-          <h3>Plano Grátis</h3>
-          <p style="font-size:2rem;color:var(--color-support);font-weight:700;">R$0 <span style="font-size:1rem;">/48h</span></p>
-          <ul style="list-style:none;color:var(--color-text-faded);padding-left:0;">
-            <li>✔ Deploy imediato</li>
-            <li>✔ Link público temporário</li>
-            <li>✔ Hospedagem 48h</li>
-            <li>✔ 25MB de Armazenamento</li>
-          </ul>
-          <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn-secondary">Iniciar Grátis</a>
+        <section id="servicos" class="container" style="padding: 30px 0 0;">
+            <h2 class="section-title">Plataforma completa para toda a jornada cloud</h2>
+            <p class="section-subtitle">Ferramentas poderosas e uma experiência refinada para seus times de engenharia, produto e operações entregarem valor continuamente.</p>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Pipeline contínuo automatizado</h3>
+                    <p>Orquestre builds, testes e deploys com pipelines pré-configurados. Integração contínua com alertas inteligentes e compliance SOC2.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Segurança multicamada</h3>
+                    <p>Firewall gerenciado, WAF, isolamento por workspace e certificados TLS automáticos. Auditoria completa com retenção de 12 meses.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Edge network global</h3>
+                    <p>CDN premium com otimização automática de assets, balanceamento inteligente e caching adaptativo para latência ultrabaixa.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Observabilidade total</h3>
+                    <p>Painéis dinâmicos com métricas em tempo real, tracing distribuído e alertas preditivos alimentados por IA.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Suporte humano 24/7</h3>
+                    <p>Especialistas cloud acompanhando cada release crítica. SLA dedicado e playbooks personalizados para o seu negócio.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Escala inteligente</h3>
+                    <p>Auto scaling baseado em telemetria, otimização de custos com machine learning e relatórios executivos mensais.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="arquitetura" class="architecture">
+            <div class="container architecture-grid">
+                <div class="architecture-visual">
+                    <div class="layer" data-label="Camada 01">
+                        <strong>Edge &amp; Delivery</strong>
+                        <span>Rede distribuída com PoPs em 12 regiões, balanceamento inteligente e CDN ultra performática.</span>
+                    </div>
+                    <div class="layer" data-label="Camada 02">
+                        <strong>Runtime isolado</strong>
+                        <span>Containers gerenciados com zero downtime, autoscaling e isolamento por workspace.</span>
+                    </div>
+                    <div class="layer" data-label="Camada 03">
+                        <strong>Dados &amp; Segurança</strong>
+                        <span>Banco gerenciado, replicação automática, backups criptografados e gerenciamento de segredos.</span>
+                    </div>
+                </div>
+                <div class="architecture-list">
+                    <h2 class="section-title" style="text-align: left; margin-bottom: 18px;">Arquitetura pensada para confiabilidade extrema</h2>
+                    <p class="section-subtitle" style="text-align: left; margin: 0 0 28px;">Experiência premium começa na base: infraestrutura multi-região, pipelines resilientes e governança completa para equipes de alta performance.</p>
+                    <div class="architecture-item">
+                        <span>01</span>
+                        <p>Deploy blue/green e canário com controle granular de tráfego e métricas em tempo real.</p>
+                    </div>
+                    <div class="architecture-item">
+                        <span>02</span>
+                        <p>Observabilidade com APM, logs estruturados, tracing distribuído e alertas proativos.</p>
+                    </div>
+                    <div class="architecture-item">
+                        <span>03</span>
+                        <p>Compliance nativo: GDPR, LGPD, PCI DSS e SOC2 alinhados com políticas de acesso.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="planos" class="pricing">
+            <div class="container">
+                <h2 class="section-title">Planos flexíveis para cada estágio do seu produto</h2>
+                <p class="section-subtitle">Do primeiro deploy à expansão global, escolha o plano que combina performance, governança e suporte premium.</p>
+                <div class="pricing-grid">
+                    <article class="price-card">
+                        <div class="tag">Start</div>
+                        <h3>Launch</h3>
+                        <div class="price">R$ 599<span>/mês</span></div>
+                        <ul>
+                            <li>Ambientes isolados para staging e produção</li>
+                            <li>Pipeline CI/CD com templates otimizados</li>
+                            <li>Monitoramento básico com alertas por e-mail</li>
+                            <li>Suporte em horário comercial</li>
+                        </ul>
+                        <a class="btn-ghost" href="https://compared-reactions-took-rangers.trycloudflare.com/" target="_blank" rel="noopener">Falar com vendas</a>
+                    </article>
+                    <article class="price-card premium">
+                        <div class="tag">Mais popular</div>
+                        <h3>Scale</h3>
+                        <div class="price">R$ 1.799<span>/mês</span></div>
+                        <ul>
+                            <li>Deploy multi-região com roteamento inteligente</li>
+                            <li>Observabilidade completa com APM e tracing</li>
+                            <li>Gestão de segredos e auditoria de acessos</li>
+                            <li>Suporte 24/7 com SLA de 1h</li>
+                        </ul>
+                        <a class="btn-primary" href="https://compared-reactions-took-rangers.trycloudflare.com/" target="_blank" rel="noopener">Contratar agora</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="container">
+                <h2 class="section-title">Equipes de alta performance confiam na Discover Cloud</h2>
+                <p class="section-subtitle">Histórias reais de empresas que aceleraram entregas, reduziram custos operacionais e elevaram a segurança com nossa plataforma.</p>
+                <div class="testimonial-grid">
+                    <article class="testimonial-card">
+                        <p>“Migramos nossa operação em menos de 48 horas com apoio dedicado. O monitoramento proativo reduziu incidentes críticos em 72%.”</p>
+                        <div class="testimonial-author">
+                            <div class="avatar">AP</div>
+                            <div>
+                                <span>Ana Pereira</span>
+                                <small>Head de Engenharia — Atlas Digital</small>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="testimonial-card">
+                        <p>“A entrega global com CDN integrada derrubou a latência média para 42ms. O time de suporte acompanha cada release relevante.”</p>
+                        <div class="testimonial-author">
+                            <div class="avatar">LC</div>
+                            <div>
+                                <span>Lucas Carvalho</span>
+                                <small>CTO — FlowCommerce</small>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="testimonial-card">
+                        <p>“Compliance completo com auditoria de acessos e gestão de segredos simplificada. Foco total no produto, sem complexidade.”</p>
+                        <div class="testimonial-author">
+                            <div class="avatar">MR</div>
+                            <div>
+                                <span>Mariana Rocha</span>
+                                <small>Lead Security — NXT Bank</small>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="faq">
+            <div class="container">
+                <h2 class="section-title">Dúvidas frequentes</h2>
+                <p class="section-subtitle">Transparência total sobre nossa operação e o que você pode esperar da Discover Cloud.</p>
+                <div class="faq-list">
+                    <article class="faq-item">
+                        <h4>Quanto tempo leva para colocar um projeto no ar?</h4>
+                        <p>Em média menos de 5 minutos. Conecte seu repositório, configure o pipeline com um clique e acompanhe a primeira release em tempo real.</p>
+                    </article>
+                    <article class="faq-item">
+                        <h4>É possível migrar de outro provedor sem downtime?</h4>
+                        <p>Sim. Nossos especialistas criam um plano de migração assistida com replicação de dados e estratégia blue/green, garantindo disponibilidade total.</p>
+                    </article>
+                    <article class="faq-item">
+                        <h4>Quais métodos de pagamento são aceitos?</h4>
+                        <p>Aceitamos PayPal, Revolut e pagamentos corporativos via invoice internacional. Todos com faturamento em moeda local.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato" class="cta">
+            <div class="container">
+                <div class="cta-card">
+                    <h2>Pronto para elevar sua infraestrutura cloud a um novo patamar?</h2>
+                    <p>Nossa equipe está preparada para conectar seu time a uma jornada premium. Receba uma consultoria personalizada e descubra como reduzir custos e acelerar entregas.</p>
+                    <div class="cta-actions">
+                        <a class="btn-primary" href="mailto:discovervs24@gmail.com">Agendar conversa</a>
+                        <a class="btn-ghost" href="https://compared-reactions-took-rangers.trycloudflare.com/" target="_blank" rel="noopener">Acessar painel</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="brand" style="font-size: 1rem;">
+                        <img src="https://compared-reactions-took-rangers.trycloudflare.com/logo.png" alt="Discover Cloud" />
+                        Discover Cloud
+                    </div>
+                    <p>Infraestrutura premium com foco em segurança, observabilidade e escala. Somos seu parceiro para operar aplicações críticas na nuvem.</p>
+                </div>
+                <div class="footer-links">
+                    <strong>Recursos</strong>
+                    <a href="#servicos">Serviços</a>
+                    <a href="#arquitetura">Arquitetura</a>
+                    <a href="#planos">Planos</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+                <div class="footer-links">
+                    <strong>Contato</strong>
+                    <a href="mailto:discovervs24@gmail.com">discovervs24@gmail.com</a>
+                    <a href="https://compared-reactions-took-rangers.trycloudflare.com/" target="_blank" rel="noopener">Painel de acesso</a>
+                </div>
+            </div>
+            <div class="footer-meta">
+                <span>© 2024 Discover Cloud. Todos os direitos reservados.</span>
+                <span>LGPD • GDPR • SOC2 • PCI DSS</span>
+            </div>
         </div>
-
-        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,152,0,0.4);border-radius:15px;padding:30px;max-width:350px;">
-          <h3>Plano Premium</h3>
-          <p style="font-size:2rem;color:var(--color-accent);font-weight:700;">R$165 <span style="font-size:1rem;">/mês</span></p>
-          <ul style="list-style:none;color:var(--color-text-faded);padding-left:0;">
-            <li>✔ Hospedagem ilimitada</li>
-            <li>✔ 89 GB de armazenamento</li>
-            <li>✔ Suporte humano 24/7</li>
-            <li>✔ Relatórios executivos</li>
-          </ul>
-          <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn-primary">Contratar Agora</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq">
-    <div class="container">
-      <h2 class="section-title">Dúvidas <span>Frequentes</span></h2>
-      <div style="max-width:800px;margin:auto;color:var(--color-text-faded);">
-        <p><strong>Quanto tempo leva para colocar um projeto no ar?</strong><br>Em média menos de 5 minutos. Basta conectar seu repositório.</p><br>
-        <p><strong>É possível migrar sem downtime?</strong><br>Sim, oferecemos plano de migração assistida com replicação automática.</p><br>
-        <p><strong>Quais métodos de pagamento?</strong><br>PayPal, Revolut e invoice corporativo.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="contato">
-    <div class="container" style="text-align:center;">
-      <h2 class="section-title">Fale <span>Conosco</span></h2>
-      <p style="margin-bottom:20px;">Suporte exclusivo, dúvidas ou confirmações de pagamento:</p>
-      <p style="font-size:1.3rem;">E-mail: <a href="mailto:discovervs24@gmail.com">discovervs24@gmail.com</a></p>
-      <div style="margin-top:30px;">
-        <a href="mailto:discovervs24@gmail.com" class="btn-primary">Agendar Conversa</a>
-        <a href="https://compared-reactions-took-rangers.trycloudflare.com/" class="btn-secondary" target="_blank">Acessar Painel</a>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2024 Discover Cloud — Todos os direitos reservados.</p>
-    <p><a href="https://compared-reactions-took-rangers.trycloudflare.com/" target="_blank">Acessar Painel</a></p>
-  </footer>
-
-  <script>
-    const typed = document.getElementById('typed');
-    const words = ["PROFISSIONAL.", "RÁPIDA.", "SEGURA.", "EFICIENTE."];
-    let i = 0, j = 0, isDeleting = false;
-
-    function type() {
-      const current = words[i];
-      typed.textContent = current.substring(0, j);
-      if (!isDeleting && j < current.length) j++;
-      else if (isDeleting && j > 0) j--;
-      else if (!isDeleting && j === current.length) {
-        isDeleting = true;
-        setTimeout(type, 1200);
-        return;
-      } else if (isDeleting && j === 0) {
-        isDeleting = false;
-        i = (i + 1) % words.length;
-      }
-      setTimeout(type, isDeleting ? 80 : 120);
-    }
-    document.addEventListener("DOMContentLoaded", type);
-  </script>
+    </footer>
 </body>
 </html>
