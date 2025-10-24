@@ -2,22 +2,22 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Discover Cloud — Infraestrutura Cloud Profissional</title>
   <meta name="description" content="Hospedagem premium para apps e bots, com escalabilidade automática, observabilidade completa, segurança enterprise e mídia patrocinada profissional. Free 48h e plano R$165/mês." />
+  <meta name="theme-color" content="#0b122a" />
 
-  <!-- Open Graph -->
+  <!-- OG -->
   <meta property="og:title" content="Discover Cloud — Infraestrutura Cloud Profissional" />
-  <meta property="og:description" content="Deploy rápido, performance global, suporte 24/7 e mídia patrocinada profissional." />
+  <meta property="og:description" content="Deploy rápido, performance global, suporte 24/7 e mídia patrocinada profissional. Free 48h e plano R$165/mês." />
   <meta property="og:image" content="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="pt_BR" />
-  <meta name="theme-color" content="#0b122a" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
 
   <!-- Particles + Google Identity Services -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -25,423 +25,487 @@
 
   <style>
     :root{
-      --brand:#4f8cff; --brand-2:#00d2ff; --brand-3:#7c4dff;
-      --accent:#ff9d45; --accent-2:#ff6fb2;
-      --text-100:#fff; --text-300:#c7d3ff; --text-500:#9aa7d4; --text-700:#5a678f;
-      --border:rgba(79,140,255,.16);
-      --card:rgba(11,16,32,.9); --card-2:rgba(16,26,52,.86);
-      --shadow-lg:0 38px 120px rgba(3,8,20,.55);
-      --radius-lg:20px; --radius-xl:26px;
-      --ease:cubic-bezier(.2,.7,.2,1); --speed:450ms;
+      --bg:#050814;
+      --panel:#0a1026;
+      --panel-2:#0e1430;
+      --brand:#4f8cff;
+      --brand-2:#00d2ff;
+      --violet:#7c4dff;
+      --accent:#ff9d45;
+      --accent-2:#ff6fb2;
+      --text:#ffffff;
+      --text-2:#c7d3ff;
+      --text-3:#9aa7d4;
+      --border:rgba(255,255,255,.14);
+      --shadow:0 30px 80px rgba(3,8,20,.45);
+      --ease:cubic-bezier(.2,.7,.2,1);
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%}
     body{
       font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-      color:var(--text-100);
+      color:var(--text);
       background:
         radial-gradient(1200px 800px at 10% 10%, #111a3b 0%, #0b1129 40%, #050814 80%),
         radial-gradient(900px 700px at 90% -10%, #0d1533 0%, rgba(5,8,20,1) 70%);
-      overflow-x:hidden; position:relative;
+      overflow-x:hidden;
     }
+    .container{width:min(1100px,92vw);margin:0 auto}
+    a{color:inherit;text-decoration:none}
 
-    /* BG layers */
+    /* BG Layers */
     #particles-js{position:fixed; inset:0; z-index:-2}
-    .bg-blobs{position:fixed; inset:0; z-index:-3; pointer-events:none}
-    .blob{position:absolute; filter:blur(120px); opacity:.35; border-radius:50%}
-    .blob.b1{width:560px;height:560px;background:#4f8cff;top:-160px;left:-120px}
-    .blob.b2{width:520px;height:520px;background:#7c4dff;bottom:-160px;right:-120px}
-    .blob.b3{width:420px;height:420px;background:#00d2ff;top:40%;left:70%;opacity:.22}
+    .clouds{position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.25}
+    .cloud{position:absolute; left:-40%; width:180%; height:220px; background:radial-gradient(closest-side, rgba(255,255,255,.14), rgba(255,255,255,0)); filter:blur(18px); animation:drift 38s linear infinite}
+    .cloud.c2{top:22%; animation-duration:54s; opacity:.35}
+    .cloud.c3{top:58%; animation-duration:46s; opacity:.3}
+    @keyframes drift{to{transform:translateX(40%)}}
 
-    .container{width:min(1200px,92vw); margin:0 auto}
-    a{text-decoration:none;color:inherit}
-    img{max-width:100%;display:block}
-    .hidden{opacity:0; transform:translateY(20px)}
-    .reveal{opacity:1!important; transform:none!important; transition:opacity var(--speed) var(--ease), transform var(--speed) var(--ease)}
-
-    /* Announcement */
-    .announce{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 14px;background:linear-gradient(90deg,rgba(79,140,255,.2),rgba(124,77,255,.2));border-bottom:1px solid var(--border);font-weight:800}
-    .announce a{color:#fff;text-decoration:underline;text-underline-offset:2px}
+    /* Util */
+    .hidden{opacity:0; transform:translateY(16px)}
+    .reveal{opacity:1 !important; transform:none !important; transition:opacity .6s var(--ease), transform .6s var(--ease)}
+    .chip{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid var(--border);font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
 
     /* Header */
-    header{position:sticky; top:0; z-index:40; backdrop-filter:blur(16px); background:rgba(5,10,24,.6); border-bottom:1px solid var(--border)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-    .brand{display:flex;align-items:center;gap:12px;font-family:'Poppins';font-weight:800}
-    .brand img{width:42px;height:42px;border-radius:12px;box-shadow:0 10px 30px rgba(79,140,255,.35)}
-    nav ul{display:flex;gap:22px;list-style:none}
-    nav a{color:var(--text-300);font-weight:700;font-size:.95rem;position:relative;padding:8px 0}
-    nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:linear-gradient(90deg,var(--brand),var(--brand-2));transition:width var(--speed) var(--ease)}
-    nav a:hover{color:#fff} nav a:hover::after{width:100%}
-    .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 18px;border-radius:999px;font-weight:800;font-size:.92rem}
-    .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#071226;border:none}
-    .btn-ghost{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--text-300)}
-    .btn-accent{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#140b1f;border:none}
-    .welcome{display:none;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--border);border-radius:999px;background:rgba(79,140,255,.16);font-weight:800}
-    .welcome.active{display:inline-flex}
-    #google-signin{display:flex;align-items:center;justify-content:center;min-height:40px}
+    header{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:rgba(8,12,26,.55);border-bottom:1px solid var(--border)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px;font-family:'Poppins';font-weight:700}
+    .brand img{width:40px;height:40px;border-radius:12px;box-shadow:0 10px 30px rgba(79,140,255,.35)}
+    nav ul{display:flex;gap:18px;list-style:none}
+    nav a{color:var(--text-2);font-weight:700;font-size:.9rem;position:relative;padding:8px 0}
+    nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:linear-gradient(90deg,var(--brand),var(--brand-2));transition:width .4s var(--ease)}
+    nav a:hover{color:#fff}
+    nav a:hover::after{width:100%}
+    .actions{display:flex;gap:10px;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;font-weight:800;letter-spacing:.02em}
+    .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#06102b;box-shadow:0 16px 40px rgba(79,140,255,.35)}
+    .btn-ghost{border:1px solid rgba(79,140,255,.35);color:var(--text-2)}
+    .btn-ghost:hover{background:rgba(79,140,255,.14);color:#fff}
+    #welcomeMessage{display:none}
+    #welcomeMessage.active{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(79,140,255,.35);border-radius:999px;background:rgba(79,140,255,.12);font-weight:700}
+
+    /* Auth Gate */
+    body.auth-locked main, body.auth-locked footer, body.auth-locked header{filter:blur(6px);pointer-events:none;user-select:none}
+    #auth-gate{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:radial-gradient(1200px 900px at 20% 20%, rgba(79,140,255,.18), rgba(5,8,20,.94) 65%);backdrop-filter:blur(14px)}
+    .auth-card{width:min(440px,90vw);background:rgba(10,14,32,.92);border:1px solid rgba(79,140,255,.24);border-radius:22px;padding:34px;box-shadow:0 38px 120px rgba(6,10,26,.55);display:grid;gap:16px;text-align:center}
+    .rules{font-size:.9rem;color:var(--text-2);line-height:1.6;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:14px;padding:12px}
+    #google-signin{display:flex;justify-content:center;min-height:44px}
+    #auth-error{color:var(--accent);font-weight:800;display:none}
 
     /* Hero */
-    .hero{padding:70px 0 60px}
-    .hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}
-    .eyebrow{display:inline-flex;gap:10px;padding:8px 14px;border-radius:999px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;background:rgba(79,140,255,.14);border:1px solid var(--border)}
-    .headline{font-family:'Poppins';font-weight:800;font-size:clamp(2rem,5vw,3rem);line-height:1.12;margin:12px 0}
-    .headline .grad{background:linear-gradient(120deg,var(--brand),var(--accent),var(--brand-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .sub{color:var(--text-300);line-height:1.75;max-width:560px}
-    .stats{display:flex;gap:16px;margin-top:18px}
-    .stat{min-width:130px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:16px;padding:14px}
+    .hero{padding:64px 0 34px}
+    .hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:26px;align-items:center}
+    .headline{font-family:'Poppins';font-weight:800;font-size:clamp(1.9rem,4.6vw,3.2rem);line-height:1.12}
+    .grad{background:linear-gradient(120deg,var(--brand) 0%, var(--accent) 45%, var(--brand-2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .sub{color:var(--text-2);line-height:1.75;margin-top:8px}
+    .stat{min-width:140px;background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));border:1px solid var(--border);border-radius:16px;padding:14px 16px}
+    .stat strong{display:block;font-size:1.25rem}
+    .hero-media{background:var(--panel-2);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+    .console{padding:22px}
+    .console h3{font-family:'Poppins';margin-bottom:10px}
+    .console li{display:flex;gap:10px;align-items:center;color:var(--text-2);margin:7px 0}
+    .console li i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:rgba(74,223,134,.16);color:#4adf86;font-weight:900;font-style:normal}
 
-    /* Ads (trailers) */
-    .ads{padding:70px 0}
-    .ads-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-    .ads-card{position:relative;border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--border)}
-    .ads-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(5,9,20,.9));opacity:.9}
-    .ads-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
-    .ads-card:hover img{transform:scale(1.06)}
-    .ads-info{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;gap:6px;z-index:1}
-    .badge{align-self:flex-start;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.1);backdrop-filter:blur(6px);font-size:.75rem;font-weight:800}
+    /* Trailers */
+    .ads{padding:50px 0}
+    .ads-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    @media (max-width:900px){.hero-grid{grid-template-columns:1fr}.ads-grid{grid-template-columns:1fr}}
+    .ads-card{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#0c142e,#0a0f24);border:1px solid var(--border);aspect-ratio:16/9;min-height:220px;box-shadow:var(--shadow);transition:transform .5s var(--ease), box-shadow .5s var(--ease)}
+    .ads-card:hover{transform:translateY(-6px);box-shadow:0 28px 80px rgba(3,8,20,.6)}
+    .ads-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1);transition:transform .6s var(--ease)}
+    .ads-card:hover .ads-thumb{transform:scale(1.06)}
+    .ads-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,6,18,0) 40%, rgba(2,6,18,.78) 100%)}
+    .ads-info{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;gap:6px;padding:14px;z-index:2;text-shadow:0 6px 22px rgba(0,0,0,.6)}
+    .ads-title{font-family:'Poppins';font-weight:700}
+    .ads-badge{align-self:flex-start;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.12);backdrop-filter:blur(6px);font-size:.75rem;font-weight:800}
+    .ads-fallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:16px;color:#bfe2ff;z-index:1;background:radial-gradient(180px 120px at 20% 20%, rgba(79,140,255,.2), transparent 60%),radial-gradient(200px 160px at 80% 80%, rgba(124,77,255,.18), transparent 60%),#0b1129}
+    .ads-card--noimg .ads-fallback{display:flex}
 
-    /* Pricing with animations */
-    .pricing{padding:70px 0}
-    .pricing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
-    .price-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:26px;overflow:hidden;transform-style:preserve-3d;transition:transform .3s var(--ease), box-shadow .3s var(--ease)}
-    .price-card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;background:conic-gradient(from 180deg at 50% 50%,rgba(79,140,255,.0),rgba(124,77,255,.18),rgba(0,210,255,.0));filter:blur(24px);opacity:.35;z-index:0}
-    .price-card:hover{transform:translateY(-6px) rotateX(4deg) rotateY(-3deg); box-shadow:0 26px 80px rgba(4,7,16,.6)}
-    .price-card .glow{position:absolute;inset:0;background:radial-gradient(600px 220px at 20% 0,rgba(79,140,255,.18),transparent);pointer-events:none;z-index:0}
-    .pc-tag{display:inline-flex;padding:6px 12px;border-radius:999px;background:rgba(79,140,255,.18);font-size:.75rem;font-weight:800;margin-bottom:10px;position:relative;z-index:1}
-    .pc-title{font-family:'Poppins';font-size:1.4rem;z-index:1;position:relative}
-    .pc-price{font-size:2.2rem;font-weight:800;margin-top:4px;z-index:1;position:relative}
-    .pc-price span{font-size:1rem;color:var(--text-500);margin-left:6px}
-    .pc-list{list-style:none;display:grid;gap:10px;margin:16px 0 18px;position:relative;z-index:1}
-    .pc-list li::before{content:'✔';color:#4adf86;margin-right:8px}
-    .btn-cta{position:relative;z-index:1}
-    /* subtle float animation */
-    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
-    .price-card.float{animation:floaty 6s ease-in-out infinite}
+    /* Pricing */
+    .pricing{padding:60px 0}
+    .pricing-note{color:var(--text-2);text-align:center;margin-bottom:10px}
+    .pricing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    @media (max-width:900px){.pricing-grid{grid-template-columns:1fr}}
+    .price-card{position:relative;padding:28px;border-radius:20px;background:linear-gradient(160deg, rgba(13,20,42,.9), rgba(21,27,52,.82));border:1px solid var(--border);overflow:hidden;box-shadow:0 24px 50px rgba(4,7,16,.6)}
+    .price-card .pc-tag{margin-bottom:10px}
+    .pc-tag{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:rgba(79,140,255,.18);color:#bfe2ff;font-weight:800;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase}
+    .price-card.pro{background:linear-gradient(140deg, rgba(9,16,35,.96), rgba(16,35,70,.94) 50%, rgba(14,32,78,.9) 100%); border:1px solid rgba(255,157,69,.35)}
+    .pc-title{font-family:'Poppins';font-size:1.4rem;margin-bottom:6px}
+    .pc-price{font-size:2.2rem;font-weight:800}
+    .pc-price span{font-size:1rem;color:var(--text-3);margin-left:6px}
+    .pc-list{list-style:none;display:grid;gap:10px;margin:16px 0 20px}
+    .pc-list li{color:var(--text-2)}
+    .pc-list li::before{content:'✔';color:#4adf86;font-weight:900;margin-right:8px}
+    .spark{position:absolute;inset:-40%;pointer-events:none;background:radial-gradient(300px 220px at var(--mx,60%) var(--my,60%), rgba(79,140,255,.18), transparent 60%) ;opacity:0;transition:opacity .4s var(--ease)}
+    .price-card:hover .spark{opacity:1}
+    .price-card:hover{transform:translateY(-4px);transition:transform .45s var(--ease)}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap}
 
-    /* Discord Promo */
-    .discord{padding:70px 0}
-    .discord-card{display:grid;gap:12px;background:var(--card-2);border:1px solid var(--border);border-radius:22px;padding:24px}
-    .discord-card .soon{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);font-weight:800;display:inline-block}
-
-    /* Auth Gate (login obrigatório) */
-    body.locked main, body.locked header, body.locked footer {filter:blur(6px);pointer-events:none;user-select:none}
-    #auth-gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(1200px 900px at 20% 20%, rgba(79,140,255,.2), rgba(5,8,20,.96) 65%);z-index:50}
-    .auth-card{width:min(480px,92vw);background:rgba(9,14,32,.92);border:1px solid var(--border);border-radius:26px;padding:32px;box-shadow:var(--shadow-lg);display:grid;gap:14px;text-align:center}
-    .auth-card h1{font-family:'Poppins';font-size:1.6rem}
-    .note{color:var(--text-500);font-size:.95rem}
-    .rules{display:grid;gap:8px;text-align:left;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:14px;padding:14px}
+    /* Discord section */
+    .discord{padding:60px 0}
+    .soon{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--border);font-weight:800}
 
     /* Footer */
-    footer{background:rgba(5,8,18,.9);border-top:1px solid var(--border);padding:56px 0 42px}
-    .footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px}
-    .footer-links{display:grid;gap:8px;color:var(--text-300)}
+    footer{background:rgba(5,8,18,.9);border-top:1px solid var(--border);padding:40px 0 60px;margin-top:40px}
+    .footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:24px}
+    @media (max-width:900px){nav ul{display:none}.footer-grid{grid-template-columns:1fr}}
+    .footer-links{display:grid;gap:8px;color:var(--text-2)}
+    .footer-meta{margin-top:26px;border-top:1px solid rgba(255,255,255,.12);padding-top:16px;color:#8aa1d4;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
-    /* Responsive */
-    @media (max-width:1024px){
-      nav ul{display:none}
-      .hero-grid,.pricing-grid,.ads-grid{grid-template-columns:1fr}
-      .footer-grid{grid-template-columns:1fr}
-    }
+    .section-title{font-family:'Poppins';font-size:2rem;text-align:center;margin-bottom:8px}
+    .section-sub{color:var(--text-2);text-align:center;max-width:640px;margin:0 auto 18px;line-height:1.7}
   </style>
 </head>
-<body class="locked">
-  <!-- Background -->
-  <div id="particles-js"></div>
-  <div class="bg-blobs" aria-hidden="true">
-    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<body class="auth-locked">
+  <!-- BG -->
+  <div id="particles-js" aria-hidden="true"></div>
+  <div class="clouds" aria-hidden="true">
+    <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
   </div>
 
-  <!-- Announcement -->
-  <div class="announce">
-    🎬 Trailer oficial do app <strong>Discover Cloud</strong> em breve —
-    <a href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener">assine o canal</a>
-  </div>
-
-  <!-- Auth Gate (login obrigatório) -->
-  <div id="auth-gate" role="dialog" aria-modal="true" aria-labelledby="auth-title" aria-describedby="auth-desc">
+  <!-- AUTH GATE -->
+  <div id="auth-gate" role="dialog" aria-modal="true">
     <div class="auth-card">
-      <div class="brand" style="justify-content:center;gap:12px">
-        <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud" width="44" height="44" style="border-radius:12px"/>
-        <strong style="font-family:'Poppins'">Discover Cloud</strong>
+      <div class="brand" style="justify-content:center">
+        <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud" />
+        <span>Discover Cloud</span>
       </div>
-      <h1 id="auth-title">Entre com sua conta Google</h1>
-      <p id="auth-desc" class="note">Acesso seguro por Single Sign-On.</p>
+      <h1 style="font-family:'Poppins'">Entrar para continuar</h1>
+      <div class="rules">
+        <strong>Novas regras:</strong> para acessar o site é necessário fazer login com Google.<br/>
+        <strong>Privacidade:</strong> não coletamos dados sensíveis da sua conta — usamos apenas o token para autenticação.
+      </div>
       <div id="google-signin" aria-live="polite"></div>
-      <div class="rules" aria-label="Novas Regras">
-        <strong>Novas regras do site</strong>
-        <ul style="margin-left:18px; line-height:1.6">
-          <li>É <b>necessário fazer login</b> para acessar o conteúdo.</li>
-          <li><b>Não coletamos dados</b> da sua conta — usamos apenas a autenticação do Google para validar o acesso.</li>
-          <li>Você pode sair a qualquer momento.</li>
-        </ul>
-      </div>
-      <p id="auth-error" style="display:none;color:#ffb37a;font-weight:800"></p>
-      <small class="note">Ao continuar, você concorda com nossa política de privacidade.</small>
+      <button id="google-onetap" class="btn btn-ghost" type="button">Tentar sem popup (One Tap)</button>
+      <p id="auth-error" role="alert"></p>
+      <small style="color:#9fb6ff">Trailer do app na Google Play <em>em breve</em>. Siga o
+        <a href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener" style="text-decoration:underline;color:#fff">canal Discover News</a>.
+      </small>
     </div>
   </div>
 
-  <!-- Header -->
+  <!-- HEADER -->
   <header>
     <div class="container nav">
       <a class="brand" href="#topo">
-        <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud"/>
+        <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud" />
         <span>Discover Cloud</span>
       </a>
-      <nav aria-label="Navegação principal">
+      <nav aria-label="principal">
         <ul>
           <li><a href="#servicos">Serviços</a></li>
           <li><a href="#anuncios">Trailers</a></li>
           <li><a href="#planos">Planos</a></li>
-          <li><a href="#discord">Divulgue (em breve)</a></li>
+          <li><a href="#discord">Divulgue Discord</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
       </nav>
       <div class="actions">
-        <span id="welcome" class="welcome"></span>
-        <button id="logout" class="btn btn-ghost" style="display:none">Sair</button>
-        <a class="btn btn-accent" href="#anuncios">Anuncie</a>
-        <a class="btn btn-primary" href="#planos">Ver planos</a>
+        <span id="welcomeMessage"></span>
+        <button id="logoutButton" class="btn btn-ghost" type="button" style="display:none">Sair</button>
       </div>
     </div>
   </header>
 
-  <!-- Main -->
+  <!-- MAIN -->
   <main id="topo">
-    <!-- Hero -->
+    <!-- HERO -->
     <section class="hero">
       <div class="container hero-grid">
         <div class="hidden">
-          <span class="eyebrow">Cloud Native • Segurança • Escala</span>
+          <span class="chip">Cloud Native • Segurança • Escala</span>
           <h1 class="headline">Infraestrutura em nuvem <span class="grad">profissional</span> para crescer com o seu produto</h1>
-          <p class="sub">Ambientes prontos em minutos, observabilidade completa e suporte humano 24/7. Confiabilidade para operações sérias.</p>
-          <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
-            <a class="btn btn-primary" href="#planos">Começar agora</a>
-            <a class="btn btn-ghost" href="#anuncios">Ver trailers</a>
+          <p class="sub">Ambientes prontos em minutos, observabilidade completa, zero downtime e suporte humano 24/7. Conquiste escalabilidade e confiança desde o primeiro deploy.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+            <a class="btn btn-primary" href="#planos">Ver planos</a>
+            <a class="btn btn-ghost" href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener">Canal no YouTube</a>
           </div>
-          <div class="stats">
-            <div class="stat"><strong>99,99%</strong><div style="color:var(--text-500)">SLA</div></div>
-            <div class="stat"><strong>12 regiões</strong><div style="color:var(--text-500)">Multi-cloud</div></div>
-            <div class="stat"><strong>5 min</strong><div style="color:var(--text-500)">1º deploy</div></div>
+          <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
+            <div class="stat"><strong>99,99%</strong><span class="sub">Disponibilidade SLA</span></div>
+            <div class="stat"><strong>12 regiões</strong><span class="sub">Deploy global</span></div>
+            <div class="stat"><strong>5 min</strong><span class="sub">Primeiro deploy</span></div>
           </div>
         </div>
-        <div class="hidden" style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:22px">
-          <h3 style="font-family:'Poppins';margin-bottom:8px">Console inteligente</h3>
-          <ul style="list-style:none;display:grid;gap:8px;color:var(--text-300)">
-            <li>✔ Deploy com rollback 1 clique</li>
-            <li>✔ Métricas e custos em tempo real</li>
-            <li>✔ Integração GitHub/GitLab</li>
-            <li>✔ Criptografia ponta a ponta</li>
-          </ul>
+        <div class="hero-media hidden" aria-hidden="false">
+          <div class="console">
+            <h3>Console inteligente Discover</h3>
+            <ul>
+              <li><i>✓</i> Deploy automatizado com rollback em 1 clique</li>
+              <li><i>✓</i> Monitoramento de latência e custo em tempo real</li>
+              <li><i>✓</i> Integração nativa com GitHub, GitLab e Bitbucket</li>
+              <li><i>✓</i> Criptografia ponta a ponta com gestão de chaves</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Services -->
-    <section id="servicos" class="container" style="padding:10px 0 10px">
-      <h2 class="section-title hidden" style="text-align:center">Plataforma completa para toda a jornada cloud</h2>
-      <p class="section-sub hidden">Ferramentas poderosas e experiência refinada para engenharia, produto e operações.</p>
-      <div class="grid-3">
-        <article class="hidden" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px"><h3>Pipeline contínuo</h3><p class="sub" style="font-size:.98rem">CI/CD com *templates* prontos e alertas inteligentes.</p></article>
-        <article class="hidden" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px"><h3>Segurança multicamada</h3><p class="sub" style="font-size:.98rem">WAF, isolamento por workspace e TLS automático.</p></article>
-        <article class="hidden" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px"><h3>Edge global</h3><p class="sub" style="font-size:.98rem">CDN premium, balanceamento e caching adaptativo.</p></article>
-      </div>
-    </section>
-
-    <!-- Trailers / Ads -->
+    <!-- TRAILERS -->
     <section id="anuncios" class="ads">
       <div class="container">
-        <h2 class="section-title hidden" style="text-align:center">Trailers e destaques</h2>
-        <p class="section-sub hidden">Assista aos lançamentos — trailer do app sai em breve no nosso <a href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">YouTube</a>.</p>
+        <h2 class="section-title hidden">Trailers e destaques</h2>
+        <p class="section-sub hidden">
+          <strong>Trailer do app em breve</strong> no nosso canal:
+          <a href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener" style="text-decoration:underline;color:#fff">@discovernews2</a>.
+        </p>
 
         <div class="ads-grid">
           <article class="ads-card hidden">
-            <img src="https://i.ytimg.com/vi/vxYwWVDsI2k/maxresdefault.jpg" alt="Missão Secreta"/>
-            <a href="https://youtu.be/bd_5HcTujfc" target="_blank" rel="noopener" aria-label="Assistir trailer Missão Secreta"></a>
-            <div class="ads-info"><span class="badge">Lançamento</span><strong>Missão Secreta</strong></div>
+            <img class="ads-thumb" src="https://img.youtube.com/vi/bd_5HcTujfc/hqdefault.jpg" alt="Missão Secreta — Trailer" loading="lazy" onerror="this.closest('.ads-card').classList.add('ads-card--noimg')" />
+            <div class="ads-fallback">Prévia indisponível — clique para assistir</div>
+            <div class="ads-overlay"></div>
+            <a href="https://youtu.be/bd_5HcTujfc" target="_blank" rel="noopener" aria-label="Assistir trailer Missão Secreta" style="position:absolute;inset:0;z-index:3"></a>
+            <div class="ads-info"><span class="ads-badge">Lançamento</span><div class="ads-title">Missão Secreta</div></div>
           </article>
 
           <article class="ads-card hidden">
-            <img src="https://ticketdirect.co.nz/wp-content/uploads/2025/09/it-welcome-to-derry-estreno-02.jpg" alt="Welcome to Derry"/>
-            <a href="https://youtu.be/oKa6u7LT0qE" target="_blank" rel="noopener" aria-label="Assistir trailer Welcome to Derry"></a>
-            <div class="ads-info"><span class="badge">Estreia</span><strong>HBO Max • Welcome to Derry</strong></div>
+            <img class="ads-thumb" src="https://img.youtube.com/vi/oKa6u7LT0qE/hqdefault.jpg" alt="Welcome to Derry — Teaser" loading="lazy" onerror="this.closest('.ads-card').classList.add('ads-card--noimg')" />
+            <div class="ads-fallback">Prévia indisponível — clique para assistir</div>
+            <div class="ads-overlay"></div>
+            <a href="https://youtu.be/oKa6u7LT0qE" target="_blank" rel="noopener" aria-label="Assistir teaser Welcome to Derry" style="position:absolute;inset:0;z-index:3"></a>
+            <div class="ads-info"><span class="ads-badge">Estreia</span><div class="ads-title">HBO Max • Welcome to Derry</div></div>
           </article>
 
           <article class="ads-card hidden">
-            <img src="https://img.youtube.com/vi/v0kqkRZHqk4/maxresdefault.jpg" alt="Future Waves"/>
-            <a href="https://youtu.be/v0kqkRZHqk4" target="_blank" rel="noopener" aria-label="Assistir trailer Future Waves"></a>
-            <div class="ads-info"><span class="badge">Destaque</span><strong>Future Waves</strong></div>
+            <img class="ads-thumb" src="https://img.youtube.com/vi/v0kqkRZHqk4/maxresdefault.jpg" alt="Future Waves — Trailer" loading="lazy" onerror="this.closest('.ads-card').classList.add('ads-card--noimg')" />
+            <div class="ads-fallback">Prévia indisponível — clique para assistir</div>
+            <div class="ads-overlay"></div>
+            <a href="https://youtu.be/v0kqkRZHqk4" target="_blank" rel="noopener" aria-label="Assistir trailer Future Waves" style="position:absolute;inset:0;z-index:3"></a>
+            <div class="ads-info"><span class="ads-badge">Destaque</span><div class="ads-title">Future Waves</div></div>
           </article>
 
           <article class="ads-card hidden">
-            <img src="https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2024/06/black-phone-2-poster.jpg?resize=696%2C1024&ssl=1" alt="The Black Phone 2"/>
-            <a href="https://youtu.be/KKTw1XOdzgM" target="_blank" rel="noopener" aria-label="Assistir trailer The Black Phone 2"></a>
-            <div class="ads-info"><span class="badge">Terror</span><strong>The Black Phone 2</strong></div>
+            <img class="ads-thumb" src="https://img.youtube.com/vi/KKTw1XOdzgM/hqdefault.jpg" alt="The Black Phone 2 — Trailer" loading="lazy" onerror="this.closest('.ads-card').classList.add('ads-card--noimg')" />
+            <div class="ads-fallback">Prévia indisponível — clique para assistir</div>
+            <div class="ads-overlay"></div>
+            <a href="https://youtu.be/KKTw1XOdzgM" target="_blank" rel="noopener" aria-label="Assistir trailer The Black Phone 2" style="position:absolute;inset:0;z-index:3"></a>
+            <div class="ads-info"><span class="ads-badge">Terror</span><div class="ads-title">The Black Phone 2</div></div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Pricing with animations -->
+    <!-- PRICING -->
     <section id="planos" class="pricing">
       <div class="container">
-        <h2 class="section-title hidden" style="text-align:center">Planos flexíveis para cada estágio</h2>
-        <p class="section-sub hidden">Comece grátis por 48h. *Hover* para ver o efeito 🪄</p>
+        <h2 class="section-title hidden">Planos flexíveis para cada estágio</h2>
+        <p class="pricing-note hidden">Passe o mouse (*hover*) nos cards para ver o efeito ✨</p>
         <div class="pricing-grid">
-          <article class="price-card float hidden" data-tilt>
-            <div class="glow"></div>
+          <article class="price-card hidden" onmousemove="sparkMove(event,this)">
+            <div class="spark"></div>
             <div class="pc-tag">Start</div>
             <div class="pc-title">Free 48h</div>
-            <div class="pc-price">R$ 0 <span>/48 horas</span></div>
+            <div class="pc-price">R$ 0<span>/48 horas</span></div>
             <ul class="pc-list">
-              <li>Deploy imediato</li><li>Monitoramento básico</li><li>Ambiente isolado</li><li>Suporte por e-mail</li>
+              <li>Deploy imediato com templates</li>
+              <li>Monitoramento básico</li>
+              <li>Ambiente isolado</li>
+              <li>Suporte por e-mail</li>
             </ul>
-            <a class="btn btn-ghost btn-cta" href="https://picking-springfield-installing-romance.trycloudflare.com/" target="_blank" rel="noopener">Usar grátis</a>
+            <div class="btn-row">
+              <a class="btn btn-ghost" href="#faq">Como funciona</a>
+            </div>
           </article>
 
-          <article class="price-card hidden" data-tilt>
-            <div class="glow"></div>
-            <div class="pc-tag" style="background:rgba(255,157,69,.18);color:#ffae66">Mais popular</div>
+          <article class="price-card pro hidden" onmousemove="sparkMove(event,this)">
+            <div class="spark"></div>
+            <div class="pc-tag">Mais popular</div>
             <div class="pc-title">Premium</div>
-            <div class="pc-price">R$ 165 <span>/mês</span></div>
+            <div class="pc-price">R$ 165<span>/mês</span></div>
             <ul class="pc-list">
-              <li>Ambiente dedicado</li><li>Observabilidade avançada</li><li>Suporte 24/7</li><li>Compliance e auditoria</li>
+              <li>Ambiente dedicado</li>
+              <li>Observabilidade avançada</li>
+              <li>Suporte 24/7</li>
+              <li>Compliance e auditoria</li>
             </ul>
-            <a class="btn btn-primary btn-cta" href="#faq">Assinar</a>
+            <div class="btn-row">
+              <a class="btn btn-primary" href="#contato">Assinar</a>
+              <a class="btn btn-ghost" href="#faq">Ver detalhes</a>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Discord promo -->
+    <!-- DISCORD (em breve) -->
     <section id="discord" class="discord">
       <div class="container">
-        <div class="discord-card">
-          <span class="soon">Novo</span>
-          <h2 class="section-title" style="text-align:left;margin:0">Divulgue seu servidor do Discord (em breve)</h2>
-          <p class="section-sub" style="text-align:left;margin:0">Uma vitrine dedicada para ajudar sua comunidade a crescer dentro do ecossistema Discover Cloud. Cadastre, personalize a *landing* e impulsione seus convites.</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn-ghost" disabled>Quero participar</button>
-            <a class="btn btn-primary" href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener">Acompanhar no YouTube</a>
-          </div>
-        </div>
+        <h2 class="section-title hidden">Divulgue seu servidor do Discord</h2>
+        <p class="section-sub hidden">Espaço dedicado para promover sua comunidade — seleção editorial, analytics e destaque na home.</p>
+        <p class="hidden" style="text-align:center;margin-top:6px">
+          <span class="soon">Em breve</span>
+        </p>
       </div>
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="container" style="padding:10px 0 80px">
-      <h2 class="section-title hidden" style="text-align:center">Dúvidas frequentes</h2>
-      <div class="faq-list" style="display:grid;gap:14px;max-width:900px;margin:0 auto">
-        <article class="hidden" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px">
-          <h4>Login é obrigatório?</h4><p class="sub">Sim. Por segurança. Não armazenamos seus dados do Google; usamos apenas a autenticação para validar o acesso.</p>
-        </article>
-        <article class="hidden" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px">
-          <h4>Popup bloqueado?</h4><p class="sub">Permita popups para este domínio ou tente o One Tap quando disponível.</p>
-        </article>
+    <section id="faq" class="container" style="padding:40px 0">
+      <h2 class="section-title hidden">Dúvidas frequentes</h2>
+      <div class="section-sub hidden">Transparência sobre nossa operação e o que você pode esperar da Discover Cloud.</div>
+      <div class="hidden" style="display:grid;gap:14px;margin-top:10px">
+        <div style="background:rgba(10,15,32,.88);border:1px solid var(--border);border-radius:14px;padding:16px">
+          <h4 style="margin-bottom:6px">É obrigatório login?</h4>
+          <p style="color:var(--text-2)">Sim. Usamos Google Sign-In para segurança. Não coletamos dados sensíveis — apenas autenticação.</p>
+        </div>
+        <div style="background:rgba(10,15,32,.88);border:1px solid var(--border);border-radius:14px;padding:16px">
+          <h4 style="margin-bottom:6px">O que fazer se o popup for bloqueado?</h4>
+          <p style="color:var(--text-2)">Permita popups para este domínio ou clique em “Tentar sem popup (One Tap)”.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="contato" class="container" style="padding:20px 0 60px">
+      <div style="border-radius:22px;background:linear-gradient(140deg, rgba(13,22,46,.92), rgba(10,14,30,.92));border:1px solid var(--border);padding:36px;text-align:center;box-shadow:0 26px 60px rgba(5,9,20,.65)" class="hidden">
+        <h2 style="font-family:'Poppins'">Pronto para elevar sua infraestrutura cloud?</h2>
+        <p class="section-sub" style="margin:8px auto 14px">Receba uma consultoria personalizada e descubra como reduzir custos e acelerar entregas.</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <a class="btn btn-primary" href="mailto:discovervs24@gmail.com">Agendar conversa</a>
+          <a class="btn btn-ghost" href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener">Canal no YouTube</a>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div>
-          <div class="brand" style="gap:10px"><img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" width="40" height="40" alt=""><strong>Discover Cloud</strong></div>
-          <p style="color:var(--text-500);margin-top:8px">Infraestrutura premium com foco em segurança, observabilidade e escala.</p>
+          <div class="brand" style="font-size:1rem">
+            <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud" />
+            <span>Discover Cloud</span>
+          </div>
+          <p style="color:var(--text-2);margin-top:8px">Infraestrutura premium com foco em segurança, observabilidade e escala. Operamos aplicações críticas na nuvem com excelência.</p>
         </div>
         <div class="footer-links">
-          <strong>Mapa</strong>
+          <strong>Recursos</strong>
           <a href="#servicos">Serviços</a>
           <a href="#anuncios">Trailers</a>
           <a href="#planos">Planos</a>
-          <a href="#discord">Discord (em breve)</a>
+          <a href="#discord">Divulgue Discord</a>
+          <a href="#faq">FAQ</a>
         </div>
         <div class="footer-links">
-          <strong>Midia</strong>
-          <a href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener">Canal no YouTube</a>
+          <strong>Contato</strong>
           <a href="mailto:discovervs24@gmail.com">discovervs24@gmail.com</a>
+          <a href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener">YouTube</a>
         </div>
       </div>
-      <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:14px;display:flex;justify-content:space-between;flex-wrap:wrap;color:var(--text-700);font-size:.85rem">
+      <div class="footer-meta">
         <span>© <span id="year"></span> Discover Cloud</span>
         <span>LGPD • GDPR • SOC2 • PCI DSS</span>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- SCRIPTS -->
   <script>
-    /* ====== CONFIG ====== */
+    /* ---------- Config ---------- */
     const CLIENT_ID = "1094888827715-pn7tdvs4dhjclj13iefh48f90met93al.apps.googleusercontent.com";
     const STORAGE_KEY = "discover.auth";
 
-    /* ====== HELPERS ====== */
+    /* ---------- Utils ---------- */
     const $ = (s)=>document.querySelector(s);
-    function decodeJwt(t){try{const p=t.split(".")[1].replace(/-/g,"+").replace(/_/g,"/");const j=decodeURIComponent(atob(p).split("").map(c=>"%"+("00"+c.charCodeAt(0).toString(16)).slice(-2)).join(""));return JSON.parse(j)}catch{return{}}}
-    function saveSession({token,profile}){localStorage.setItem(STORAGE_KEY,JSON.stringify({token,profile,ts:Date.now()}))}
-    function readSession(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||"null")}catch{return null}}
-    function clearSession(){localStorage.removeItem(STORAGE_KEY)}
-    function lockUI(lock){document.body.classList.toggle("locked",!!lock);$("#auth-gate").style.display=lock?"flex":"none"}
-    function setError(msg){const e=$("#auth-error");if(!e)return;e.textContent=msg||"";e.style.display=msg?"block":"none"}
+    function setError(msg){ const e=$("#auth-error"); e.textContent=msg||""; e.style.display=msg?"block":"none"; }
+    function decodeJwt(token){ try{const p=token.split(".")[1].replace(/-/g,"+").replace(/_/g,"/"); return JSON.parse(decodeURIComponent(atob(p).split("").map(c=>"%"+("00"+c.charCodeAt(0).toString(16)).slice(-2)).join("")));}catch{return{}} }
+    const saveSession = (o)=>localStorage.setItem(STORAGE_KEY,JSON.stringify({...o,ts:Date.now()}));
+    const readSession = ()=>{ try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||"null")}catch{return null} };
+    const clearSession = ()=>localStorage.removeItem(STORAGE_KEY);
+    const lockUI = (locked)=>{ document.body.classList.toggle("auth-locked",!!locked); $("#auth-gate").style.display=locked?"flex":"none"; };
     function updateWelcome(profile){
-      const w=$("#welcome"), lo=$("#logout");
-      if(profile&& (profile.name||profile.email)){
-        w.innerHTML=`👋 Olá, <strong>${profile.name||profile.email}</strong>`; w.classList.add("active"); lo.style.display="inline-flex";
-      }else{ w.classList.remove("active"); w.textContent=""; lo.style.display="none"; }
+      const chip=$("#welcomeMessage"), out=$("#logoutButton");
+      if(profile?.name || profile?.email){
+        chip.innerHTML = `👋 <strong>Olá, ${profile.name||profile.email}</strong>`;
+        chip.classList.add("active");
+        out.style.display="inline-flex";
+      }else{
+        chip.classList.remove("active"); chip.textContent=""; out.style.display="none";
+      }
     }
 
-    /* ====== GOOGLE SIGN-IN ====== */
+    /* ---------- Google Sign-In ---------- */
     function handleCredentialResponse(resp){
       if(!resp?.credential){ setError("Não foi possível obter a credencial do Google."); return; }
-      const token=resp.credential;
-      const p=decodeJwt(token);
-      const profile={sub:p.sub,email:p.email,name:p.name||p.given_name||"",picture:p.picture||""};
-      saveSession({token,profile}); updateWelcome(profile); lockUI(false); setError("");
+      const token = resp.credential;
+      const p = decodeJwt(token);
+      const profile = { sub:p.sub, email:p.email, name:p.name||p.given_name||"", picture:p.picture||"" };
+      saveSession({token, profile}); updateWelcome(profile); lockUI(false); setError("");
+      console.assert(!!profile.sub,"ID ausente"); console.assert(token.length>10,"Token inválido");
     }
     function initGSI(){
       if(!CLIENT_ID){ setError("CLIENT_ID não definido."); return; }
-      if(!(window.google && google.accounts && google.accounts.id)){ setTimeout(initGSI,120); return; }
-      google.accounts.id.initialize({client_id:CLIENT_ID,callback:handleCredentialResponse,ux_mode:"popup",auto_select:false,context:"signin"});
-      const mount=$("#google-signin"); if(mount){ google.accounts.id.renderButton(mount,{type:"standard",theme:"outline",size:"large",shape:"pill",width:280}); }
+      if(!(window.google&&google.accounts&&google.accounts.id)){ setTimeout(initGSI,120); return; }
+      try{
+        google.accounts.id.initialize({ client_id:CLIENT_ID, callback:handleCredentialResponse, ux_mode:"popup", auto_select:false, context:"signin" });
+        const mount=$("#google-signin");
+        if(mount){
+          google.accounts.id.renderButton(mount,{ type:"standard", theme:"outline", size:"large", shape:"pill", text:"continue_with", width:280 });
+        }
+        $("#google-onetap").addEventListener("click",()=>{
+          setError("");
+          try{
+            google.accounts.id.prompt((n)=>{
+              if(n.isNotDisplayed()||n.isSkippedMoment()){
+                setError("One Tap não pôde ser exibido. Permita popups ou tente o botão principal.");
+              }
+            });
+          }catch{ setError("Falha ao tentar One Tap."); }
+        });
+      }catch{ setError("Falha ao inicializar Google Sign-In."); }
     }
     async function logout(){
-      const sess=readSession(); clearSession(); updateWelcome(null); lockUI(true);
-      if(window.google?.accounts?.id){ google.accounts.id.disableAutoSelect(); if(sess?.profile?.email){ google.accounts.id.revoke(sess.profile.email,()=>{}); } }
+      try{
+        const sess=readSession(); clearSession(); updateWelcome(null); lockUI(true);
+        if(window.google?.accounts?.id){ google.accounts.id.disableAutoSelect(); if(sess?.profile?.email){ google.accounts.id.revoke(sess.profile.email,()=>{}); } }
+      }catch{}
     }
 
-    /* ====== PARTICLES & REVEAL ====== */
-    particlesJS("particles-js",{
-      particles:{number:{value:80,density:{enable:true,value_area:900}},color:{value:["#4f8cff","#7c4dff","#00d2ff"]},shape:{type:"circle"},opacity:{value:.25,random:true},size:{value:3,random:true},line_linked:{enable:true,distance:140,color:"#4f8cff",opacity:.18,width:1},move:{enable:true,speed:1.4,out_mode:"out"}},
-      interactivity:{detect_on:"canvas",events:{onhover:{enable:true,mode:"repulse"}},modes:{repulse:{distance:110,duration:.4}}},retina_detect:true
-    });
-    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("reveal");io.unobserve(e.target)}})},{threshold:.12});
-    document.querySelectorAll(".hidden").forEach(el=>io.observe(el));
-
-    /* ====== TILT EFFECT ON PRICING ====== */
-    document.querySelectorAll("[data-tilt]").forEach(card=>{
-      let rAF=null;
-      card.addEventListener("mousemove",(e)=>{
-        const r=card.getBoundingClientRect();
-        const px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
-        const rx=(py-.5)*8, ry=(.5-px)*8;
-        if(rAF) cancelAnimationFrame(rAF);
-        rAF=requestAnimationFrame(()=>{ card.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`; });
+    /* ---------- Particles + Reveal ---------- */
+    function initParticles(){
+      if(!window.particlesJS) return;
+      particlesJS("particles-js",{
+        particles:{ number:{value:70,density:{enable:true,value_area:900}},
+          color:{value:["#4f8cff","#7c4dff","#00d2ff"]}, shape:{type:"circle"},
+          opacity:{value:.25,random:true}, size:{value:3,random:true},
+          line_linked:{enable:true,distance:140,color:"#4f8cff",opacity:.18,width:1},
+          move:{enable:true,speed:1.4,out_mode:"out"} },
+        interactivity:{ detect_on:"canvas", events:{onhover:{enable:true,mode:"grab"}}, modes:{grab:{distance:110,line_linked:{opacity:.28}}} },
+        retina_detect:true
       });
-      card.addEventListener("mouseleave",()=>{ card.style.transform="perspective(800px) translateY(0)"; });
-    });
+    }
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('reveal'); io.unobserve(e.target); }
+      })
+    },{threshold:.12, rootMargin:"80px 0px"});
 
-    /* ====== BOOT ====== */
+    /* ---------- Pricing sparkle ---------- */
+    function sparkMove(ev, el){
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", ((ev.clientX - r.left)/r.width*100)+"%");
+      el.style.setProperty("--my", ((ev.clientY - r.top)/r.height*100)+"%");
+    }
+
+    /* ---------- Bootstrap ---------- */
     document.addEventListener("DOMContentLoaded",()=>{
-      $("#year").textContent=new Date().getFullYear();
-      $("#logout").addEventListener("click",logout);
+      $("#year").textContent = new Date().getFullYear();
+      $("#logoutButton").addEventListener("click",logout);
+      document.querySelectorAll(".hidden").forEach(el=>io.observe(el));
+      initParticles(); initGSI();
+
+      // restaura sessão
       const sess=readSession();
-      if(sess?.profile){ updateWelcome(sess.profile); lockUI(false); } else { lockUI(true); }
-      initGSI();
+      if(sess?.profile){ updateWelcome(sess.profile); lockUI(false); }
+      else { lockUI(true); }
     });
 
-    // mensagem se popup bloquear
-    window.addEventListener("error",(e)=>{ if(String(e?.message||"").includes("Failed to open popup")) setError("Popup bloqueado. Permita popups para este domínio."); });
+    window.addEventListener("error",(e)=>{
+      const msg=String(e?.message||"");
+      if(msg.includes("Failed to open popup")){
+        setError("Popup bloqueado pelo navegador. Permita popups ou use 'Tentar sem popup (One Tap)'.");
+      }
+    });
   </script>
 </body>
 </html>
