@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Particles background -->
+  <!-- Particles + Google Identity Services -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
@@ -29,11 +29,11 @@
     :root{
       --bg-start:#0c132e;
       --bg-end:#050814;
-      --brand:#4f8cff; /* azul */
-      --brand-2:#00d2ff; /* ciano */
-      --brand-3:#7c4dff; /* roxo */
-      --accent:#ff9d45; /* laranja */
-      --accent-2:#ff6fb2; /* magenta */
+      --brand:#4f8cff;
+      --brand-2:#00d2ff;
+      --brand-3:#7c4dff;
+      --accent:#ff9d45;
+      --accent-2:#ff6fb2;
       --text-100:#ffffff;
       --text-300:#c7d3ff;
       --text-500:#9aa7d4;
@@ -97,14 +97,14 @@
     body.auth-locked .fab{pointer-events:none;}
     #auth-gate{position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; background:radial-gradient(1200px 900px at 20% 20%, rgba(79,140,255,.2), rgba(5,8,20,.95) 65%); backdrop-filter:blur(14px); transition:opacity var(--speed) var(--ease), visibility var(--speed) var(--ease);}
     #auth-gate.hidden{opacity:0; visibility:hidden; pointer-events:none;}
-    .auth-card{width:min(460px,88vw); background:rgba(9,14,32,.92); border:1px solid rgba(79,140,255,.2); border-radius:26px; padding:42px; box-shadow:0 38px 120px rgba(6,10,26,.55); display:grid; gap:22px; text-align:center; position:relative; overflow:hidden;}
+    .auth-card{width:min(460px,88vw); background:rgba(9,14,32,.92); border:1px solid rgba(79,140,255,.2); border-radius:26px; padding:42px; box-shadow:0 38px 120px rgba(6,10,26,.55); display:grid; gap:18px; text-align:center; position:relative; overflow:hidden;}
     .auth-card::before{content:""; position:absolute; inset:0; background:radial-gradient(420px 360px at 50% 0, rgba(79,140,255,.18), rgba(79,140,255,0) 70%); opacity:.8; pointer-events:none;}
     .auth-card > *{position:relative; z-index:1;}
     .auth-card h1{font-family:'Poppins'; font-size:1.9rem;}
     .auth-card p{color:var(--text-300); line-height:1.7;}
     .auth-badges{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
     .auth-badge{padding:6px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.06); font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-300);}
-    #google-signin{display:flex; justify-content:center;}
+    #google-signin{display:flex; justify-content:center; min-height:44px;}
     #auth-error{margin:4px 0 0;}
     .welcome-chip{display:none; align-items:center; gap:10px; padding:10px 18px; border-radius:999px; background:rgba(79,140,255,.16); color:var(--text-100); font-weight:600; font-size:.9rem; border:1px solid rgba(79,140,255,.28); box-shadow:0 14px 34px rgba(79,140,255,.2);}
     .welcome-chip svg{width:18px; height:18px;}
@@ -172,7 +172,7 @@
     .f-card p{color:var(--text-300); line-height:1.75}
 
     /* ADS */
-    .ads{padding:110px 0 90px; posição:relative;}
+    .ads{padding:110px 0 90px; position:relative;}
     .ads::before{content:""; position:absolute; inset:0; background:radial-gradient(900px 700px at 10% 10%, rgba(79,140,255,.12), rgba(79,140,255,0) 70%); opacity:.65; pointer-events:none;}
     .ads-header{display:grid; gap:16px; text-align:center; margin-bottom:52px; position:relative; z-index:1;}
     .ads-header .section-title{margin-bottom:0;}
@@ -306,14 +306,13 @@
       .ads-cta{padding:28px}
       .fab{right:20px; bottom:92px;}
     }
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       *, *::before, *::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important}
       .cloud{animation:none}
     }
   </style>
 </head>
-<body>
+<body class="auth-locked">
   <!-- Decorative background layers -->
   <div id="particles-js" aria-hidden="true"></div>
   <div class="bg-blobs" aria-hidden="true">
@@ -341,266 +340,273 @@
         <span class="auth-badge">Segurança 24/7</span>
         <span class="auth-badge">Experiência Premium</span>
       </div>
+
+      <!-- Botão oficial do Google será renderizado aqui -->
       <div id="google-signin" aria-live="polite"></div>
+
+      <!-- Fallback: tenta One Tap sem popup -->
+      <button id="google-onetap" type="button" class="btn btn-ghost" style="justify-self:center;">Tentar sem popup (One Tap)</button>
+
       <p id="auth-error" role="alert" style="display:none; color:var(--accent); font-weight:600;"></p>
       <noscript><p style="color:var(--accent); font-weight:600;">Ative o JavaScript para concluir o login seguro.</p></noscript>
       <small style="color:var(--text-500);">Continuar implica concordar com nossa <a href="#faq" style="color:var(--text-300); font-weight:600;">política de privacidade</a>.</small>
     </div>
   </div>
 
-  <!-- HEADER -->
+  <!-- APP -->
   <div class="app-shell">
-  <header>
-    <div class="container nav">
-      <a class="brand" href="#topo" aria-label="Ir para o topo">
-        <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud" />
-        <span>Discover Cloud</span>
-      </a>
-      <nav aria-label="Navegação principal">
-        <ul>
-          <li><a href="#servicos">Serviços</a></li>
-          <li><a href="#anuncios">Anúncios</a></li>
-          <li><a href="#arquitetura">Arquitetura</a></li>
-          <li><a href="#planos">Planos</a></li>
-          <li><a href="#comparativo">Comparativo</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contato">Contato</a></li>
-        </ul>
-      </nav>
-      <div class="actions">
-        <span id="welcomeMessage" class="welcome-chip" role="status" aria-live="polite"></span>
-        <a class="btn-ghost btn" href="https://picking-springfield-installing-romance.trycloudflare.com/" target="_blank" rel="noopener">Painel</a>
-        <button id="logoutButton" class="btn btn-ghost" type="button" style="display:none;">Sair</button>
-        <a class="btn-accent btn" href="#anuncios">Anuncie aqui</a>
-        <a class="btn-primary btn" href="#planos">Ver planos</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <main id="topo">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hidden">
-          <span class="eyebrow">Cloud Native • Segurança • Escala</span>
-          <h1 class="headline">Infraestrutura em nuvem <span class="grad">profissional</span> para crescer com o seu produto</h1>
-          <p class="sub">A Discover Cloud entrega ambientes prontos em minutos, com observabilidade completa, zero downtime e suporte humano 24/7. Conquiste escalabilidade e confiança desde o primeiro deploy.</p>
-          <div class="hero-ctas">
-            <a class="btn-primary btn" href="https://picking-springfield-installing-romance.trycloudflare.com/" target="_blank" rel="noopener">Começar agora</a>
-            <a class="btn-ghost btn" href="#planos">Planos e preços</a>
-          </div>
-          <div class="hero-stats">
-            <div class="stat"><strong>99,99%</strong><span>Disponibilidade SLA</span></div>
-            <div class="stat"><strong>12 regiões</strong><span>Deploy multi-cloud</span></div>
-            <div class="stat"><strong>5 min</strong><span>Primeiro deploy</span></div>
-          </div>
-        </div>
-        <div class="hero-media hidden" aria-hidden="false">
-          <div class="console" role="region" aria-label="Console da plataforma">
-            <h3>Console inteligente Discover</h3>
-            <ul>
-              <li><i>✓</i> Deploy automatizado com rollback em 1 clique</li>
-              <li><i>✓</i> Monitoramento de latência e custo em tempo real</li>
-              <li><i>✓</i> Integração nativa com GitHub, GitLab e Bitbucket</li>
-              <li><i>✓</i> Criptografia ponta a ponta com gestão de chaves</li>
-            </ul>
-          </div>
+    <header>
+      <div class="container nav">
+        <a class="brand" href="#topo" aria-label="Ir para o topo">
+          <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud" />
+          <span>Discover Cloud</span>
+        </a>
+        <nav aria-label="Navegação principal">
+          <ul>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#anuncios">Anúncios</a></li>
+            <li><a href="#arquitetura">Arquitetura</a></li>
+            <li><a href="#planos">Planos</a></li>
+            <li><a href="#comparativo">Comparativo</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </nav>
+        <div class="actions">
+          <span id="welcomeMessage" class="welcome-chip" role="status" aria-live="polite"></span>
+          <a class="btn-ghost btn" href="https://picking-springfield-installing-romance.trycloudflare.com/" target="_blank" rel="noopener">Painel</a>
+          <button id="logoutButton" class="btn btn-ghost" type="button" style="display:none;">Sair</button>
+          <a class="btn-accent btn" href="#anuncios">Anuncie aqui</a>
+          <a class="btn-primary btn" href="#planos">Ver planos</a>
         </div>
       </div>
-    </section>
+    </header>
 
-    <!-- TRUST -->
-    <section class="trust" aria-label="Clientes e parceiros">
-      <div class="container">
-        <div class="trust-card hidden">
-          <p>Escolhida por scale-ups, fintechs e equipes globais que não abrem mão de segurança e performance.</p>
-          <div class="pills">
-            <span class="pill">FinNova</span>
-            <span class="pill">Atlas Digital</span>
-            <span class="pill">NXT Bank</span>
-            <span class="pill">FlowCommerce</span>
-            <span class="pill">CloudOps Labs</span>
+    <main id="topo">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hidden">
+            <span class="eyebrow">Cloud Native • Segurança • Escala</span>
+            <h1 class="headline">Infraestrutura em nuvem <span class="grad">profissional</span> para crescer com o seu produto</h1>
+            <p class="sub">A Discover Cloud entrega ambientes prontos em minutos, com observabilidade completa, zero downtime e suporte humano 24/7. Conquiste escalabilidade e confiança desde o primeiro deploy.</p>
+            <div class="hero-ctas">
+              <a class="btn-primary btn" href="https://picking-springfield-installing-romance.trycloudflare.com/" target="_blank" rel="noopener">Começar agora</a>
+              <a class="btn-ghost btn" href="#planos">Planos e preços</a>
+            </div>
+            <div class="hero-stats">
+              <div class="stat"><strong>99,99%</strong><span>Disponibilidade SLA</span></div>
+              <div class="stat"><strong>12 regiões</strong><span>Deploy multi-cloud</span></div>
+              <div class="stat"><strong>5 min</strong><span>Primeiro deploy</span></div>
+            </div>
+          </div>
+          <div class="hero-media hidden" aria-hidden="false">
+            <div class="console" role="region" aria-label="Console da plataforma">
+              <h3>Console inteligente Discover</h3>
+              <ul>
+                <li><i>✓</i> Deploy automatizado com rollback em 1 clique</li>
+                <li><i>✓</i> Monitoramento de latência e custo em tempo real</li>
+                <li><i>✓</i> Integração nativa com GitHub, GitLab e Bitbucket</li>
+                <li><i>✓</i> Criptografia ponta a ponta com gestão de chaves</li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- FEATURES -->
-    <section id="servicos" class="container" style="padding: 10px 0 10px;">
-      <h2 class="section-title hidden">Plataforma completa para toda a jornada cloud</h2>
-      <p class="section-sub hidden">Ferramentas poderosas e uma experiência refinada para seus times de engenharia, produto e operações entregarem valor continuamente.</p>
-      <div class="grid-3">
-        <article class="f-card hidden">
-          <div class="f-ico">⚡</div>
-          <h3>Pipeline contínuo automatizado</h3>
-          <p>Orquestre builds, testes e deploys com pipelines pré-configurados. Integração contínua com alertas inteligentes e compliance SOC2.</p>
-        </article>
-        <article class="f-card hidden">
-          <div class="f-ico">🛡️</div>
-          <h3>Segurança multicamada</h3>
-          <p>Firewall gerenciado, WAF, isolamento por workspace e certificados TLS automáticos. Auditoria completa com retenção de 12 meses.</p>
-        </article>
-        <article class="f-card hidden">
-          <div class="f-ico">🌐</div>
-          <h3>Edge network global</h3>
-          <p>CDN premium com otimização automática de assets, balanceamento inteligente e caching adaptativo para latência ultrabaixa.</p>
-        </article>
-        <article class="f-card hidden">
-          <div class="f-ico">📊</div>
-          <h3>Observabilidade total</h3>
-          <p>Painéis dinâmicos com métricas em tempo real, tracing distribuído e alertas preditivos alimentados por IA.</p>
-        </article>
-        <article class="f-card hidden">
-          <div class="f-ico">🤝</div>
-          <h3>Suporte humano 24/7</h3>
-          <p>Especialistas cloud acompanhando cada release crítica. SLA dedicado e playbooks personalizados para o seu negócio.</p>
-        </article>
-        <article class="f-card hidden">
-          <div class="f-ico">🚀</div>
-          <h3>Escala inteligente</h3>
-          <p>Auto scaling baseado em telemetria, otimização de custos com machine learning e relatórios executivos mensais.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ADS -->
-    <section id="anuncios" class="ads">
-      <div class="container">
-        <div class="ads-header hidden">
-          <h2 class="section-title">Anúncios em destaque</h2>
-          <p>Apresente seus lançamentos dentro da Discover Cloud com uma vitrine premium inspirada nas campanhas do Discord. Experiência interativa, visual marcante e acesso direto aos trailers.</p>
-          <p style="color:var(--text-500); max-width:640px; margin:0 auto;">Clique nas estreias para assistir aos trailers em alta definição e conhecer cada parceria audiovisual.</p>
-          <div class="ads-pill-group" style="justify-content:center;">
-            <span class="ads-pill">Estreias oficiais</span>
-            <span class="ads-pill">Lançamentos exclusivos</span>
-            <span class="ads-pill">Audiência tech</span>
+      <!-- TRUST -->
+      <section class="trust" aria-label="Clientes e parceiros">
+        <div class="container">
+          <div class="trust-card hidden">
+            <p>Escolhida por scale-ups, fintechs e equipes globais que não abrem mão de segurança e performance.</p>
+            <div class="pills">
+              <span class="pill">FinNova</span>
+              <span class="pill">Atlas Digital</span>
+              <span class="pill">NXT Bank</span>
+              <span class="pill">FlowCommerce</span>
+              <span class="pill">CloudOps Labs</span>
+            </div>
           </div>
         </div>
-        <div class="ads-grid">
-          <article class="ads-card hidden">
-            <div class="ads-card-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.472 4.939 5.456.793-3.964 3.868.936 5.45L12 15.9l-4.9 2.15.936-5.45-3.964-3.868 5.456-.793z"/></svg>Estreia</div>
-            <img src="https://ticketdirect.co.nz/wp-content/uploads/2025/09/it-welcome-to-derry-estreno-02.jpg" alt="Campanha HBO Max - Welcome to Derry" loading="lazy" />
-            <a href="https://youtu.be/oKa6u7LT0qE?si=mGNJHNTws88Lj_eI" target="_blank" rel="noopener" aria-label="Assistir trailer de Welcome to Derry"></a>
-            <div class="ads-card-content">
-              <strong>HBO Max • Welcome to Derry</strong>
-              <span>Experimente o universo de IT com um teaser arrepiante direto da produção exclusiva da HBO Max.</span>
-              <div class="ads-pill-group">
-                <span class="ads-pill">Streaming</span>
-                <span class="ads-pill">Terror</span>
-              </div>
-              <div class="ads-meta"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.59 3.59A2 2 0 0020 5.17v13.66a2 2 0 01-2.41 1.94l-12-2.4A2 2 0 013 16.42V7.58a2 2 0 012.59-1.95l12 2.4z"/></svg> Trailer exclusivo</div>
-            </div>
+      </section>
+
+      <!-- FEATURES -->
+      <section id="servicos" class="container" style="padding: 10px 0 10px;">
+        <h2 class="section-title hidden">Plataforma completa para toda a jornada cloud</h2>
+        <p class="section-sub hidden">Ferramentas poderosas e uma experiência refinada para seus times de engenharia, produto e operações entregarem valor continuamente.</p>
+        <div class="grid-3">
+          <article class="f-card hidden">
+            <div class="f-ico">⚡</div>
+            <h3>Pipeline contínuo automatizado</h3>
+            <p>Orquestre builds, testes e deploys com pipelines pré-configurados. Integração contínua com alertas inteligentes e compliance SOC2.</p>
           </article>
-          <article class="ads-card hidden">
-            <div class="ads-card-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M5 12l4-4m-4 4l4 4"/></svg>Lançamento</div>
-            <img src="https://i.ytimg.com/vi/vxYwWVDsI2k/maxresdefault.jpg" alt="Campanha de lançamento - Missão Secreta" loading="lazy" />
-            <a href="https://youtu.be/bd_5HcTujfc?si=oHNuXFByH6xphqrA" target="_blank" rel="noopener" aria-label="Assistir trailer Missão Secreta"></a>
-            <div class="ads-card-content">
-              <strong>Missão Secreta</strong>
-              <span>Ação, suspense e estratégia militar numa produção eletrizante pronta para streaming global.</span>
-              <div class="ads-pill-group">
-                <span class="ads-pill">Blockbuster</span>
-                <span class="ads-pill">Ação</span>
-              </div>
-              <div class="ads-meta"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m-7-7h14"/></svg> Estreia oficial 2025</div>
-            </div>
+          <article class="f-card hidden">
+            <div class="f-ico">🛡️</div>
+            <h3>Segurança multicamada</h3>
+            <p>Firewall gerenciado, WAF, isolamento por workspace e certificados TLS automáticos. Auditoria completa com retenção de 12 meses.</p>
           </article>
-          <article class="ads-card hidden">
-            <div class="ads-card-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.75l7.5-3 7.5 3m-15 0l7.5 3m-7.5-3V17.25l7.5 3 7.5-3V6.75m-7.5 3v10.5"/></svg>Experiência</div>
-            <img src="https://img.youtube.com/vi/v0kqkRZHqk4/maxresdefault.jpg" alt="Trailer cinematográfico futurista" loading="lazy" />
-            <a href="https://youtu.be/v0kqkRZHqk4?si=5EWfCO4JztbLKKj0" target="_blank" rel="noopener" aria-label="Assistir trailer futurista"></a>
-            <div class="ads-card-content">
-              <strong>Future Waves</strong>
-              <span>Uma jornada sci-fi com visuais imersivos e trilha sonora premiada para amantes de tecnologia.</span>
-              <div class="ads-pill-group">
-                <span class="ads-pill">Sci-fi</span>
-                <span class="ads-pill">Cinema</span>
-              </div>
-              <div class="ads-meta"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-1.301A1 1 0 0020 7.735V6.265a1 1 0 00-1.447-.964L15 4M5 5h5M5 9h9m-9 4h5m-5 4h9"/></svg> Destaque de ficção</div>
-            </div>
+          <article class="f-card hidden">
+            <div class="f-ico">🌐</div>
+            <h3>Edge network global</h3>
+            <p>CDN premium com otimização automática de assets, balanceamento inteligente e caching adaptativo para latência ultrabaixa.</p>
           </article>
-          <article class="ads-card hidden featured">
-            <div class="ads-card-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4m0 10v4m5.657-13.657l-2.829 2.829M9.172 14.828l-2.829 2.829M21 12h-4M7 12H3"/></svg>Destaque terror</div>
-            <img src="https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2024/06/black-phone-2-poster.jpg?resize=696%2C1024&ssl=1" alt="The Black Phone 2 - Campanha de terror" loading="lazy" />
-            <a href="https://youtu.be/KKTw1XOdzgM" target="_blank" rel="noopener" aria-label="Assistir trailer de The Black Phone 2"></a>
-            <div class="ads-card-content">
-              <strong>The Black Phone 2</strong>
-              <span>O terror psicológico retorna com intensidade máxima em uma sequência inquietante que amplia o universo de The Grabber.</span>
-              <div class="ads-pill-group">
-                <span class="ads-pill">Terror</span>
-                <span class="ads-pill">Cinema</span>
-              </div>
-              <div class="ads-meta"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 5.75h8.5a.75.75 0 01.75.75v12a.75.75 0 01-.75.75h-8.5a.75.75 0 01-.75-.75v-12a.75.75 0 01.75-.75zM6.75 8.75h-1a.75.75 0 00-.75.75v7a.75.75 0 00.75.75h1"/></svg> Horror cinematográfico</div>
-            </div>
+          <article class="f-card hidden">
+            <div class="f-ico">📊</div>
+            <h3>Observabilidade total</h3>
+            <p>Painéis dinâmicos com métricas em tempo real, tracing distribuído e alertas preditivos alimentados por IA.</p>
           </article>
-          <article class="ads-card hidden">
-            <div class="ads-card-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5l3 5h5l-4 4 1.5 6L12 16l-5.5 4 1.5-6-4-4h5z"/></svg>Exclusive</div>
-            <img src="https://cdn.dlcompare.com/game_tetiere/upload/gameimage/file/arc-raiders-file-2109136905.jpg.webp" alt="Arc Raiders - Trailer oficial" loading="lazy" />
-            <a href="https://youtu.be/HKGUzUX9h5E?si=D7xO5NlAZaya3l3F" target="_blank" rel="noopener" aria-label="Assistir trailer Arc Raiders"></a>
-            <div class="ads-card-content">
-              <strong>Arc Raiders</strong>
-              <span>Defenda a galáxia com visual AAA e combate cooperativo neste blockbuster sci-fi.</span>
-              <div class="ads-pill-group">
-                <span class="ads-pill">Games</span>
-                <span class="ads-pill">Co-op</span>
-              </div>
-              <div class="ads-meta"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 5.75h8.5a.75.75 0 01.75.75v12a.75.75 0 01-.75.75h-8.5a.75.75 0 01-.75-.75v-12a.75.75 0 01.75-.75zM6.75 8.75h-1a.75.75 0 00-.75.75v7a.75.75 0 00.75.75h1"/></svg> Gameplay revelado</div>
-            </div>
+          <article class="f-card hidden">
+            <div class="f-ico">🤝</div>
+            <h3>Suporte humano 24/7</h3>
+            <p>Especialistas cloud acompanhando cada release crítica. SLA dedicado e playbooks personalizados para o seu negócio.</p>
+          </article>
+          <article class="f-card hidden">
+            <div class="f-ico">🚀</div>
+            <h3>Escala inteligente</h3>
+            <p>Auto scaling baseado em telemetria, otimização de custos com machine learning e relatórios executivos mensais.</p>
           </article>
         </div>
-        <div class="ads-cta hidden">
-          <h4>Media Kit 2025</h4>
-          <h3>Anuncie na Discover Cloud</h3>
-          <p>Combine alcance qualificado com uma experiência visual sofisticada para o seu produto. Nossa equipe cria layouts inspirados em missões do Discord, entrega relatórios de impacto e garante performance otimizada na vitrine cloud.</p>
-          <div class="ads-pricing">
-            <div class="ads-tier">
-              <strong>Plano Solo</strong>
-              <span>R$ 560 — 1 anúncio em vídeo, destaque por 14 dias e relatório de engajamento.</span>
-            </div>
-            <div class="ads-tier">
-              <strong>Plano Duo</strong>
-              <span>R$ 1.000 — 2 anúncios em vídeo, rotação dinâmica e insights aprofundados semanais.</span>
-            </div>
-          </div>
-          <a class="btn btn-primary" href="mailto:discovervs24@gmail.com?subject=Quero anunciar na Discover Cloud">Anuncie aqui</a>
-          <span style="color:var(--text-500); font-size:.92rem;">Mais informações: <a href="mailto:discovervs24@gmail.com" style="color:var(--text-300); font-weight:600;">discovervs24@gmail.com</a></span>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ARCHITECTURE -->
-    <section id="arquitetura" class="architecture">
-      <div class="container arch-grid">
-        <div class="arch-vis hidden">
-          <div class="layer" data-label="Camada 01">
-            <strong>Edge & Delivery</strong>
-            <span>Rede distribuída com PoPs em 12 regiões, balanceamento inteligente e CDN ultra performática.</span>
+      <!-- ADS -->
+      <section id="anuncios" class="ads">
+        <div class="container">
+          <div class="ads-header hidden">
+            <h2 class="section-title">Anúncios em destaque</h2>
+            <p>Apresente seus lançamentos dentro da Discover Cloud com uma vitrine premium inspirada nas campanhas do Discord. Experiência interativa, visual marcante e acesso direto aos trailers.</p>
+            <p style="color:var(--text-500); max-width:640px; margin:0 auto;">Clique nas estreias para assistir aos trailers em alta definição e conhecer cada parceria audiovisual.</p>
+            <div class="ads-pill-group" style="justify-content:center;">
+              <span class="ads-pill">Estreias oficiais</span>
+              <span class="ads-pill">Lançamentos exclusivos</span>
+              <span class="ads-pill">Audiência tech</span>
+            </div>
           </div>
-          <div class="layer" data-label="Camada 02">
-            <strong>Runtime isolado</strong>
-            <span>Containers gerenciados com zero downtime, autoscaling e isolamento por workspace.</span>
+          <div class="ads-grid">
+            <article class="ads-card hidden">
+              <div class="ads-card-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.472 4.939 5.456.793-3.964 3.868.936 5.45L12 15.9l-4.9 2.15.936-5.45-3.964-3.868 5.456-.793z"/></svg>Estreia</div>
+              <img src="https://ticketdirect.co.nz/wp-content/uploads/2025/09/it-welcome-to-derry-estreno-02.jpg" alt="Campanha HBO Max - Welcome to Derry" loading="lazy" />
+              <a href="https://youtu.be/oKa6u7LT0qE?si=mGNJHNTws88Lj_eI" target="_blank" rel="noopener" aria-label="Assistir trailer de Welcome to Derry"></a>
+              <div class="ads-card-content">
+                <strong>HBO Max • Welcome to Derry</strong>
+                <span>Experimente o universo de IT com um teaser arrepiante direto da produção exclusiva da HBO Max.</span>
+                <div class="ads-pill-group">
+                  <span class="ads-pill">Streaming</span>
+                  <span class="ads-pill">Terror</span>
+                </div>
+                <div class="ads-meta"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.59 3.59A2 2 0 0020 5.17v13.66a2 2 0 01-2.41 1.94l-12-2.4A2 2 0 013 16.42V7.58a2 2 0 012.59-1.95l12 2.4z"/></svg> Trailer exclusivo</div>
+              </div>
+            </article>
+            <article class="ads-card hidden">
+              <div class="ads-card-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M5 12l4-4m-4 4l4 4"/></svg>Lançamento</div>
+              <img src="https://i.ytimg.com/vi/vxYwWVDsI2k/maxresdefault.jpg" alt="Campanha de lançamento - Missão Secreta" loading="lazy" />
+              <a href="https://youtu.be/bd_5HcTujfc?si=oHNuXFByH6xphqrA" target="_blank" rel="noopener" aria-label="Assistir trailer Missão Secreta"></a>
+              <div class="ads-card-content">
+                <strong>Missão Secreta</strong>
+                <span>Ação, suspense e estratégia militar numa produção eletrizante pronta para streaming global.</span>
+                <div class="ads-pill-group">
+                  <span class="ads-pill">Blockbuster</span>
+                  <span class="ads-pill">Ação</span>
+                </div>
+                <div class="ads-meta"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m-7-7h14"/></svg> Estreia oficial 2025</div>
+              </div>
+            </article>
+            <article class="ads-card hidden">
+              <div class="ads-card-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.75l7.5-3 7.5 3m-15 0l7.5 3m-7.5-3V17.25l7.5 3 7.5-3V6.75m-7.5 3v10.5"/></svg>Experiência</div>
+              <img src="https://img.youtube.com/vi/v0kqkRZHqk4/maxresdefault.jpg" alt="Trailer cinematográfico futurista" loading="lazy" />
+              <a href="https://youtu.be/v0kqkRZHqk4?si=5EWfCO4JztbLKKj0" target="_blank" rel="noopener" aria-label="Assistir trailer futurista"></a>
+              <div class="ads-card-content">
+                <strong>Future Waves</strong>
+                <span>Uma jornada sci-fi com visuais imersivos e trilha sonora premiada para amantes de tecnologia.</span>
+                <div class="ads-pill-group">
+                  <span class="ads-pill">Sci-fi</span>
+                  <span class="ads-pill">Cinema</span>
+                </div>
+                <div class="ads-meta"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-1.301A1 1 0 0020 7.735V6.265a1 1 0 00-1.447-.964L15 4M5 5h5M5 9h9m-9 4h5m-5 4h9"/></svg> Destaque de ficção</div>
+              </div>
+            </article>
+            <article class="ads-card hidden featured">
+              <div class="ads-card-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4m0 10v4m5.657-13.657l-2.829 2.829M9.172 14.828l-2.829 2.829M21 12h-4M7 12H3"/></svg>Destaque terror</div>
+              <img src="https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2024/06/black-phone-2-poster.jpg?resize=696%2C1024&ssl=1" alt="The Black Phone 2 - Campanha de terror" loading="lazy" />
+              <a href="https://youtu.be/KKTw1XOdzgM" target="_blank" rel="noopener" aria-label="Assistir trailer de The Black Phone 2"></a>
+              <div class="ads-card-content">
+                <strong>The Black Phone 2</strong>
+                <span>O terror psicológico retorna com intensidade máxima em uma sequência inquietante que amplia o universo de The Grabber.</span>
+                <div class="ads-pill-group">
+                  <span class="ads-pill">Terror</span>
+                  <span class="ads-pill">Cinema</span>
+                </div>
+                <div class="ads-meta"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 5.75h8.5a.75.75 0 01.75.75v12a.75.75 0 01-.75.75h-8.5a.75.75 0 01-.75-.75v-12a.75.75 0 01.75-.75zM6.75 8.75h-1a.75.75 0 00-.75.75v7a.75.75 0 00.75.75h1"/></svg> Horror cinematográfico</div>
+              </div>
+            </article>
+            <article class="ads-card hidden">
+              <div class="ads-card-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5l3 5h5l-4 4 1.5 6L12 16l-5.5 4 1.5-6-4-4h5z"/></svg>Exclusive</div>
+              <img src="https://cdn.dlcompare.com/game_tetiere/upload/gameimage/file/arc-raiders-file-2109136905.jpg.webp" alt="Arc Raiders - Trailer oficial" loading="lazy" />
+              <a href="https://youtu.be/HKGUzUX9h5E?si=D7xO5NlAZaya3l3F" target="_blank" rel="noopener" aria-label="Assistir trailer Arc Raiders"></a>
+              <div class="ads-card-content">
+                <strong>Arc Raiders</strong>
+                <span>Defenda a galáxia com visual AAA e combate cooperativo neste blockbuster sci-fi.</span>
+                <div class="ads-pill-group">
+                  <span class="ads-pill">Games</span>
+                  <span class="ads-pill">Co-op</span>
+                </div>
+                <div class="ads-meta"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 5.75h8.5a.75.75 0 01.75.75v12a.75.75 0 01-.75.75h-8.5a.75.75 0 01-.75-.75v-12a.75.75 0 01.75-.75zM6.75 8.75h-1a.75.75 0 00-.75.75v7a.75.75 0 00.75.75h1"/></svg> Gameplay revelado</div>
+              </div>
+            </article>
           </div>
-          <div class="layer" data-label="Camada 03">
-            <strong>Dados & Segurança</strong>
-            <span>Banco gerenciado, replicação automática, backups criptografados e gerenciamento de segredos.</span>
-          </div>
-        </div>
-        <div class="arch-list">
-          <h2 class="section-title hidden" style="text-align:left; margin-bottom:10px">Arquitetura para confiabilidade extrema</h2>
-          <p class="section-sub hidden" style="text-align:left; margin:0 0 16px">Infra multi-região, pipelines resilientes e governança completa para equipes de alta performance.</p>
-          <div class="arch-item hidden"><i>01</i><p>Deploy blue/green e canário com controle de tráfego e métricas em tempo real.</p></div>
-          <div class="arch-item hidden"><i>02</i><p>Observabilidade com APM, logs estruturados, tracing distribuído e alertas proativos.</p></div>
-          <div class="arch-item hidden"><i>03</i><p>Compliance nativo: GDPR, LGPD, PCI DSS e SOC2 com políticas de acesso.</p></div>
-        </div>
-      </div>
-    </section>
 
-    <!-- SHOWCASE TERMINAL -->
-    <section class="showcase">
-      <div class="container hidden">
-        <div class="terminal">
-          <div class="term-top"><span class="dot d-red"></span><span class="dot d-yellow"></span><span class="dot d-green"></span></div>
-          <pre class="code"><span class="c"># Deploy de uma API Node.js com Discover CLI</span>
+          <div class="ads-cta hidden">
+            <h4>Media Kit 2025</h4>
+            <h3>Anuncie na Discover Cloud</h3>
+            <p>Combine alcance qualificado com uma experiência visual sofisticada para o seu produto. Nossa equipe cria layouts inspirados em missões do Discord, entrega relatórios de impacto e garante performance otimizada na vitrine cloud.</p>
+            <div class="ads-pricing">
+              <div class="ads-tier">
+                <strong>Plano Solo</strong>
+                <span>R$ 560 — 1 anúncio em vídeo, destaque por 14 dias e relatório de engajamento.</span>
+              </div>
+              <div class="ads-tier">
+                <strong>Plano Duo</strong>
+                <span>R$ 1.000 — 2 anúncios em vídeo, rotação dinâmica e insights aprofundados semanais.</span>
+              </div>
+            </div>
+            <a class="btn btn-primary" href="mailto:discovervs24@gmail.com?subject=Quero anunciar na Discover Cloud">Anuncie aqui</a>
+            <span style="color:var(--text-500); font-size:.92rem;">Mais informações: <a href="mailto:discovervs24@gmail.com" style="color:var(--text-300); font-weight:600;">discovervs24@gmail.com</a></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ARCHITECTURE -->
+      <section id="arquitetura" class="architecture">
+        <div class="container arch-grid">
+          <div class="arch-vis hidden">
+            <div class="layer" data-label="Camada 01">
+              <strong>Edge & Delivery</strong>
+              <span>Rede distribuída com PoPs em 12 regiões, balanceamento inteligente e CDN ultra performática.</span>
+            </div>
+            <div class="layer" data-label="Camada 02">
+              <strong>Runtime isolado</strong>
+              <span>Containers gerenciados com zero downtime, autoscaling e isolamento por workspace.</span>
+            </div>
+            <div class="layer" data-label="Camada 03">
+              <strong>Dados & Segurança</strong>
+              <span>Banco gerenciado, replicação automática, backups criptografados e gerenciamento de segredos.</span>
+            </div>
+          </div>
+          <div class="arch-list">
+            <h2 class="section-title hidden" style="text-align:left; margin-bottom:10px">Arquitetura para confiabilidade extrema</h2>
+            <p class="section-sub hidden" style="text-align:left; margin:0 0 16px">Infra multi-região, pipelines resilientes e governança completa para equipes de alta performance.</p>
+            <div class="arch-item hidden"><i>01</i><p>Deploy blue/green e canário com controle de tráfego e métricas em tempo real.</p></div>
+            <div class="arch-item hidden"><i>02</i><p>Observabilidade com APM, logs estruturados, tracing distribuído e alertas proativos.</p></div>
+            <div class="arch-item hidden"><i>03</i><p>Compliance nativo: GDPR, LGPD, PCI DSS e SOC2 com políticas de acesso.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SHOWCASE TERMINAL -->
+      <section class="showcase">
+        <div class="container hidden">
+          <div class="terminal">
+            <div class="term-top"><span class="dot d-red"></span><span class="dot d-yellow"></span><span class="dot d-green"></span></div>
+<pre class="code"><span class="c"># Deploy de uma API Node.js com Discover CLI</span>
 <span class="k">discover</span> <span class="v">login</span>
 <span class="k">discover</span> <span class="v">create</span> <span class="s">--name</span> <span class="v">api-node</span> <span class="s">--region</span> <span class="v">sa-east-1</span>
 <span class="k">discover</span> <span class="v">deploy</span> <span class="s">--from</span> <span class="v">main</span>
@@ -609,33 +615,320 @@
 <span class="k">discover</span> <span class="v">logs</span> <span class="s">--tail</span> <span class="v">100</span>
 <span class="k">discover</span> <span class="v">metrics</span> <span class="s">--watch</span>
 </pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING -->
+      <section id="planos" class="pricing">
+        <div class="container">
+          <h2 class="section-title hidden">Planos flexíveis para cada estágio</h2>
+          <p class="section-sub hidden">Do MVP à escala global, escolha o plano ideal. Comece grátis por 48 horas e migre quando quiser.</p>
+          <div class="pricing-grid">
+            <article class="price-card hidden">
+              <div class="pc-tag">Start</div>
+              <div class="pc-title">Free 48h</div>
+              <div class="pc-price">R$ 0<span>/48 horas</span></div>
+              <ul class="pc-list">
+                <li>Deploy imediato com templates</li>
+                <li>Monitoramento básico</li>
+                <li>Ambiente isolado</li>
+                <li>Suporte por e-mail</li>
+              </ul>
+              <a class="btn btn-ghost" href="https://picking-springfield-installing-romance.trycloudflare.com/" target="_blank" rel="noopener">Usar grátis</a>
+            </article>
+
+            <article class="price-card pro hidden">
+              <div class="pc-tag">Mais popular</div>
+              <div class="pc-title">Premium</div>
+              <div class="pc-price">R$ 165<span>/mês</span></div>
+              <ul class="pc-list">
+                <li>Ambiente dedicado</li>
+                <li>Observabilidade avançada</li>
+                <li>Suporte 24/7</li>
+                <li>Compliance e auditoria</li>
+              </ul>
+              <a class="btn btn-primary" href="#contato">Assinar</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ / CTA / FOOTER ANCHORS (opcionalmente preencha mais conteúdo) -->
+      <section id="faq" class="faq">
+        <div class="container faq-list">
+          <div class="faq-item">
+            <h4>Preciso ter conta Google?</h4>
+            <p>Sim. A autenticação é via Google para garantir segurança e praticidade (SSO).</p>
+          </div>
+          <div class="faq-item">
+            <h4>O que fazer se o popup for bloqueado?</h4>
+            <p>Use o botão “Tentar sem popup (One Tap)” ou permita popups para este domínio e tente novamente.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta">
+        <div class="container">
+          <div class="cta-card">
+            <h2>Pronto para escalar com confiança?</h2>
+            <p>Faça login e inicie seu primeiro deploy em poucos minutos.</p>
+            <a class="btn btn-primary" href="#topo">Voltar ao topo</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contato">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <div class="brand">
+            <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud" />
+            <span>Discover Cloud</span>
+          </div>
+          <p>Infraestrutura em nuvem profissional para times que exigem segurança e escala.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#servicos">Serviços</a>
+          <a href="#planos">Planos</a>
+          <a href="mailto:discovervs24@gmail.com">Contato</a>
+        </div>
+        <div class="footer-meta">
+          <span>© <span id="year"></span> Discover Cloud</span>
+          <span>Política de Privacidade</span>
         </div>
       </div>
-    </section>
+    </footer>
+  </div>
 
-    <!-- PRICING -->
-    <section id="planos" class="pricing">
-      <div class="container">
-        <h2 class="section-title hidden">Planos flexíveis para cada estágio</h2>
-        <p class="section-sub hidden">Do MVP à escala global, escolha o plano ideal. Comece grátis por 48 horas e migre quando quiser.</p>
-        <div class="pricing-grid">
-          <!-- FREE 48H -->
-          <article class="price-card hidden">
-            <div class="pc-tag">Start</div>
-            <div class="pc-title">Free 48h</div>
-            <div class="pc-price">R$ 0<span>/48 horas</span></div>
-            <ul class="pc-list">
-              <li>Deploy imediato com templates</li>
-              <li>Monitoramento básico</li>
-              <li>Ambiente isolado</li>
-              <li>Suporte por e-mail</li>
-            </ul>
-            <a class="btn btn-ghost" href="https://picking-springfield-installing-romance.trycloudflare.com/" target="_blank" rel="noopener">Usar grátis</a>
-          </article>
+  <script>
+    /*************
+     * CONFIG
+     *************/
+    const CLIENT_ID = "1094888827715-pn7tdvs4dhjclj13iefh48f90met93al.apps.googleusercontent.com";
+    const STORAGE_KEY = "discover.auth";
 
-          <!-- PREMIUM 165 -->
-          <article class="price-card pro hidden">
-            <div class="pc-tag">Mais popular</div>
-            <div class="pc-title">Premium</div>
-            <div class="pc-price">R$ 165<span>/mês</span></div>
-            <ul clas
+    /*************
+     * HELPERS
+     *************/
+    const $ = (sel) => document.querySelector(sel);
+    function show(el){ el?.classList?.remove("hidden"); }
+    function hide(el){ el?.classList?.add("hidden"); }
+    function setError(msg){
+      const e = $("#auth-error");
+      if(!e) return;
+      e.textContent = msg || "";
+      e.style.display = msg ? "block" : "none";
+    }
+    function decodeJwt(token){
+      try{
+        const payload = token.split(".")[1]
+          .replace(/-/g,"+").replace(/_/g,"/");
+        const json = decodeURIComponent(atob(payload).split("").map(c =>
+          "%" + ("00"+c.charCodeAt(0).toString(16)).slice(-2)
+        ).join(""));
+        return JSON.parse(json);
+      }catch{ return {}; }
+    }
+    function saveSession({token, profile}){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({token, profile, ts:Date.now()}));
+    }
+    function readSession(){
+      try{ return JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"); }
+      catch{ return null; }
+    }
+    function clearSession(){ localStorage.removeItem(STORAGE_KEY); }
+
+    function lockUI(locked){
+      document.body.classList.toggle("auth-locked", !!locked);
+      const gate = $("#auth-gate");
+      if (locked){ gate?.classList.remove("hidden"); }
+      else { gate?.classList.add("hidden"); }
+    }
+
+    function updateWelcome(profile){
+      const chip = $("#welcomeMessage");
+      const logoutBtn = $("#logoutButton");
+      if(profile && (profile.name || profile.email)){
+        chip.innerHTML = `👋 Olá, <strong>${profile.name || profile.email}</strong>`;
+        chip.classList.add("active");
+        logoutBtn.style.display = "inline-flex";
+      }else{
+        chip.textContent = "";
+        chip.classList.remove("active");
+        logoutBtn.style.display = "none";
+      }
+    }
+
+    /*************
+     * GOOGLE ID
+     *************/
+    function handleCredentialResponse(resp){
+      try{
+        if(!resp || !resp.credential){ setError("Não foi possível obter a credencial do Google."); return; }
+        const token = resp.credential;
+        const payload = decodeJwt(token);
+        const profile = {
+          sub: payload.sub,
+          email: payload.email,
+          name: payload.name || payload.given_name || "",
+          picture: payload.picture || ""
+        };
+        saveSession({token, profile});
+        updateWelcome(profile);
+        lockUI(false);
+        setError("");
+
+        // TESTES BÁSICOS
+        console.assert(!!profile.sub, "ID (sub) ausente no token.");
+        console.assert(typeof token === "string" && token.length > 10, "Token inválido.");
+      }catch(err){
+        setError("Erro ao processar credencial.");
+        console.error(err);
+      }
+    }
+
+    function initGSI(){
+      if(!CLIENT_ID){ console.error("CLIENT_ID vazio."); setError("CLIENT_ID não definido."); return; }
+      if(!(window.google && google.accounts && google.accounts.id)){
+        // tenta novamente quando a lib carregar
+        setTimeout(initGSI, 120);
+        return;
+      }
+
+      try{
+        google.accounts.id.initialize({
+          client_id: CLIENT_ID,
+          callback: handleCredentialResponse,
+          ux_mode: "popup",          // popup padrão
+          auto_select: false,
+          context: "signin"
+        });
+
+        // Renderiza o botão oficial
+        const btnContainer = document.getElementById("google-signin");
+        if(btnContainer){
+          google.accounts.id.renderButton(btnContainer, {
+            type: "standard",
+            theme: "outline",
+            size: "large",
+            text: "continue_with",
+            shape: "pill",
+            logo_alignment: "left",
+            width: 280
+          });
+        }else{
+          console.warn("#google-signin não encontrado.");
+        }
+
+        // Opcional: One Tap (sem popup) quando usuário clicar no fallback
+        const oneTapBtn = document.getElementById("google-onetap");
+        if(oneTapBtn){
+          oneTapBtn.addEventListener("click", () => {
+            setError("");
+            try{
+              google.accounts.id.prompt((notification) => {
+                if(notification.isNotDisplayed() || notification.isSkippedMoment()){
+                  setError("One Tap não pôde ser exibido. Permita popups ou tente o botão principal.");
+                  console.warn("One Tap status:", notification.getNotDisplayedReason?.(), notification.getSkippedReason?.());
+                }
+              });
+            }catch(e){
+              setError("Falha ao tentar One Tap.");
+              console.error(e);
+            }
+          });
+        }
+
+        // TESTES
+        console.assert(!!CLIENT_ID, "client_id não pode ser vazio.");
+        console.assert(!!btnContainer, "Container do botão Google não existe.");
+      }catch(err){
+        console.error(err);
+        setError("Falha ao inicializar Google Sign-In.");
+      }
+    }
+
+    // Logout
+    async function logout(){
+      try{
+        const sess = readSession();
+        clearSession();
+        updateWelcome(null);
+        lockUI(true);
+
+        if (window.google && google.accounts && google.accounts.id){
+          google.accounts.id.disableAutoSelect();
+          if(sess?.profile?.email){
+            // revoga consentimento (opcional)
+            google.accounts.id.revoke(sess.profile.email, done => {
+              console.log("Revogado:", done);
+            });
+          }
+        }
+      }catch(err){
+        console.error(err);
+      }
+    }
+
+    /*************
+     * UI Effects
+     *************/
+    function initParticles(){
+      if(!window.particlesJS) return;
+      particlesJS("particles-js", {
+        particles:{
+          number:{value:40},
+          color:{value:"#4f8cff"},
+          shape:{type:"circle"},
+          opacity:{value:0.3},
+          size:{value:3, random:true},
+          line_linked:{enable:true, distance:150, color:"#7c4dff", opacity:0.2, width:1},
+          move:{enable:true, speed:1.2, random:true, out_mode:"out"}
+        },
+        interactivity:{
+          detect_on:"canvas",
+          events:{onhover:{enable:true, mode:"grab"}, onclick:{enable:false}, resize:true},
+          modes:{grab:{distance:140, line_linked:{opacity:0.3}}}
+        },
+        retina_detect:true
+      });
+    }
+
+    function initReveal(){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add("reveal"); io.unobserve(e.target); } });
+      }, { threshold: 0.14 });
+      document.querySelectorAll(".hidden").forEach(el => io.observe(el));
+    }
+
+    /*************
+     * BOOTSTRAP
+     *************/
+    document.addEventListener("DOMContentLoaded", () => {
+      // Ano no rodapé
+      const y = document.getElementById("year"); if(y) y.textContent = new Date().getFullYear();
+
+      // Logout
+      const lo = document.getElementById("logoutButton");
+      if(lo){ lo.addEventListener("click", logout); }
+
+      // Restaura sessão se existir
+      const sess = readSession();
+      if(sess?.profile){ updateWelcome(sess.profile); lockUI(false); }
+
+      initParticles();
+      initReveal();
+      initGSI(); // inicia (re-tenta até a lib do Google carregar)
+    });
+
+    // Segurança extra: captura erros do popup bloqueado
+    window.addEventListener("error", (e) => {
+      const msg = String(e?.message || "");
+      if(msg.includes("Failed to open popup")){
+        setError("Popup bloqueado pelo navegador. Use o botão 'Tentar sem popup (One Tap)' ou permita popups.");
+      }
+    });
+  </script>
+</body>
+</html>
