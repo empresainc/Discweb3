@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Discover Cloud — Infraestrutura Cloud Profissional</title>
-  <meta name="description" content="Hospedagem premium para apps e bots, com escalabilidade automática, observabilidade completa, segurança enterprise e mídia patrocinada profissional. Free 48h e plano R$165/mês." />
+  <meta name="description" content="Hospedagem premium para apps e bots, com escalabilidade automática, observabilidade completa, segurança enterprise e mídia patrocinada. Free 48h e plano R$165/mês." />
   <meta name="theme-color" content="#0b122a" />
 
-  <!-- OG -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Discover Cloud — Infraestrutura Cloud Profissional" />
   <meta property="og:description" content="Deploy rápido, performance global, suporte 24/7 e mídia patrocinada profissional. Free 48h e plano R$165/mês." />
   <meta property="og:image" content="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" />
@@ -25,17 +25,10 @@
 
   <style>
     :root{
-      --bg:#050814;
-      --panel:#0a1026;
-      --panel-2:#0e1430;
-      --brand:#4f8cff;
-      --brand-2:#00d2ff;
-      --violet:#7c4dff;
-      --accent:#ff9d45;
-      --accent-2:#ff6fb2;
-      --text:#ffffff;
-      --text-2:#c7d3ff;
-      --text-3:#9aa7d4;
+      --panel:#0a1026; --panel-2:#0e1430;
+      --brand:#4f8cff; --brand-2:#00d2ff; --violet:#7c4dff;
+      --accent:#ff9d45; --accent-2:#ff6fb2;
+      --text:#ffffff; --text-2:#c7d3ff; --text-3:#9aa7d4;
       --border:rgba(255,255,255,.14);
       --shadow:0 30px 80px rgba(3,8,20,.45);
       --ease:cubic-bezier(.2,.7,.2,1);
@@ -53,7 +46,7 @@
     .container{width:min(1100px,92vw);margin:0 auto}
     a{color:inherit;text-decoration:none}
 
-    /* BG Layers */
+    /* BG layers */
     #particles-js{position:fixed; inset:0; z-index:-2}
     .clouds{position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.25}
     .cloud{position:absolute; left:-40%; width:180%; height:220px; background:radial-gradient(closest-side, rgba(255,255,255,.14), rgba(255,255,255,0)); filter:blur(18px); animation:drift 38s linear infinite}
@@ -61,7 +54,7 @@
     .cloud.c3{top:58%; animation-duration:46s; opacity:.3}
     @keyframes drift{to{transform:translateX(40%)}}
 
-    /* Util */
+    /* Utils */
     .hidden{opacity:0; transform:translateY(16px)}
     .reveal{opacity:1 !important; transform:none !important; transition:opacity .6s var(--ease), transform .6s var(--ease)}
     .chip{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid var(--border);font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
@@ -92,11 +85,18 @@
     #google-signin{display:flex;justify-content:center;min-height:44px}
     #auth-error{color:var(--accent);font-weight:800;display:none}
 
+    /* Maintenance Modal */
+    #panel-modal{position:fixed;inset:0;z-index:70;background:rgba(5,8,18,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center}
+    .modal-card{width:min(440px,92vw);background:#0b1130;border:1px solid var(--border);border-radius:18px;padding:24px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.6)}
+    .modal-card h3{font-family:'Poppins';margin-bottom:8px}
+    .modal-card p{color:var(--text-2);margin-bottom:14px}
+
     /* Hero */
     .hero{padding:64px 0 34px}
     .hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:26px;align-items:center}
+    @media (max-width:900px){.hero-grid{grid-template-columns:1fr}}
     .headline{font-family:'Poppins';font-weight:800;font-size:clamp(1.9rem,4.6vw,3.2rem);line-height:1.12}
-    .grad{background:linear-gradient(120deg,var(--brand) 0%, var(--accent) 45%, var(--brand-2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .grad{background:linear-gradient(120deg,#4f8cff 0%, #ff9d45 45%, #00d2ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
     .sub{color:var(--text-2);line-height:1.75;margin-top:8px}
     .stat{min-width:140px;background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));border:1px solid var(--border);border-radius:16px;padding:14px 16px}
     .stat strong{display:block;font-size:1.25rem}
@@ -106,10 +106,10 @@
     .console li{display:flex;gap:10px;align-items:center;color:var(--text-2);margin:7px 0}
     .console li i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:rgba(74,223,134,.16);color:#4adf86;font-weight:900;font-style:normal}
 
-    /* Trailers */
-    .ads{padding:50px 0}
+    /* Trailers (apenas 2) */
+    .ads{padding:40px 0}
     .ads-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-    @media (max-width:900px){.hero-grid{grid-template-columns:1fr}.ads-grid{grid-template-columns:1fr}}
+    @media (max-width:900px){.ads-grid{grid-template-columns:1fr}}
     .ads-card{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#0c142e,#0a0f24);border:1px solid var(--border);aspect-ratio:16/9;min-height:220px;box-shadow:var(--shadow);transition:transform .5s var(--ease), box-shadow .5s var(--ease)}
     .ads-card:hover{transform:translateY(-6px);box-shadow:0 28px 80px rgba(3,8,20,.6)}
     .ads-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1);transition:transform .6s var(--ease)}
@@ -122,7 +122,7 @@
     .ads-card--noimg .ads-fallback{display:flex}
 
     /* Pricing */
-    .pricing{padding:60px 0}
+    .pricing{padding:50px 0}
     .pricing-note{color:var(--text-2);text-align:center;margin-bottom:10px}
     .pricing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
     @media (max-width:900px){.pricing-grid{grid-template-columns:1fr}}
@@ -141,9 +141,9 @@
     .price-card:hover{transform:translateY(-4px);transition:transform .45s var(--ease)}
     .btn-row{display:flex;gap:10px;flex-wrap:wrap}
 
-    /* Discord section */
-    .discord{padding:60px 0}
-    .soon{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--border);font-weight:800}
+    /* Discord Promo (Em breve) */
+    .soon{padding:50px 0}
+    .soon-card{border:1px solid var(--border);background:linear-gradient(160deg,#0b1130,#0a1026);border-radius:18px;padding:22px;box-shadow:var(--shadow);display:grid;gap:8px;text-align:center}
 
     /* Footer */
     footer{background:rgba(5,8,18,.9);border-top:1px solid var(--border);padding:40px 0 60px;margin-top:40px}
@@ -184,6 +184,17 @@
     </div>
   </div>
 
+  <!-- MAINTENANCE MODAL -->
+  <div id="panel-modal">
+    <div class="modal-card">
+      <h3>🔧 Painel em manutenção</h3>
+      <p>Estamos a ajustar os últimos detalhes. Em breve irá voltar!</p>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <button class="btn btn-primary" id="close-panel">Ok, entendido</button>
+      </div>
+    </div>
+  </div>
+
   <!-- HEADER -->
   <header>
     <div class="container nav">
@@ -193,14 +204,14 @@
       </a>
       <nav aria-label="principal">
         <ul>
-          <li><a href="#servicos">Serviços</a></li>
           <li><a href="#anuncios">Trailers</a></li>
           <li><a href="#planos">Planos</a></li>
-          <li><a href="#discord">Divulgue Discord</a></li>
+          <li><a href="#discord">Divulgue seu servidor (em breve)</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
       </nav>
       <div class="actions">
+        <button class="btn btn-ghost js-panel" type="button">Painel</button>
         <span id="welcomeMessage"></span>
         <button id="logoutButton" class="btn btn-ghost" type="button" style="display:none">Sair</button>
       </div>
@@ -218,7 +229,7 @@
           <p class="sub">Ambientes prontos em minutos, observabilidade completa, zero downtime e suporte humano 24/7. Conquiste escalabilidade e confiança desde o primeiro deploy.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
             <a class="btn btn-primary" href="#planos">Ver planos</a>
-            <a class="btn btn-ghost" href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener">Canal no YouTube</a>
+            <button class="btn btn-ghost js-panel" type="button">Painel</button>
           </div>
           <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
             <div class="stat"><strong>99,99%</strong><span class="sub">Disponibilidade SLA</span></div>
@@ -240,7 +251,7 @@
       </div>
     </section>
 
-    <!-- TRAILERS -->
+    <!-- TRAILERS: apenas 2 -->
     <section id="anuncios" class="ads">
       <div class="container">
         <h2 class="section-title hidden">Trailers e destaques</h2>
@@ -251,14 +262,6 @@
 
         <div class="ads-grid">
           <article class="ads-card hidden">
-            <img class="ads-thumb" src="https://img.youtube.com/vi/bd_5HcTujfc/hqdefault.jpg" alt="Missão Secreta — Trailer" loading="lazy" onerror="this.closest('.ads-card').classList.add('ads-card--noimg')" />
-            <div class="ads-fallback">Prévia indisponível — clique para assistir</div>
-            <div class="ads-overlay"></div>
-            <a href="https://youtu.be/bd_5HcTujfc" target="_blank" rel="noopener" aria-label="Assistir trailer Missão Secreta" style="position:absolute;inset:0;z-index:3"></a>
-            <div class="ads-info"><span class="ads-badge">Lançamento</span><div class="ads-title">Missão Secreta</div></div>
-          </article>
-
-          <article class="ads-card hidden">
             <img class="ads-thumb" src="https://img.youtube.com/vi/oKa6u7LT0qE/hqdefault.jpg" alt="Welcome to Derry — Teaser" loading="lazy" onerror="this.closest('.ads-card').classList.add('ads-card--noimg')" />
             <div class="ads-fallback">Prévia indisponível — clique para assistir</div>
             <div class="ads-overlay"></div>
@@ -267,25 +270,17 @@
           </article>
 
           <article class="ads-card hidden">
-            <img class="ads-thumb" src="https://img.youtube.com/vi/v0kqkRZHqk4/maxresdefault.jpg" alt="Future Waves — Trailer" loading="lazy" onerror="this.closest('.ads-card').classList.add('ads-card--noimg')" />
+            <img class="ads-thumb" src="https://img.youtube.com/vi/bd_5HcTujfc/hqdefault.jpg" alt="Missão Secreta — Trailer" loading="lazy" onerror="this.closest('.ads-card').classList.add('ads-card--noimg')" />
             <div class="ads-fallback">Prévia indisponível — clique para assistir</div>
             <div class="ads-overlay"></div>
-            <a href="https://youtu.be/v0kqkRZHqk4" target="_blank" rel="noopener" aria-label="Assistir trailer Future Waves" style="position:absolute;inset:0;z-index:3"></a>
-            <div class="ads-info"><span class="ads-badge">Destaque</span><div class="ads-title">Future Waves</div></div>
-          </article>
-
-          <article class="ads-card hidden">
-            <img class="ads-thumb" src="https://img.youtube.com/vi/KKTw1XOdzgM/hqdefault.jpg" alt="The Black Phone 2 — Trailer" loading="lazy" onerror="this.closest('.ads-card').classList.add('ads-card--noimg')" />
-            <div class="ads-fallback">Prévia indisponível — clique para assistir</div>
-            <div class="ads-overlay"></div>
-            <a href="https://youtu.be/KKTw1XOdzgM" target="_blank" rel="noopener" aria-label="Assistir trailer The Black Phone 2" style="position:absolute;inset:0;z-index:3"></a>
-            <div class="ads-info"><span class="ads-badge">Terror</span><div class="ads-title">The Black Phone 2</div></div>
+            <a href="https://youtu.be/bd_5HcTujfc" target="_blank" rel="noopener" aria-label="Assistir trailer Missão Secreta" style="position:absolute;inset:0;z-index:3"></a>
+            <div class="ads-info"><span class="ads-badge">Lançamento</span><div class="ads-title">Missão Secreta</div></div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- PRICING -->
+    <!-- PLANOS (com botão ENTRAR + Painel) -->
     <section id="planos" class="pricing">
       <div class="container">
         <h2 class="section-title hidden">Planos flexíveis para cada estágio</h2>
@@ -303,7 +298,8 @@
               <li>Suporte por e-mail</li>
             </ul>
             <div class="btn-row">
-              <a class="btn btn-ghost" href="#faq">Como funciona</a>
+              <button class="btn btn-primary js-enter" type="button">Entrar</button>
+              <button class="btn btn-ghost js-panel" type="button">Painel</button>
             </div>
           </article>
 
@@ -319,27 +315,27 @@
               <li>Compliance e auditoria</li>
             </ul>
             <div class="btn-row">
-              <a class="btn btn-primary" href="#contato">Assinar</a>
-              <a class="btn btn-ghost" href="#faq">Ver detalhes</a>
+              <button class="btn btn-primary js-enter" type="button">Entrar</button>
+              <button class="btn btn-ghost js-panel" type="button">Painel</button>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- DISCORD (em breve) -->
-    <section id="discord" class="discord">
+    <!-- DISCORD PROMO (em breve) -->
+    <section id="discord" class="soon">
       <div class="container">
-        <h2 class="section-title hidden">Divulgue seu servidor do Discord</h2>
-        <p class="section-sub hidden">Espaço dedicado para promover sua comunidade — seleção editorial, analytics e destaque na home.</p>
-        <p class="hidden" style="text-align:center;margin-top:6px">
-          <span class="soon">Em breve</span>
-        </p>
+        <div class="soon-card hidden">
+          <h2 class="section-title" style="margin-bottom:4px">Divulgue seu servidor do Discord</h2>
+          <p class="section-sub" style="margin-bottom:0">Em breve você poderá promover seu servidor diretamente na nossa vitrine premium.</p>
+          <span class="chip" style="justify-self:center;margin-top:8px">Em breve</span>
+        </div>
       </div>
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="container" style="padding:40px 0">
+    <section id="faq" class="container" style="padding:40px 0 60px">
       <h2 class="section-title hidden">Dúvidas frequentes</h2>
       <div class="section-sub hidden">Transparência sobre nossa operação e o que você pode esperar da Discover Cloud.</div>
       <div class="hidden" style="display:grid;gap:14px;margin-top:10px">
@@ -350,18 +346,6 @@
         <div style="background:rgba(10,15,32,.88);border:1px solid var(--border);border-radius:14px;padding:16px">
           <h4 style="margin-bottom:6px">O que fazer se o popup for bloqueado?</h4>
           <p style="color:var(--text-2)">Permita popups para este domínio ou clique em “Tentar sem popup (One Tap)”.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section id="contato" class="container" style="padding:20px 0 60px">
-      <div style="border-radius:22px;background:linear-gradient(140deg, rgba(13,22,46,.92), rgba(10,14,30,.92));border:1px solid var(--border);padding:36px;text-align:center;box-shadow:0 26px 60px rgba(5,9,20,.65)" class="hidden">
-        <h2 style="font-family:'Poppins'">Pronto para elevar sua infraestrutura cloud?</h2>
-        <p class="section-sub" style="margin:8px auto 14px">Receba uma consultoria personalizada e descubra como reduzir custos e acelerar entregas.</p>
-        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-          <a class="btn btn-primary" href="mailto:discovervs24@gmail.com">Agendar conversa</a>
-          <a class="btn btn-ghost" href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener">Canal no YouTube</a>
         </div>
       </div>
     </section>
@@ -380,10 +364,9 @@
         </div>
         <div class="footer-links">
           <strong>Recursos</strong>
-          <a href="#servicos">Serviços</a>
           <a href="#anuncios">Trailers</a>
           <a href="#planos">Planos</a>
-          <a href="#discord">Divulgue Discord</a>
+          <a href="#discord">Divulgação Discord</a>
           <a href="#faq">FAQ</a>
         </div>
         <div class="footer-links">
@@ -407,6 +390,7 @@
 
     /* ---------- Utils ---------- */
     const $ = (s)=>document.querySelector(s);
+    const $$ = (s)=>document.querySelectorAll(s);
     function setError(msg){ const e=$("#auth-error"); e.textContent=msg||""; e.style.display=msg?"block":"none"; }
     function decodeJwt(token){ try{const p=token.split(".")[1].replace(/-/g,"+").replace(/_/g,"/"); return JSON.parse(decodeURIComponent(atob(p).split("").map(c=>"%"+("00"+c.charCodeAt(0).toString(16)).slice(-2)).join("")));}catch{return{}} }
     const saveSession = (o)=>localStorage.setItem(STORAGE_KEY,JSON.stringify({...o,ts:Date.now()}));
@@ -431,7 +415,6 @@
       const p = decodeJwt(token);
       const profile = { sub:p.sub, email:p.email, name:p.name||p.given_name||"", picture:p.picture||"" };
       saveSession({token, profile}); updateWelcome(profile); lockUI(false); setError("");
-      console.assert(!!profile.sub,"ID ausente"); console.assert(token.length>10,"Token inválido");
     }
     function initGSI(){
       if(!CLIENT_ID){ setError("CLIENT_ID não definido."); return; }
@@ -457,53 +440,84 @@
     async function logout(){
       try{
         const sess=readSession(); clearSession(); updateWelcome(null); lockUI(true);
-        if(window.google?.accounts?.id){ google.accounts.id.disableAutoSelect(); if(sess?.profile?.email){ google.accounts.id.revoke(sess.profile.email,()=>{}); } }
+        if(window.google?.accounts?.id){ google.accounts.id.disableAutoSelect(); if(sess?.profile?.email){ google.accounts.id.revoke(sess.profile?.email||"", ()=>{}); } }
       }catch{}
     }
 
-    /* ---------- Particles + Reveal ---------- */
+    /* ---------- UI ---------- */
+    function sparkMove(e,card){
+      const r = card.getBoundingClientRect();
+      const mx = ((e.clientX - r.left) / r.width) * 100;
+      const my = ((e.clientY - r.top) / r.height) * 100;
+      card.style.setProperty('--mx', mx+'%');
+      card.style.setProperty('--my', my+'%');
+    }
+
+    // Particles
     function initParticles(){
       if(!window.particlesJS) return;
-      particlesJS("particles-js",{
-        particles:{ number:{value:70,density:{enable:true,value_area:900}},
-          color:{value:["#4f8cff","#7c4dff","#00d2ff"]}, shape:{type:"circle"},
-          opacity:{value:.25,random:true}, size:{value:3,random:true},
-          line_linked:{enable:true,distance:140,color:"#4f8cff",opacity:.18,width:1},
-          move:{enable:true,speed:1.4,out_mode:"out"} },
-        interactivity:{ detect_on:"canvas", events:{onhover:{enable:true,mode:"grab"}}, modes:{grab:{distance:110,line_linked:{opacity:.28}}} },
-        retina_detect:true
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 60, density: { enable: true, value_area: 900 } },
+          color: { value: ["#4f8cff", "#7c4dff", "#00d2ff"] },
+          shape: { type: "circle" },
+          opacity: { value: 0.22, random: true },
+          size: { value: 3, random: true },
+          line_linked: { enable: true, distance: 140, color: "#4f8cff", opacity: 0.16, width: 1 },
+          move: { enable: true, speed: 1.4, out_mode: "out" }
+        },
+        interactivity: { events: { onhover: { enable: true, mode: "grab" }}, modes:{ grab:{ distance:120, line_linked:{opacity:.28} } } },
+        retina_detect: true
       });
     }
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){ e.target.classList.add('reveal'); io.unobserve(e.target); }
-      })
-    },{threshold:.12, rootMargin:"80px 0px"});
 
-    /* ---------- Pricing sparkle ---------- */
-    function sparkMove(ev, el){
-      const r = el.getBoundingClientRect();
-      el.style.setProperty("--mx", ((ev.clientX - r.left)/r.width*100)+"%");
-      el.style.setProperty("--my", ((ev.clientY - r.top)/r.height*100)+"%");
+    // Reveal on scroll
+    function initReveal(){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('reveal'); io.unobserve(e.target); }});
+      },{threshold:.12});
+      $$('.hidden').forEach(el=>io.observe(el));
+    }
+
+    // Panel modal handlers
+    function openPanel(){ $("#panel-modal").style.display="flex"; }
+    function closePanel(){ $("#panel-modal").style.display="none"; }
+
+    // "Entrar" buttons - if not logged, show gate; if logged, greet and scroll to plans
+    function setupEnterButtons(){
+      $$('.js-enter').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const sess = readSession();
+          if(sess?.profile){ alert(`Bem-vindo, ${sess.profile.name||sess.profile.email}!`); }
+          else { lockUI(true); }
+        });
+      });
     }
 
     /* ---------- Bootstrap ---------- */
-    document.addEventListener("DOMContentLoaded",()=>{
-      $("#year").textContent = new Date().getFullYear();
-      $("#logoutButton").addEventListener("click",logout);
-      document.querySelectorAll(".hidden").forEach(el=>io.observe(el));
-      initParticles(); initGSI();
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // Footer year
+      const y=$("#year"); if(y) y.textContent = new Date().getFullYear();
 
-      // restaura sessão
-      const sess=readSession();
+      // Restore session
+      const sess = readSession();
       if(sess?.profile){ updateWelcome(sess.profile); lockUI(false); }
-      else { lockUI(true); }
+
+      // Header actions
+      $$('.js-panel').forEach(el=> el.addEventListener('click', openPanel));
+      $('#close-panel').addEventListener('click', closePanel);
+      $('#logoutButton').addEventListener('click', logout);
+
+      initParticles();
+      initReveal();
+      initGSI();
+      setupEnterButtons();
     });
 
+    // Helpful error for popup blocked
     window.addEventListener("error",(e)=>{
-      const msg=String(e?.message||"");
-      if(msg.includes("Failed to open popup")){
-        setError("Popup bloqueado pelo navegador. Permita popups ou use 'Tentar sem popup (One Tap)'.");
+      const msg=String(e?.message||""); if(msg.includes("Failed to open popup")){
+        setError("Popup bloqueado pelo navegador. Use 'Tentar sem popup (One Tap)' ou permita popups.");
       }
     });
   </script>
