@@ -1,525 +1,448 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Discover Cloud — Infraestrutura Cloud Profissional</title>
-  <meta name="description" content="Hospedagem premium para apps e bots, com escalabilidade automática, observabilidade completa, segurança enterprise e mídia patrocinada. Free 48h e plano R$165/mês." />
-  <meta name="theme-color" content="#0b122a" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Discover Cloud — Discoins & Passe de Batalha</title>
+<meta name="theme-color" content="#0b122a" />
+<meta name="description" content="Resgate Discoins diariamente e troque por prêmios. Acesso protegido por reCAPTCHA. Parceiro: Discloud." />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Discover Cloud — Infraestrutura Cloud Profissional" />
-  <meta property="og:description" content="Deploy rápido, performance global, suporte 24/7 e mídia patrocinada profissional. Free 48h e plano R$165/mês." />
-  <meta property="og:image" content="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="pt_BR" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+<!-- Partículas + reCAPTCHA v2 -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>
 
-  <!-- Particles + Google Identity Services -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+:root{
+  --bg1:#0b1129; --bg2:#050814; --panel:#0a1026; --panel2:#0f1534;
+  --brand:#4f8cff; --brand2:#00d2ff; --violet:#7c4dff; --accent:#ff9d45;
+  --text:#fff; --t2:#c7d3ff; --t3:#9aa7d4; --border:rgba(255,255,255,.14);
+  --ok:#4adf86; --danger:#ff8a8a; --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color:var(--text);
+  background:radial-gradient(1200px 800px at 10% 10%, #111a3b 0%, var(--bg1) 40%, var(--bg2) 80%),
+             radial-gradient(900px 700px at 90% -10%, #0d1533 0%, var(--bg2) 70%);
+  overflow-x:hidden;
+}
+.container{width:min(1100px,92vw);margin:0 auto}
+a{color:inherit;text-decoration:none}
 
-  <style>
-    :root{
-      --panel:#0a1026; --panel-2:#0e1430;
-      --brand:#4f8cff; --brand-2:#00d2ff; --violet:#7c4dff;
-      --accent:#ff9d45; --accent-2:#ff6fb2;
-      --text:#ffffff; --text-2:#c7d3ff; --text-3:#9aa7d4;
-      --border:rgba(255,255,255,.14);
-      --shadow:0 30px 80px rgba(3,8,20,.45);
-      --ease:cubic-bezier(.2,.7,.2,1);
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
-      font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 800px at 10% 10%, #111a3b 0%, #0b1129 40%, #050814 80%),
-        radial-gradient(900px 700px at 90% -10%, #0d1533 0%, rgba(5,8,20,1) 70%);
-      overflow-x:hidden;
-    }
-    .container{width:min(1100px,92vw);margin:0 auto}
-    a{color:inherit;text-decoration:none}
+#particles-js{position:fixed;inset:0;z-index:-2}
+.ribbon{position:sticky;top:0;z-index:60;background:linear-gradient(90deg,rgba(79,140,255,.25),rgba(124,77,255,.25));backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+.ribbon .container{display:flex;gap:10px;align-items:center;justify-content:center;padding:8px 0;font-weight:700}
+.ribbon a{text-decoration:underline}
 
-    /* BG layers */
-    #particles-js{position:fixed; inset:0; z-index:-2}
-    .clouds{position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.25}
-    .cloud{position:absolute; left:-40%; width:180%; height:220px; background:radial-gradient(closest-side, rgba(255,255,255,.14), rgba(255,255,255,0)); filter:blur(18px); animation:drift 38s linear infinite}
-    .cloud.c2{top:22%; animation-duration:54s; opacity:.35}
-    .cloud.c3{top:58%; animation-duration:46s; opacity:.3}
-    @keyframes drift{to{transform:translateX(40%)}}
+header{position:sticky;top:32px;z-index:50;backdrop-filter:blur(14px);background:rgba(8,12,26,.55);border-bottom:1px solid var(--border)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.brand{display:flex;align-items:center;gap:12px;font-family:'Poppins';font-weight:700}
+.brand img{width:40px;height:40px;border-radius:12px;box-shadow:0 10px 30px rgba(79,140,255,.35)}
+nav ul{display:flex;gap:16px;list-style:none}
+nav a{color:var(--t2);font-weight:800;font-size:.9rem;position:relative;padding:8px 0}
+nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .4s var(--ease)}
+nav a:hover{color:#fff}nav a:hover::after{width:100%}
+.actions{display:flex;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;font-weight:800;letter-spacing:.02em}
+.btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#06102b;box-shadow:0 16px 40px rgba(79,140,255,.35)}
+.btn-ghost{border:1px solid rgba(79,140,255,.35);color:var(--t2)}
+.btn-ghost:hover{background:rgba(79,140,255,.14);color:#fff}
+.chip{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid var(--border);font-weight:800;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
 
-    /* Utils */
-    .hidden{opacity:0; transform:translateY(16px)}
-    .reveal{opacity:1 !important; transform:none !important; transition:opacity .6s var(--ease), transform .6s var(--ease)}
-    .chip{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid var(--border);font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
+main{padding:38px 0}
+.section-title{font-family:'Poppins';font-weight:800;font-size:clamp(1.4rem,3.8vw,2rem);margin-bottom:8px}
+.section-sub{color:var(--t2);margin-bottom:16px}
 
-    /* Header */
-    header{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:rgba(8,12,26,.55);border-bottom:1px solid var(--border)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .brand{display:flex;align-items:center;gap:12px;font-family:'Poppins';font-weight:700}
-    .brand img{width:40px;height:40px;border-radius:12px;box-shadow:0 10px 30px rgba(79,140,255,.35)}
-    nav ul{display:flex;gap:18px;list-style:none}
-    nav a{color:var(--text-2);font-weight:700;font-size:.9rem;position:relative;padding:8px 0}
-    nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:linear-gradient(90deg,var(--brand),var(--brand-2));transition:width .4s var(--ease)}
-    nav a:hover{color:#fff}
-    nav a:hover::after{width:100%}
-    .actions{display:flex;gap:10px;align-items:center}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;font-weight:800;letter-spacing:.02em}
-    .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#06102b;box-shadow:0 16px 40px rgba(79,140,255,.35)}
-    .btn-ghost{border:1px solid rgba(79,140,255,.35);color:var(--text-2)}
-    .btn-ghost:hover{background:rgba(79,140,255,.14);color:#fff}
-    #welcomeMessage{display:none}
-    #welcomeMessage.active{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(79,140,255,.35);border-radius:999px;background:rgba(79,140,255,.12);font-weight:700}
+/* Painéis */
+.card{background:linear-gradient(160deg, rgba(13,20,42,.9), rgba(21,27,52,.82));
+  border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:0 30px 80px rgba(3,8,20,.45)}
+.grid{display:grid;gap:18px}
+@media (min-width:900px){.grid-2{grid-template-columns:1.1fr 1fr}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.stat{display:flex;flex-direction:column;gap:6px;padding:14px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.04)}
+.stat strong{font-size:1.4rem}
 
-    /* Auth Gate */
-    body.auth-locked main, body.auth-locked footer, body.auth-locked header{filter:blur(6px);pointer-events:none;user-select:none}
-    #auth-gate{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:radial-gradient(1200px 900px at 20% 20%, rgba(79,140,255,.18), rgba(5,8,20,.94) 65%);backdrop-filter:blur(14px)}
-    .auth-card{width:min(440px,90vw);background:rgba(10,14,32,.92);border:1px solid rgba(79,140,255,.24);border-radius:22px;padding:34px;box-shadow:0 38px 120px rgba(6,10,26,.55);display:grid;gap:16px;text-align:center}
-    .rules{font-size:.9rem;color:var(--text-2);line-height:1.6;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:14px;padding:12px}
-    #google-signin{display:flex;justify-content:center;min-height:44px}
-    #auth-error{color:var(--accent);font-weight:800;display:none}
+/* Discoins */
+.wallet{display:flex;align-items:center;gap:12px}
+.balance{font-family:'Poppins';font-size:2.1rem}
+.progress{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.progress > span{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--violet));width:0%}
+.shop-item{display:grid;gap:8px;border:1px solid var(--border);padding:16px;border-radius:14px;background:rgba(255,255,255,.04)}
+.shop-item h4{font-family:'Poppins'}
+.shop-item .price{color:var(--t3);font-weight:800}
+.shop-item .btn{justify-content:center}
+.bad{opacity:.5;pointer-events:none}
+.history{max-height:220px;overflow:auto;border:1px solid var(--border);border-radius:12px;padding:10px;background:rgba(255,255,255,.03)}
+.history li{display:flex;justify-content:space-between;padding:8px;border-bottom:1px dashed rgba(255,255,255,.06)}
+.history li:last-child{border-bottom:0}
 
-    /* Maintenance Modal */
-    #panel-modal{position:fixed;inset:0;z-index:70;background:rgba(5,8,18,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center}
-    .modal-card{width:min(440px,92vw);background:#0b1130;border:1px solid var(--border);border-radius:18px;padding:24px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.6)}
-    .modal-card h3{font-family:'Poppins';margin-bottom:8px}
-    .modal-card p{color:var(--text-2);margin-bottom:14px}
+/* Tabs */
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tab{border:1px solid var(--border);background:rgba(255,255,255,.06);padding:10px 14px;border-radius:999px;font-weight:800}
+.tab.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#07122c;border-color:transparent}
 
-    /* Hero */
-    .hero{padding:64px 0 34px}
-    .hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:26px;align-items:center}
-    @media (max-width:900px){.hero-grid{grid-template-columns:1fr}}
-    .headline{font-family:'Poppins';font-weight:800;font-size:clamp(1.9rem,4.6vw,3.2rem);line-height:1.12}
-    .grad{background:linear-gradient(120deg,#4f8cff 0%, #ff9d45 45%, #00d2ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .sub{color:var(--text-2);line-height:1.75;margin-top:8px}
-    .stat{min-width:140px;background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));border:1px solid var(--border);border-radius:16px;padding:14px 16px}
-    .stat strong{display:block;font-size:1.25rem}
-    .hero-media{background:var(--panel-2);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
-    .console{padding:22px}
-    .console h3{font-family:'Poppins';margin-bottom:10px}
-    .console li{display:flex;gap:10px;align-items:center;color:var(--text-2);margin:7px 0}
-    .console li i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:rgba(74,223,134,.16);color:#4adf86;font-weight:900;font-style:normal}
+/* Modal reCAPTCHA */
+.gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(1200px 900px at 20% 20%, rgba(79,140,255,.18), rgba(5,8,20,.94) 65%);backdrop-filter:blur(14px);z-index:9999}
+.gate .card{width:min(460px,92vw);text-align:center}
+.gate .rules{color:var(--t2);background:rgba(255,255,255,.06);border:1px solid var(--border);padding:12px;border-radius:14px;margin:8px 0}
+.gate .flex{display:flex;justify-content:center}
 
-    /* Trailers (apenas 2) */
-    .ads{padding:40px 0}
-    .ads-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-    @media (max-width:900px){.ads-grid{grid-template-columns:1fr}}
-    .ads-card{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#0c142e,#0a0f24);border:1px solid var(--border);aspect-ratio:16/9;min-height:220px;box-shadow:var(--shadow);transition:transform .5s var(--ease), box-shadow .5s var(--ease)}
-    .ads-card:hover{transform:translateY(-6px);box-shadow:0 28px 80px rgba(3,8,20,.6)}
-    .ads-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1);transition:transform .6s var(--ease)}
-    .ads-card:hover .ads-thumb{transform:scale(1.06)}
-    .ads-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,6,18,0) 40%, rgba(2,6,18,.78) 100%)}
-    .ads-info{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;gap:6px;padding:14px;z-index:2;text-shadow:0 6px 22px rgba(0,0,0,.6)}
-    .ads-title{font-family:'Poppins';font-weight:700}
-    .ads-badge{align-self:flex-start;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.12);backdrop-filter:blur(6px);font-size:.75rem;font-weight:800}
-    .ads-fallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:16px;color:#bfe2ff;z-index:1;background:radial-gradient(180px 120px at 20% 20%, rgba(79,140,255,.2), transparent 60%),radial-gradient(200px 160px at 80% 80%, rgba(124,77,255,.18), transparent 60%),#0b1129}
-    .ads-card--noimg .ads-fallback{display:flex}
-
-    /* Pricing */
-    .pricing{padding:50px 0}
-    .pricing-note{color:var(--text-2);text-align:center;margin-bottom:10px}
-    .pricing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-    @media (max-width:900px){.pricing-grid{grid-template-columns:1fr}}
-    .price-card{position:relative;padding:28px;border-radius:20px;background:linear-gradient(160deg, rgba(13,20,42,.9), rgba(21,27,52,.82));border:1px solid var(--border);overflow:hidden;box-shadow:0 24px 50px rgba(4,7,16,.6)}
-    .price-card .pc-tag{margin-bottom:10px}
-    .pc-tag{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:rgba(79,140,255,.18);color:#bfe2ff;font-weight:800;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase}
-    .price-card.pro{background:linear-gradient(140deg, rgba(9,16,35,.96), rgba(16,35,70,.94) 50%, rgba(14,32,78,.9) 100%); border:1px solid rgba(255,157,69,.35)}
-    .pc-title{font-family:'Poppins';font-size:1.4rem;margin-bottom:6px}
-    .pc-price{font-size:2.2rem;font-weight:800}
-    .pc-price span{font-size:1rem;color:var(--text-3);margin-left:6px}
-    .pc-list{list-style:none;display:grid;gap:10px;margin:16px 0 20px}
-    .pc-list li{color:var(--text-2)}
-    .pc-list li::before{content:'✔';color:#4adf86;font-weight:900;margin-right:8px}
-    .spark{position:absolute;inset:-40%;pointer-events:none;background:radial-gradient(300px 220px at var(--mx,60%) var(--my,60%), rgba(79,140,255,.18), transparent 60%) ;opacity:0;transition:opacity .4s var(--ease)}
-    .price-card:hover .spark{opacity:1}
-    .price-card:hover{transform:translateY(-4px);transition:transform .45s var(--ease)}
-    .btn-row{display:flex;gap:10px;flex-wrap:wrap}
-
-    /* Discord Promo (Em breve) */
-    .soon{padding:50px 0}
-    .soon-card{border:1px solid var(--border);background:linear-gradient(160deg,#0b1130,#0a1026);border-radius:18px;padding:22px;box-shadow:var(--shadow);display:grid;gap:8px;text-align:center}
-
-    /* Footer */
-    footer{background:rgba(5,8,18,.9);border-top:1px solid var(--border);padding:40px 0 60px;margin-top:40px}
-    .footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:24px}
-    @media (max-width:900px){nav ul{display:none}.footer-grid{grid-template-columns:1fr}}
-    .footer-links{display:grid;gap:8px;color:var(--text-2)}
-    .footer-meta{margin-top:26px;border-top:1px solid rgba(255,255,255,.12);padding-top:16px;color:#8aa1d4;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-
-    .section-title{font-family:'Poppins';font-size:2rem;text-align:center;margin-bottom:8px}
-    .section-sub{color:var(--text-2);text-align:center;max-width:640px;margin:0 auto 18px;line-height:1.7}
-  </style>
+/* Modal reCAPTCHA para “Painel” */
+.rc-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.6);z-index:1000}
+.rc-modal.open{display:flex}
+.rc-card{background:#0b1130;border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 30px 80px rgba(3,8,20,.45);width:min(420px,92vw);text-align:center;color:#cfe0ff}
+.rc-actions{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.rc-close{border:1px solid var(--border);background:transparent;color:#cfe0ff;border-radius:999px;padding:8px 14px;font-weight:700}
+.rc-continue{opacity:.4;pointer-events:none}
+.note{color:var(--t3);font-size:.92rem}
+</style>
 </head>
-<body class="auth-locked">
-  <!-- BG -->
-  <div id="particles-js" aria-hidden="true"></div>
-  <div class="clouds" aria-hidden="true">
-    <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+<body>
+
+<!-- Ribbon topo -->
+<div class="Ribbon ribbon">
+  <div class="container">
+    🎬 Trailer do app <strong>em breve</strong> — siga o
+    <a href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener">canal Discover News</a>.
+    • Parceiro: <a href="https://discloud.com/" target="_blank" rel="noopener">Discloud</a>
   </div>
+</div>
 
-  <!-- AUTH GATE -->
-  <div id="auth-gate" role="dialog" aria-modal="true">
-    <div class="auth-card">
-      <div class="brand" style="justify-content:center">
-        <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud" />
-        <span>Discover Cloud</span>
-      </div>
-      <h1 style="font-family:'Poppins'">Entrar para continuar</h1>
-      <div class="rules">
-        <strong>Novas regras:</strong> para acessar o site é necessário fazer login com Google.<br/>
-        <strong>Privacidade:</strong> não coletamos dados sensíveis da sua conta — usamos apenas o token para autenticação.
-      </div>
-      <div id="google-signin" aria-live="polite"></div>
-      <button id="google-onetap" class="btn btn-ghost" type="button">Tentar sem popup (One Tap)</button>
-      <p id="auth-error" role="alert"></p>
-      <small style="color:#9fb6ff">Trailer do app na Google Play <em>em breve</em>. Siga o
-        <a href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener" style="text-decoration:underline;color:#fff">canal Discover News</a>.
-      </small>
+<!-- Partículas -->
+<div id="particles-js" aria-hidden="true"></div>
+
+<!-- Gate de entrada (reCAPTCHA obrigatório) -->
+<div id="entryGate" class="gate" role="dialog" aria-modal="true" aria-labelledby="gtitle">
+  <div class="card">
+    <div class="brand" style="justify-content:center;margin-bottom:8px">
+      <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud"/>
+      <span>Discover Cloud</span>
+    </div>
+    <h2 id="gtitle" class="section-title">Verificação rápida</h2>
+    <p class="rules"><strong>Novas regras:</strong> é necessário resolver o reCAPTCHA para entrar. <strong>Privacidade:</strong> não coletamos dados sensíveis.</p>
+    <div class="flex" style="margin:12px 0">
+      <div id="entryCaptcha"></div>
+    </div>
+    <p id="gateMsg" class="note">Marque a caixa acima para liberar o site.</p>
+  </div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="container nav">
+    <a class="brand" href="#topo">
+      <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud"/>
+      <span>Discover Cloud</span>
+    </a>
+    <nav aria-label="principal">
+      <ul>
+        <li><a href="#passe">Passe de Batalha</a></li>
+        <li><a href="#loja">Loja</a></li>
+        <li><a href="#historico">Histórico</a></li>
+      </ul>
+    </nav>
+    <div class="actions">
+      <a class="btn btn-ghost js-panel" href="#" data-href="https://discloud.com/">Painel</a>
     </div>
   </div>
+</header>
 
-  <!-- MAINTENANCE MODAL -->
-  <div id="panel-modal">
-    <div class="modal-card">
-      <h3>🔧 Painel em manutenção</h3>
-      <p>Estamos a ajustar os últimos detalhes. Em breve irá voltar!</p>
-      <div style="display:flex;gap:10px;justify-content:center">
-        <button class="btn btn-primary" id="close-panel">Ok, entendido</button>
+<!-- Conteúdo principal -->
+<main id="topo" class="container">
+  <section id="dashboard" class="grid grid-2">
+    <div class="card">
+      <h2 class="section-title">Sua carteira</h2>
+      <p class="section-sub">Reivindique Discoins diariamente e troque por prêmios.</p>
+      <div class="wallet" style="margin:10px 0 6px">
+        <span class="chip">Discoins</span>
+        <span id="balance" class="balance">0</span>
+      </div>
+      <div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr));margin-top:10px">
+        <div class="stat"><strong id="claimedToday">0</strong><span class="t2">Hoje</span></div>
+        <div class="stat"><strong id="nextClaim">—</strong><span class="t2">Próximo resgate</span></div>
+        <div class="stat"><strong id="lifetime">0</strong><span class="t2">Acumulado</span></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+        <button id="btnDaily" class="btn btn-primary">Resgatar 20 / dia</button>
+        <span class="note">Limite: 1 vez por dia</span>
       </div>
     </div>
+
+    <div id="passe" class="card">
+      <h2 class="section-title">Passe de Batalha</h2>
+      <p class="section-sub">Progrida com seus Discoins. Metas principais abaixo.</p>
+
+      <div style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <strong>Nitro mensal</strong>
+          <strong><span id="pbNitro">0</span>/300</strong>
+        </div>
+        <div class="progress"><span id="barNitro" style="width:0%"></span></div>
+      </div>
+
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <strong>Decorações Discord</strong>
+          <strong><span id="pbDeco">0</span>/400</strong>
+        </div>
+        <div class="progress"><span id="barDeco" style="width:0%"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Loja -->
+  <section id="loja" style="margin-top:22px">
+    <div class="card">
+      <h2 class="section-title">Loja de prêmios</h2>
+      <p class="section-sub">Resgate quando atingir o saldo mínimo. Você receberá instruções por e-mail após a validação.</p>
+      <div class="grid grid-3">
+        <div class="shop-item">
+          <h4>Nitro mensal</h4>
+          <div class="price">300 Discoins</div>
+          <button id="redeemNitro" class="btn btn-primary bad" disabled>Resgatar</button>
+        </div>
+        <div class="shop-item">
+          <h4>Decorações Discord</h4>
+          <div class="price">400 Discoins</div>
+          <button id="redeemDeco" class="btn btn-primary bad" disabled>Resgatar</button>
+        </div>
+        <div class="shop-item">
+          <h4>Bônus diário extra (em breve)</h4>
+          <div class="price">—</div>
+          <button class="btn btn-ghost" disabled>Em breve</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Histórico -->
+  <section id="historico" style="margin-top:22px">
+    <div class="card">
+      <h2 class="section-title">Histórico</h2>
+      <ul id="history" class="history"></ul>
+    </div>
+  </section>
+</main>
+
+<footer style="margin-top:40px;border-top:1px solid var(--border);padding:30px 0 60px">
+  <div class="container" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--t3)">
+    <div>© <span id="year"></span> Discover Cloud</div>
+    <div>Parceiro: <a href="https://discloud.com/" target="_blank" rel="noopener" style="text-decoration:underline">Discloud</a></div>
   </div>
+</footer>
 
-  <!-- HEADER -->
-  <header>
-    <div class="container nav">
-      <a class="brand" href="#topo">
-        <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud" />
-        <span>Discover Cloud</span>
-      </a>
-      <nav aria-label="principal">
-        <ul>
-          <li><a href="#anuncios">Trailers</a></li>
-          <li><a href="#planos">Planos</a></li>
-          <li><a href="#discord">Divulgue seu servidor (em breve)</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ul>
-      </nav>
-      <div class="actions">
-        <button class="btn btn-ghost js-panel" type="button">Painel</button>
-        <span id="welcomeMessage"></span>
-        <button id="logoutButton" class="btn btn-ghost" type="button" style="display:none">Sair</button>
-      </div>
+<!-- Modal reCAPTCHA para Painel -->
+<div id="rc-modal" class="rc-modal" aria-hidden="true">
+  <div class="rc-card" role="dialog" aria-modal="true" aria-labelledby="rc-title">
+    <h3 id="rc-title" style="font-family:'Poppins';margin-bottom:6px">Verificação de segurança</h3>
+    <p class="note" style="margin-bottom:10px">Marque o reCAPTCHA para abrir o painel do parceiro.</p>
+    <div id="recaptchaMount"></div>
+    <div class="rc-actions">
+      <button class="rc-close" id="rc-cancel" type="button">Cancelar</button>
+      <button class="btn btn-primary rc-continue" id="rc-continue" type="button" disabled>Continuar</button>
     </div>
-  </header>
+    <p id="rc-error" style="display:none;color:#ffb199;font-weight:800;margin-top:8px"></p>
+  </div>
+</div>
 
-  <!-- MAIN -->
-  <main id="topo">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hidden">
-          <span class="chip">Cloud Native • Segurança • Escala</span>
-          <h1 class="headline">Infraestrutura em nuvem <span class="grad">profissional</span> para crescer com o seu produto</h1>
-          <p class="sub">Ambientes prontos em minutos, observabilidade completa, zero downtime e suporte humano 24/7. Conquiste escalabilidade e confiança desde o primeiro deploy.</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
-            <a class="btn btn-primary" href="#planos">Ver planos</a>
-            <button class="btn btn-ghost js-panel" type="button">Painel</button>
-          </div>
-          <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
-            <div class="stat"><strong>99,99%</strong><span class="sub">Disponibilidade SLA</span></div>
-            <div class="stat"><strong>12 regiões</strong><span class="sub">Deploy global</span></div>
-            <div class="stat"><strong>5 min</strong><span class="sub">Primeiro deploy</span></div>
-          </div>
-        </div>
-        <div class="hero-media hidden" aria-hidden="false">
-          <div class="console">
-            <h3>Console inteligente Discover</h3>
-            <ul>
-              <li><i>✓</i> Deploy automatizado com rollback em 1 clique</li>
-              <li><i>✓</i> Monitoramento de latência e custo em tempo real</li>
-              <li><i>✓</i> Integração nativa com GitHub, GitLab e Bitbucket</li>
-              <li><i>✓</i> Criptografia ponta a ponta com gestão de chaves</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+<script>
+/* ========= Config ========= */
+const SITE_KEY_V2 = "6LenS_crAAAAANKT2DablQJxd1MbEryy3O7KJp8N"; // reCAPTCHA v2
+const STORAGE = "discover.discoins.v1";
+const DAILY_AMOUNT = 20;
+const NITRO_COST = 300;
+const DECO_COST  = 400;
 
-    <!-- TRAILERS: apenas 2 -->
-    <section id="anuncios" class="ads">
-      <div class="container">
-        <h2 class="section-title hidden">Trailers e destaques</h2>
-        <p class="section-sub hidden">
-          <strong>Trailer do app em breve</strong> no nosso canal:
-          <a href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener" style="text-decoration:underline;color:#fff">@discovernews2</a>.
-        </p>
+/* ========= Partículas ========= */
+particlesJS("particles-js",{
+  particles:{number:{value:60},color:{value:["#4f8cff","#7c4dff","#00d2ff"]},opacity:{value:.22,random:true},
+    size:{value:3,random:true},line_linked:{enable:true,distance:140,color:"#4f8cff",opacity:.18,width:1},
+    move:{enable:true,speed:1.3,out_mode:"out"}},
+  interactivity:{detect_on:"canvas",events:{onhover:{enable:true,mode:"grab"}},
+  modes:{grab:{distance:120,line_linked:{opacity:.28}}}}
+});
 
-        <div class="ads-grid">
-          <article class="ads-card hidden">
-            <img class="ads-thumb" src="https://img.youtube.com/vi/oKa6u7LT0qE/hqdefault.jpg" alt="Welcome to Derry — Teaser" loading="lazy" onerror="this.closest('.ads-card').classList.add('ads-card--noimg')" />
-            <div class="ads-fallback">Prévia indisponível — clique para assistir</div>
-            <div class="ads-overlay"></div>
-            <a href="https://youtu.be/oKa6u7LT0qE" target="_blank" rel="noopener" aria-label="Assistir teaser Welcome to Derry" style="position:absolute;inset:0;z-index:3"></a>
-            <div class="ads-info"><span class="ads-badge">Estreia</span><div class="ads-title">HBO Max • Welcome to Derry</div></div>
-          </article>
+/* ========= Estado local ========= */
+const nowUTC = () => new Date(Date.now());
+function todayKey(d=new Date()){const x=new Date(d); x.setHours(0,0,0,0); return x.toISOString().slice(0,10);}
 
-          <article class="ads-card hidden">
-            <img class="ads-thumb" src="https://img.youtube.com/vi/bd_5HcTujfc/hqdefault.jpg" alt="Missão Secreta — Trailer" loading="lazy" onerror="this.closest('.ads-card').classList.add('ads-card--noimg')" />
-            <div class="ads-fallback">Prévia indisponível — clique para assistir</div>
-            <div class="ads-overlay"></div>
-            <a href="https://youtu.be/bd_5HcTujfc" target="_blank" rel="noopener" aria-label="Assistir trailer Missão Secreta" style="position:absolute;inset:0;z-index:3"></a>
-            <div class="ads-info"><span class="ads-badge">Lançamento</span><div class="ads-title">Missão Secreta</div></div>
-          </article>
-        </div>
-      </div>
-    </section>
+function loadState(){
+  try{
+    const raw=localStorage.getItem(STORAGE);
+    if(!raw) return {balance:0, lastClaimDay:null, lifetime:0, todayClaimed:0, history:[]};
+    const s=JSON.parse(raw);
+    const t=todayKey();
+    if(s.lastClaimDay!==t){s.todayClaimed=0;}
+    return s;
+  }catch{return {balance:0, lastClaimDay:null, lifetime:0, todayClaimed:0, history:[]};}
+}
+function saveState(s){ localStorage.setItem(STORAGE, JSON.stringify(s)); }
 
-    <!-- PLANOS (com botão ENTRAR + Painel) -->
-    <section id="planos" class="pricing">
-      <div class="container">
-        <h2 class="section-title hidden">Planos flexíveis para cada estágio</h2>
-        <p class="pricing-note hidden">Passe o mouse (*hover*) nos cards para ver o efeito ✨</p>
-        <div class="pricing-grid">
-          <article class="price-card hidden" onmousemove="sparkMove(event,this)">
-            <div class="spark"></div>
-            <div class="pc-tag">Start</div>
-            <div class="pc-title">Free 48h</div>
-            <div class="pc-price">R$ 0<span>/48 horas</span></div>
-            <ul class="pc-list">
-              <li>Deploy imediato com templates</li>
-              <li>Monitoramento básico</li>
-              <li>Ambiente isolado</li>
-              <li>Suporte por e-mail</li>
-            </ul>
-            <div class="btn-row">
-              <button class="btn btn-primary js-enter" type="button">Entrar</button>
-              <button class="btn btn-ghost js-panel" type="button">Painel</button>
-            </div>
-          </article>
+/* ========= UI helpers ========= */
+const $ = (q)=>document.querySelector(q);
+function fmtTime(ms){
+  const sec=Math.max(0,Math.floor(ms/1000));
+  const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60), s=sec%60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+function toast(msg){ const el=document.createElement('div');
+  el.textContent=msg; el.style.position='fixed';el.style.left='50%';el.style.top='20px';el.style.transform='translateX(-50%)';
+  el.style.background='rgba(0,0,0,.75)';el.style.color='#fff';el.style.padding='10px 14px';el.style.borderRadius='10px';
+  el.style.zIndex=99999;document.body.appendChild(el); setTimeout(()=>el.remove(),1800); }
 
-          <article class="price-card pro hidden" onmousemove="sparkMove(event,this)">
-            <div class="spark"></div>
-            <div class="pc-tag">Mais popular</div>
-            <div class="pc-title">Premium</div>
-            <div class="pc-price">R$ 165<span>/mês</span></div>
-            <ul class="pc-list">
-              <li>Ambiente dedicado</li>
-              <li>Observabilidade avançada</li>
-              <li>Suporte 24/7</li>
-              <li>Compliance e auditoria</li>
-            </ul>
-            <div class="btn-row">
-              <button class="btn btn-primary js-enter" type="button">Entrar</button>
-              <button class="btn btn-ghost js-panel" type="button">Painel</button>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
+/* ========= Render inicial ========= */
+let S = loadState();
+function render(){
+  $("#balance").textContent = S.balance;
+  $("#lifetime").textContent = S.lifetime;
+  $("#claimedToday").textContent = S.todayClaimed;
 
-    <!-- DISCORD PROMO (em breve) -->
-    <section id="discord" class="soon">
-      <div class="container">
-        <div class="soon-card hidden">
-          <h2 class="section-title" style="margin-bottom:4px">Divulgue seu servidor do Discord</h2>
-          <p class="section-sub" style="margin-bottom:0">Em breve você poderá promover seu servidor diretamente na nossa vitrine premium.</p>
-          <span class="chip" style="justify-self:center;margin-top:8px">Em breve</span>
-        </div>
-      </div>
-    </section>
+  const t = todayKey();
+  if(S.lastClaimDay===t && S.todayClaimed>0){
+    const midnight = new Date(); midnight.setHours(24,0,0,0);
+    $("#nextClaim").textContent = fmtTime(midnight - new Date());
+  }else{
+    $("#nextClaim").textContent = "Disponível";
+  }
 
-    <!-- FAQ -->
-    <section id="faq" class="container" style="padding:40px 0 60px">
-      <h2 class="section-title hidden">Dúvidas frequentes</h2>
-      <div class="section-sub hidden">Transparência sobre nossa operação e o que você pode esperar da Discover Cloud.</div>
-      <div class="hidden" style="display:grid;gap:14px;margin-top:10px">
-        <div style="background:rgba(10,15,32,.88);border:1px solid var(--border);border-radius:14px;padding:16px">
-          <h4 style="margin-bottom:6px">É obrigatório login?</h4>
-          <p style="color:var(--text-2)">Sim. Usamos Google Sign-In para segurança. Não coletamos dados sensíveis — apenas autenticação.</p>
-        </div>
-        <div style="background:rgba(10,15,32,.88);border:1px solid var(--border);border-radius:14px;padding:16px">
-          <h4 style="margin-bottom:6px">O que fazer se o popup for bloqueado?</h4>
-          <p style="color:var(--text-2)">Permita popups para este domínio ou clique em “Tentar sem popup (One Tap)”.</p>
-        </div>
-      </div>
-    </section>
-  </main>
+  const n = Math.min(100,(S.balance/NITRO_COST)*100);
+  const d = Math.min(100,(S.balance/DECO_COST)*100);
+  $("#barNitro").style.width = n+"%";
+  $("#barDeco").style.width = d+"%";
+  $("#pbNitro").textContent = Math.min(S.balance,NITRO_COST);
+  $("#pbDeco").textContent  = Math.min(S.balance,DECO_COST);
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="brand" style="font-size:1rem">
-            <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud" />
-            <span>Discover Cloud</span>
-          </div>
-          <p style="color:var(--text-2);margin-top:8px">Infraestrutura premium com foco em segurança, observabilidade e escala. Operamos aplicações críticas na nuvem com excelência.</p>
-        </div>
-        <div class="footer-links">
-          <strong>Recursos</strong>
-          <a href="#anuncios">Trailers</a>
-          <a href="#planos">Planos</a>
-          <a href="#discord">Divulgação Discord</a>
-          <a href="#faq">FAQ</a>
-        </div>
-        <div class="footer-links">
-          <strong>Contato</strong>
-          <a href="mailto:discovervs24@gmail.com">discovervs24@gmail.com</a>
-          <a href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener">YouTube</a>
-        </div>
-      </div>
-      <div class="footer-meta">
-        <span>© <span id="year"></span> Discover Cloud</span>
-        <span>LGPD • GDPR • SOC2 • PCI DSS</span>
-      </div>
-    </div>
-  </footer>
+  const nitroBtn=$("#redeemNitro"), decoBtn=$("#redeemDeco");
+  if(S.balance>=NITRO_COST){nitroBtn.removeAttribute('disabled');nitroBtn.classList.remove('bad');}
+  else{nitroBtn.setAttribute('disabled','disabled');nitroBtn.classList.add('bad');}
+  if(S.balance>=DECO_COST){decoBtn.removeAttribute('disabled');decoBtn.classList.remove('bad');}
+  else{decoBtn.setAttribute('disabled','disabled');decoBtn.classList.add('bad');}
 
-  <!-- SCRIPTS -->
-  <script>
-    /* ---------- Config ---------- */
-    const CLIENT_ID = "1094888827715-pn7tdvs4dhjclj13iefh48f90met93al.apps.googleusercontent.com";
-    const STORAGE_KEY = "discover.auth";
-
-    /* ---------- Utils ---------- */
-    const $ = (s)=>document.querySelector(s);
-    const $$ = (s)=>document.querySelectorAll(s);
-    function setError(msg){ const e=$("#auth-error"); e.textContent=msg||""; e.style.display=msg?"block":"none"; }
-    function decodeJwt(token){ try{const p=token.split(".")[1].replace(/-/g,"+").replace(/_/g,"/"); return JSON.parse(decodeURIComponent(atob(p).split("").map(c=>"%"+("00"+c.charCodeAt(0).toString(16)).slice(-2)).join("")));}catch{return{}} }
-    const saveSession = (o)=>localStorage.setItem(STORAGE_KEY,JSON.stringify({...o,ts:Date.now()}));
-    const readSession = ()=>{ try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||"null")}catch{return null} };
-    const clearSession = ()=>localStorage.removeItem(STORAGE_KEY);
-    const lockUI = (locked)=>{ document.body.classList.toggle("auth-locked",!!locked); $("#auth-gate").style.display=locked?"flex":"none"; };
-    function updateWelcome(profile){
-      const chip=$("#welcomeMessage"), out=$("#logoutButton");
-      if(profile?.name || profile?.email){
-        chip.innerHTML = `👋 <strong>Olá, ${profile.name||profile.email}</strong>`;
-        chip.classList.add("active");
-        out.style.display="inline-flex";
-      }else{
-        chip.classList.remove("active"); chip.textContent=""; out.style.display="none";
-      }
-    }
-
-    /* ---------- Google Sign-In ---------- */
-    function handleCredentialResponse(resp){
-      if(!resp?.credential){ setError("Não foi possível obter a credencial do Google."); return; }
-      const token = resp.credential;
-      const p = decodeJwt(token);
-      const profile = { sub:p.sub, email:p.email, name:p.name||p.given_name||"", picture:p.picture||"" };
-      saveSession({token, profile}); updateWelcome(profile); lockUI(false); setError("");
-    }
-    function initGSI(){
-      if(!CLIENT_ID){ setError("CLIENT_ID não definido."); return; }
-      if(!(window.google&&google.accounts&&google.accounts.id)){ setTimeout(initGSI,120); return; }
-      try{
-        google.accounts.id.initialize({ client_id:CLIENT_ID, callback:handleCredentialResponse, ux_mode:"popup", auto_select:false, context:"signin" });
-        const mount=$("#google-signin");
-        if(mount){
-          google.accounts.id.renderButton(mount,{ type:"standard", theme:"outline", size:"large", shape:"pill", text:"continue_with", width:280 });
-        }
-        $("#google-onetap").addEventListener("click",()=>{
-          setError("");
-          try{
-            google.accounts.id.prompt((n)=>{
-              if(n.isNotDisplayed()||n.isSkippedMoment()){
-                setError("One Tap não pôde ser exibido. Permita popups ou tente o botão principal.");
-              }
-            });
-          }catch{ setError("Falha ao tentar One Tap."); }
-        });
-      }catch{ setError("Falha ao inicializar Google Sign-In."); }
-    }
-    async function logout(){
-      try{
-        const sess=readSession(); clearSession(); updateWelcome(null); lockUI(true);
-        if(window.google?.accounts?.id){ google.accounts.id.disableAutoSelect(); if(sess?.profile?.email){ google.accounts.id.revoke(sess.profile?.email||"", ()=>{}); } }
-      }catch{}
-    }
-
-    /* ---------- UI ---------- */
-    function sparkMove(e,card){
-      const r = card.getBoundingClientRect();
-      const mx = ((e.clientX - r.left) / r.width) * 100;
-      const my = ((e.clientY - r.top) / r.height) * 100;
-      card.style.setProperty('--mx', mx+'%');
-      card.style.setProperty('--my', my+'%');
-    }
-
-    // Particles
-    function initParticles(){
-      if(!window.particlesJS) return;
-      particlesJS("particles-js", {
-        particles: {
-          number: { value: 60, density: { enable: true, value_area: 900 } },
-          color: { value: ["#4f8cff", "#7c4dff", "#00d2ff"] },
-          shape: { type: "circle" },
-          opacity: { value: 0.22, random: true },
-          size: { value: 3, random: true },
-          line_linked: { enable: true, distance: 140, color: "#4f8cff", opacity: 0.16, width: 1 },
-          move: { enable: true, speed: 1.4, out_mode: "out" }
-        },
-        interactivity: { events: { onhover: { enable: true, mode: "grab" }}, modes:{ grab:{ distance:120, line_linked:{opacity:.28} } } },
-        retina_detect: true
-      });
-    }
-
-    // Reveal on scroll
-    function initReveal(){
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('reveal'); io.unobserve(e.target); }});
-      },{threshold:.12});
-      $$('.hidden').forEach(el=>io.observe(el));
-    }
-
-    // Panel modal handlers
-    function openPanel(){ $("#panel-modal").style.display="flex"; }
-    function closePanel(){ $("#panel-modal").style.display="none"; }
-
-    // "Entrar" buttons - if not logged, show gate; if logged, greet and scroll to plans
-    function setupEnterButtons(){
-      $$('.js-enter').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          const sess = readSession();
-          if(sess?.profile){ alert(`Bem-vindo, ${sess.profile.name||sess.profile.email}!`); }
-          else { lockUI(true); }
-        });
-      });
-    }
-
-    /* ---------- Bootstrap ---------- */
-    document.addEventListener('DOMContentLoaded', ()=>{
-      // Footer year
-      const y=$("#year"); if(y) y.textContent = new Date().getFullYear();
-
-      // Restore session
-      const sess = readSession();
-      if(sess?.profile){ updateWelcome(sess.profile); lockUI(false); }
-
-      // Header actions
-      $$('.js-panel').forEach(el=> el.addEventListener('click', openPanel));
-      $('#close-panel').addEventListener('click', closePanel);
-      $('#logoutButton').addEventListener('click', logout);
-
-      initParticles();
-      initReveal();
-      initGSI();
-      setupEnterButtons();
+  const ul=$("#history"); ul.innerHTML="";
+  if(!S.history.length){ ul.innerHTML='<li><span>Sem movimentos ainda</span><span>—</span></li>'; }
+  else{
+    S.history.slice().reverse().forEach(h=>{
+      const li=document.createElement('li');
+      li.innerHTML=`<span>${h.label}</span><span>${h.value>0?'+':''}${h.value} • <small>${new Date(h.ts).toLocaleString()}</small></span>`;
+      ul.appendChild(li);
     });
+  }
+}
+render();
+setInterval(()=>{
+  const t = todayKey();
+  if(S.lastClaimDay===t && S.todayClaimed>0){
+    const midnight = new Date(); midnight.setHours(24,0,0,0);
+    $("#nextClaim").textContent = fmtTime(midnight - new Date());
+  }
+},1000);
 
-    // Helpful error for popup blocked
-    window.addEventListener("error",(e)=>{
-      const msg=String(e?.message||""); if(msg.includes("Failed to open popup")){
-        setError("Popup bloqueado pelo navegador. Use 'Tentar sem popup (One Tap)' ou permita popups.");
-      }
+/* ========= Lógica Diário ========= */
+$("#btnDaily").addEventListener("click",()=>{
+  const t=todayKey();
+  if(S.lastClaimDay===t && S.todayClaimed>0){toast("Você já resgatou hoje.");return;}
+  S.balance+=DAILY_AMOUNT;
+  S.lifetime+=DAILY_AMOUNT;
+  S.todayClaimed=DAILY_AMOUNT;
+  S.lastClaimDay=t;
+  S.history.push({label:"Daily +20",value:+20,ts:Date.now()});
+  saveState(S);render();toast("Daily coletado! +20 Discoins");
+});
+
+/* ========= Resgates ========= */
+function redeem(cost,label){
+  if(S.balance<cost)return;
+  if(!confirm(`Confirmar resgate de ${label} por ${cost} Discoins?`))return;
+  S.balance-=cost;
+  S.history.push({label:`Resgate: ${label}`,value:-cost,ts:Date.now()});
+  saveState(S);render();toast("Resgate solicitado! Você receberá instruções por e-mail.");
+}
+$("#redeemNitro").addEventListener("click",()=>redeem(NITRO_COST,"Nitro mensal"));
+$("#redeemDeco").addEventListener("click",()=>redeem(DECO_COST,"Decorações Discord"));
+
+/* ========= reCAPTCHA: Gate de entrada ========= */
+let entryWidgetId=null;
+function onEntrySolved(){document.getElementById("entryGate").style.display="none";}
+function renderEntryCaptcha(){
+  if(!window.grecaptcha||typeof grecaptcha.render!=="function")return false;
+  if(entryWidgetId===null){
+    entryWidgetId=grecaptcha.render("entryCaptcha",{
+      sitekey:SITE_KEY_V2,
+      callback:onEntrySolved,
+      "expired-callback":()=>{document.getElementById("entryGate").style.display="flex";}
     });
-  </script>
+  }
+  return true;
+}
+(function waitEntry(){if(!renderEntryCaptcha())setTimeout(waitEntry,150);})();
+
+/* ========= reCAPTCHA: Painel ========= */
+let rcSolvedToken="",rcWidgetId=null,rcHref="https://discloud.com/";
+function onRcOk(token){rcSolvedToken=token;const b=$("#rc-continue");b.classList.remove("rc-continue");b.removeAttribute("disabled");$("#rc-error").style.display="none";}
+function onRcExpired(){
+  rcSolvedToken="";
+  const b=$("#rc-continue");
+  b.classList.add("rc-continue");
+  b.setAttribute("disabled","disabled");
+}
+
+function renderRcCaptcha(){
+  if(!window.grecaptcha||typeof grecaptcha.render!=="function")return false;
+  if(rcWidgetId===null){
+    rcWidgetId=grecaptcha.render("recaptchaMount",{
+      sitekey:SITE_KEY_V2,
+      callback:onRcOk,
+      "expired-callback":onRcExpired
+    });
+  }
+  return true;
+}
+(function waitRc(){if(!renderRcCaptcha())setTimeout(waitRc,150);})();
+
+const rcModal=$("#rc-modal");
+const rcCancel=$("#rc-cancel");
+const rcContinue=$("#rc-continue");
+
+document.querySelectorAll(".js-panel").forEach(el=>{
+  el.addEventListener("click",ev=>{
+    ev.preventDefault();
+    rcHref=el.getAttribute("data-href")||"https://discloud.com/";
+    rcModal.classList.add("open");
+    rcModal.setAttribute("aria-hidden","false");
+    rcSolvedToken="";
+    const b=$("#rc-continue");
+    b.classList.add("rc-continue");
+    b.setAttribute("disabled","disabled");
+    $("#rc-error").style.display="none";
+  });
+});
+
+rcCancel.addEventListener("click",()=>{
+  rcModal.classList.remove("open");
+  rcModal.setAttribute("aria-hidden","true");
+});
+
+rcContinue.addEventListener("click",()=>{
+  if(!rcSolvedToken){
+    $("#rc-error").style.display="block";
+    $("#rc-error").textContent="Verifique o reCAPTCHA antes de continuar.";
+    return;
+  }
+  $("#rc-error").style.display="none";
+  toast("Acessando painel...");
+  setTimeout(()=>{
+    window.open(rcHref,"_blank");
+    rcModal.classList.remove("open");
+  },800);
+});
+
+/* ========= Ano automático ========= */
+$("#year").textContent=new Date().getFullYear();
+</script>
+
 </body>
 </html>
