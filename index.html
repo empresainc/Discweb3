@@ -1,182 +1,180 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Discover Cloud — Discoins & Passe de Batalha</title>
 <meta name="theme-color" content="#0b122a" />
-<meta name="description" content="Resgate Discoins diariamente e troque por prêmios. Acesso protegido por reCAPTCHA. Parceiro: Discloud." />
+<meta name="description" content="Resgate Discoins diariamente e troque por prêmios. Interface responsiva com desafio de entrada." />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
-<!-- Partículas + reCAPTCHA v2 -->
+<!-- partículas -->
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>
 
 <style>
 :root{
-  --bg1:#0b1129; --bg2:#050814; --panel:#0a1026; --panel2:#0f1534;
-  --brand:#4f8cff; --brand2:#00d2ff; --violet:#7c4dff; --accent:#ff9d45;
-  --text:#fff; --t2:#c7d3ff; --t3:#9aa7d4; --border:rgba(255,255,255,.14);
-  --ok:#4adf86; --danger:#ff8a8a; --ease:cubic-bezier(.2,.7,.2,1);
+  --bg1:#08102a; --bg2:#051026; --panel:rgba(10,14,30,.6);
+  --brand:#4f8cff; --brand2:#7c4dff; --accent:#00d2ff;
+  --text:#eaf0ff; --muted:#9aa7d4; --glass:rgba(255,255,255,.04);
+  --radius:16px; --ease:cubic-bezier(.2,.7,.2,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
-  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;
   color:var(--text);
-  background:radial-gradient(1200px 800px at 10% 10%, #111a3b 0%, var(--bg1) 40%, var(--bg2) 80%),
-             radial-gradient(900px 700px at 90% -10%, #0d1533 0%, var(--bg2) 70%);
+  background:
+    radial-gradient(900px 500px at 10% 10%, rgba(20,36,70,.6), transparent 30%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
   overflow-x:hidden;
+  min-height:100vh;
+  position:relative;
 }
-.container{width:min(1100px,92vw);margin:0 auto}
-a{color:inherit;text-decoration:none}
 
-#particles-js{position:fixed;inset:0;z-index:-2}
-.ribbon{position:sticky;top:0;z-index:60;background:linear-gradient(90deg,rgba(79,140,255,.25),rgba(124,77,255,.25));backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
-.ribbon .container{display:flex;gap:10px;align-items:center;justify-content:center;padding:8px 0;font-weight:700}
-.ribbon a{text-decoration:underline}
+/* Particles container behind content */
+#particles-js{position:fixed;inset:0;z-index:-2;opacity:.7}
 
-header{position:sticky;top:32px;z-index:50;backdrop-filter:blur(14px);background:rgba(8,12,26,.55);border-bottom:1px solid var(--border)}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-.brand{display:flex;align-items:center;gap:12px;font-family:'Poppins';font-weight:700}
-.brand img{width:40px;height:40px;border-radius:12px;box-shadow:0 10px 30px rgba(79,140,255,.35)}
-nav ul{display:flex;gap:16px;list-style:none}
-nav a{color:var(--t2);font-weight:800;font-size:.9rem;position:relative;padding:8px 0}
-nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .4s var(--ease)}
-nav a:hover{color:#fff}nav a:hover::after{width:100%}
-.actions{display:flex;gap:10px}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;font-weight:800;letter-spacing:.02em}
-.btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#06102b;box-shadow:0 16px 40px rgba(79,140,255,.35)}
-.btn-ghost{border:1px solid rgba(79,140,255,.35);color:var(--t2)}
-.btn-ghost:hover{background:rgba(79,140,255,.14);color:#fff}
-.chip{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid var(--border);font-weight:800;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
+/* layout */
+.container{width:min(1100px,94vw);margin:0 auto;padding:28px 0}
+.header{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:14px;z-index:50;padding:10px 0}
+.brand{display:flex;align-items:center;gap:12px;font-family:Poppins;font-weight:700}
+.brand img{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand2));padding:6px}
+.nav{display:flex;gap:18px;align-items:center}
+.nav a{color:var(--muted);font-weight:700;text-decoration:none}
+.actions .btn{padding:8px 16px;border-radius:999px}
 
-main{padding:38px 0}
-.section-title{font-family:'Poppins';font-weight:800;font-size:clamp(1.4rem,3.8vw,2rem);margin-bottom:8px}
-.section-sub{color:var(--t2);margin-bottom:16px}
-
-/* Painéis */
-.card{background:linear-gradient(160deg, rgba(13,20,42,.9), rgba(21,27,52,.82));
-  border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:0 30px 80px rgba(3,8,20,.45)}
+/* main */
+main{padding:26px 0}
 .grid{display:grid;gap:18px}
-@media (min-width:900px){.grid-2{grid-template-columns:1.1fr 1fr}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.stat{display:flex;flex-direction:column;gap:6px;padding:14px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.04)}
-.stat strong{font-size:1.4rem}
+.grid-2{grid-template-columns:1.05fr .95fr}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{
+  background:linear-gradient(180deg, rgba(12,18,36,.7), rgba(8,12,26,.6));
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:var(--radius);
+  padding:20px;
+  box-shadow:0 20px 60px rgba(3,8,20,.5);
+  backdrop-filter: blur(6px);
+}
 
-/* Discoins */
+/* wallet */
+.section-title{font-family:Poppins;font-weight:800;font-size:clamp(1.2rem,2.6vw,1.7rem);margin-bottom:6px}
+.section-sub{color:var(--muted);margin-bottom:12px}
 .wallet{display:flex;align-items:center;gap:12px}
-.balance{font-family:'Poppins';font-size:2.1rem}
-.progress{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
-.progress > span{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--violet));width:0%}
-.shop-item{display:grid;gap:8px;border:1px solid var(--border);padding:16px;border-radius:14px;background:rgba(255,255,255,.04)}
-.shop-item h4{font-family:'Poppins'}
-.shop-item .price{color:var(--t3);font-weight:800}
-.shop-item .btn{justify-content:center}
-.bad{opacity:.5;pointer-events:none}
-.history{max-height:220px;overflow:auto;border:1px solid var(--border);border-radius:12px;padding:10px;background:rgba(255,255,255,.03)}
-.history li{display:flex;justify-content:space-between;padding:8px;border-bottom:1px dashed rgba(255,255,255,.06)}
+.chip{background:var(--glass);padding:6px 10px;border-radius:999px;font-weight:800;color:var(--muted);font-size:.9rem}
+.balance{font-family:Poppins;font-size:2rem;font-weight:800}
+
+/* stats */
+.stats{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+.stat{flex:1;min-width:110px;background:rgba(255,255,255,.02);border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,.02);text-align:center}
+.stat strong{display:block;font-size:1.2rem}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,var(--brand),var(--accent));color:#07102a;padding:10px 18px;border-radius:999px;font-weight:800;border:none;cursor:pointer;transition:transform .18s var(--ease),box-shadow .18s var(--ease)}
+.btn:active{transform:translateY(1px)}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.06);color:var(--muted);padding:8px 14px;border-radius:999px}
+.btn-disabled{opacity:.45;pointer-events:none}
+
+/* loja */
+.shop-item{border-radius:12px;padding:14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.03)}
+
+/* passe */
+.progress{height:10px;border-radius:999px;background:rgba(255,255,255,.04);overflow:hidden}
+.progress > span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .8s var(--ease)}
+
+/* history */
+.history{max-height:220px;overflow:auto;border-radius:8px;padding:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.03)}
+.history li{display:flex;justify-content:space-between;padding:8px;border-bottom:1px dashed rgba(255,255,255,.03)}
 .history li:last-child{border-bottom:0}
 
-/* Tabs */
-.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.tab{border:1px solid var(--border);background:rgba(255,255,255,.06);padding:10px 14px;border-radius:999px;font-weight:800}
-.tab.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#07122c;border-color:transparent}
+/* gate (challenge) */
+.gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,18,.85),rgba(2,6,18,.92));z-index:9999}
+.gate-card{width:min(760px,94vw);max-width:820px;background:linear-gradient(180deg,rgba(9,14,30,.9),rgba(7,10,20,.9));border-radius:18px;padding:22px;border:1px solid rgba(255,255,255,.04);text-align:center;box-shadow:0 40px 120px rgba(2,6,20,.7)}
+.gate h2{font-family:Poppins;margin-bottom:6px}
+.gate p{color:var(--muted);margin-bottom:14px}
+.challenge{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap}
+.slider-wrap{width:360px;max-width:92%;background:rgba(255,255,255,.02);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.03)}
+#challengeSlider{width:100%}
+.slider-label{display:flex;justify-content:space-between;font-weight:700;color:var(--muted);font-size:.9rem;margin-bottom:8px}
+.math-wrap{width:260px;max-width:92%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.03);background:rgba(255,255,255,.02)}
+.math-input{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.06);background:transparent;color:var(--text);outline:none;font-weight:700}
 
-/* Modal reCAPTCHA */
-.gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(1200px 900px at 20% 20%, rgba(79,140,255,.18), rgba(5,8,20,.94) 65%);backdrop-filter:blur(14px);z-index:9999}
-.gate .card{width:min(460px,92vw);text-align:center}
-.gate .rules{color:var(--t2);background:rgba(255,255,255,.06);border:1px solid var(--border);padding:12px;border-radius:14px;margin:8px 0}
-.gate .flex{display:flex;justify-content:center}
+/* success */
+.success-badge{display:inline-block;padding:10px 14px;border-radius:999px;background:linear-gradient(90deg,#6cf0b2,#4f8cff);color:#05202a;font-weight:800;margin-top:12px;box-shadow:0 12px 30px rgba(79,140,255,.12)}
 
-/* Modal reCAPTCHA para “Painel” */
-.rc-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.6);z-index:1000}
-.rc-modal.open{display:flex}
-.rc-card{background:#0b1130;border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 30px 80px rgba(3,8,20,.45);width:min(420px,92vw);text-align:center;color:#cfe0ff}
-.rc-actions{display:flex;gap:8px;justify-content:center;margin-top:10px}
-.rc-close{border:1px solid var(--border);background:transparent;color:#cfe0ff;border-radius:999px;padding:8px 14px;font-weight:700}
-.rc-continue{opacity:.4;pointer-events:none}
-.note{color:var(--t3);font-size:.92rem}
+/* animations and visual flourish */
+@keyframes floaty {0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+.brand img{animation:floaty 6s ease-in-out infinite}
+
+/* responsiveness */
+@media (max-width:880px){
+  .grid-2{grid-template-columns:1fr}
+  .grid-3{grid-template-columns:1fr}
+  .header{padding:10px 6px}
+  .brand img{width:40px;height:40px}
+  .gate-card{padding:16px}
+  .challenge{flex-direction:column}
+}
+
+/* tiny decorative */
+.footer{margin-top:36px;color:var(--muted);font-size:.92rem;padding-bottom:36px}
 </style>
 </head>
 <body>
 
-<!-- Ribbon topo -->
-<div class="Ribbon ribbon">
-  <div class="container">
-    🎬 Trailer do app <strong>em breve</strong> — siga o
-    <a href="https://www.youtube.com/@discovernews2/videos" target="_blank" rel="noopener">canal Discover News</a>.
-    • Parceiro: <a href="https://discloud.com/" target="_blank" rel="noopener">Discloud</a>
-  </div>
-</div>
-
-<!-- Partículas -->
 <div id="particles-js" aria-hidden="true"></div>
 
-<!-- Gate de entrada (reCAPTCHA obrigatório) -->
-<div id="entryGate" class="gate" role="dialog" aria-modal="true" aria-labelledby="gtitle">
-  <div class="card">
-    <div class="brand" style="justify-content:center;margin-bottom:8px">
-      <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud"/>
-      <span>Discover Cloud</span>
+<header class="container header">
+  <div class="brand">
+    <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="logo"/>
+    <div>
+      <div style="font-weight:800">Discover Cloud</div>
+      <div style="color:var(--muted);font-size:.85rem">Discoins & Passe de Batalha</div>
     </div>
-    <h2 id="gtitle" class="section-title">Verificação rápida</h2>
-    <p class="rules"><strong>Novas regras:</strong> é necessário resolver o reCAPTCHA para entrar. <strong>Privacidade:</strong> não coletamos dados sensíveis.</p>
-    <div class="flex" style="margin:12px 0">
-      <div id="entryCaptcha"></div>
-    </div>
-    <p id="gateMsg" class="note">Marque a caixa acima para liberar o site.</p>
   </div>
-</div>
-
-<!-- Header -->
-<header>
-  <div class="container nav">
-    <a class="brand" href="#topo">
-      <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="Discover Cloud"/>
-      <span>Discover Cloud</span>
-    </a>
-    <nav aria-label="principal">
-      <ul>
-        <li><a href="#passe">Passe de Batalha</a></li>
-        <li><a href="#loja">Loja</a></li>
-        <li><a href="#historico">Histórico</a></li>
-      </ul>
-    </nav>
-    <div class="actions">
-      <a class="btn btn-ghost js-panel" href="#" data-href="https://discloud.com/">Painel</a>
-    </div>
+  <nav class="nav">
+    <a href="#passe">Passe de Batalha</a>
+    <a href="#loja">Loja</a>
+    <a href="#historico">Histórico</a>
+  </nav>
+  <div class="actions">
+    <button class="btn btn-ghost" id="openPanelBtn">Painel</button>
   </div>
 </header>
 
-<!-- Conteúdo principal -->
-<main id="topo" class="container">
-  <section id="dashboard" class="grid grid-2">
+<main class="container">
+  <section class="grid grid-2">
     <div class="card">
       <h2 class="section-title">Sua carteira</h2>
-      <p class="section-sub">Reivindique Discoins diariamente e troque por prêmios.</p>
-      <div class="wallet" style="margin:10px 0 6px">
-        <span class="chip">Discoins</span>
+      <p class="section-sub">Reivindique Discoins a cada 24 horas e troque por prêmios.</p>
+
+      <div class="wallet" style="margin-top:8px">
+        <span class="chip">DISCOINS</span>
         <span id="balance" class="balance">0</span>
       </div>
-      <div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr));margin-top:10px">
-        <div class="stat"><strong id="claimedToday">0</strong><span class="t2">Hoje</span></div>
-        <div class="stat"><strong id="nextClaim">—</strong><span class="t2">Próximo resgate</span></div>
-        <div class="stat"><strong id="lifetime">0</strong><span class="t2">Acumulado</span></div>
+
+      <div class="stats" style="margin-top:12px">
+        <div class="stat"><strong id="claimedAmount">0</strong><small style="display:block;color:var(--muted)">Último resgate</small></div>
+        <div class="stat"><strong id="nextClaim">Disponível</strong><small style="display:block;color:var(--muted)">Próximo</small></div>
+        <div class="stat"><strong id="lifetime">0</strong><small style="display:block;color:var(--muted)">Acumulado</small></div>
       </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-        <button id="btnDaily" class="btn btn-primary">Resgatar 20 / dia</button>
-        <span class="note">Limite: 1 vez por dia</span>
+
+      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <button id="btnDaily" class="btn">Resgatar 20 / dia</button>
+        <div style="color:var(--muted)">Limite: 1 x a cada 24h</div>
       </div>
     </div>
 
-    <div id="passe" class="card">
+    <div class="card" id="passe">
       <h2 class="section-title">Passe de Batalha</h2>
-      <p class="section-sub">Progrida com seus Discoins. Metas principais abaixo.</p>
+      <p class="section-sub">Progrida com seus Discoins. Metas abaixo.</p>
 
-      <div style="margin-bottom:10px">
+      <div style="margin-bottom:12px">
         <div style="display:flex;justify-content:space-between;margin-bottom:6px">
           <strong>Nitro mensal</strong>
           <strong><span id="pbNitro">0</span>/300</strong>
@@ -184,7 +182,7 @@ main{padding:38px 0}
         <div class="progress"><span id="barNitro" style="width:0%"></span></div>
       </div>
 
-      <div>
+      <div style="margin-top:14px">
         <div style="display:flex;justify-content:space-between;margin-bottom:6px">
           <strong>Decorações Discord</strong>
           <strong><span id="pbDeco">0</span>/400</strong>
@@ -194,254 +192,291 @@ main{padding:38px 0}
     </div>
   </section>
 
-  <!-- Loja -->
-  <section id="loja" style="margin-top:22px">
+  <section style="margin-top:20px" id="loja">
     <div class="card">
       <h2 class="section-title">Loja de prêmios</h2>
       <p class="section-sub">Resgate quando atingir o saldo mínimo. Você receberá instruções por e-mail após a validação.</p>
-      <div class="grid grid-3">
-        <div class="shop-item">
-          <h4>Nitro mensal</h4>
-          <div class="price">300 Discoins</div>
-          <button id="redeemNitro" class="btn btn-primary bad" disabled>Resgatar</button>
+      <div class="grid grid-3" style="margin-top:14px">
+        <div class="shop-item card">
+          <h4 style="font-family:Poppins">Nitro mensal</h4>
+          <div style="color:var(--muted)">300 Discoins</div>
+          <div style="margin-top:12px"><button id="redeemNitro" class="btn btn-disabled">Resgatar</button></div>
         </div>
-        <div class="shop-item">
-          <h4>Decorações Discord</h4>
-          <div class="price">400 Discoins</div>
-          <button id="redeemDeco" class="btn btn-primary bad" disabled>Resgatar</button>
+
+        <div class="shop-item card">
+          <h4 style="font-family:Poppins">Decorações Discord</h4>
+          <div style="color:var(--muted)">400 Discoins</div>
+          <div style="margin-top:12px"><button id="redeemDeco" class="btn btn-disabled">Resgatar</button></div>
         </div>
-        <div class="shop-item">
-          <h4>Bônus diário extra (em breve)</h4>
-          <div class="price">—</div>
-          <button class="btn btn-ghost" disabled>Em breve</button>
+
+        <div class="shop-item card">
+          <h4 style="font-family:Poppins">Bônus diário extra</h4>
+          <div style="color:var(--muted)">Em breve</div>
+          <div style="margin-top:12px"><button class="btn btn-ghost btn-disabled">Em breve</button></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Histórico -->
-  <section id="historico" style="margin-top:22px">
+  <section style="margin-top:20px" id="historico">
     <div class="card">
       <h2 class="section-title">Histórico</h2>
       <ul id="history" class="history"></ul>
     </div>
   </section>
+
+  <div class="footer" style="text-align:center">
+    © <span id="year"></span> Discover Cloud • Parceiro: <a href="https://discloud.com/" target="_blank" rel="noopener" style="color:var(--muted)">Discloud</a>
+  </div>
 </main>
 
-<footer style="margin-top:40px;border-top:1px solid var(--border);padding:30px 0 60px">
-  <div class="container" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--t3)">
-    <div>© <span id="year"></span> Discover Cloud</div>
-    <div>Parceiro: <a href="https://discloud.com/" target="_blank" rel="noopener" style="text-decoration:underline">Discloud</a></div>
-  </div>
-</footer>
+<!-- Gate inicial: substitui reCAPTCHA por desafio -->
+<div id="entryGate" class="gate" aria-modal="true" role="dialog" style="display:none">
+  <div class="gate-card">
+    <h2>Verificação rápida</h2>
+    <p style="margin-bottom:14px;color:var(--muted)">Faça um pequeno desafio para provar que você é humano e acesse o app. (Escolha um dos desafios)</p>
 
-<!-- Modal reCAPTCHA para Painel -->
-<div id="rc-modal" class="rc-modal" aria-hidden="true">
-  <div class="rc-card" role="dialog" aria-modal="true" aria-labelledby="rc-title">
-    <h3 id="rc-title" style="font-family:'Poppins';margin-bottom:6px">Verificação de segurança</h3>
-    <p class="note" style="margin-bottom:10px">Marque o reCAPTCHA para abrir o painel do parceiro.</p>
-    <div id="recaptchaMount"></div>
-    <div class="rc-actions">
-      <button class="rc-close" id="rc-cancel" type="button">Cancelar</button>
-      <button class="btn btn-primary rc-continue" id="rc-continue" type="button" disabled>Continuar</button>
+    <div class="challenge" style="justify-content:center">
+      <div class="slider-wrap card">
+        <div class="slider-label"><span>Arraste para liberar</span><span id="sliderVal">0%</span></div>
+        <input id="challengeSlider" type="range" min="0" max="100" value="0" />
+        <div style="margin-top:10px;text-align:center">
+          <button id="sliderReset" class="btn btn-ghost" style="padding:8px 12px">Resetar</button>
+        </div>
+      </div>
+
+      <div class="math-wrap card" aria-hidden="false">
+        <div style="font-weight:800;margin-bottom:8px">Ou resolva:</div>
+        <div id="mathQuestion" style="font-size:1.05rem;margin-bottom:8px;color:var(--muted)"></div>
+        <input id="mathAnswer" class="math-input" placeholder="Digite o resultado" inputmode="numeric" />
+        <div style="margin-top:10px;display:flex;gap:8px;justify-content:center">
+          <button id="mathCheck" class="btn">Verificar</button>
+          <button id="mathNew" class="btn btn-ghost">Nova</button>
+        </div>
+      </div>
     </div>
-    <p id="rc-error" style="display:none;color:#ffb199;font-weight:800;margin-top:8px"></p>
+
+    <div style="margin-top:14px" id="entryMsg" class="note" aria-live="polite"></div>
   </div>
 </div>
 
 <script>
-/* ========= Config ========= */
-const SITE_KEY_V2 = "6LenS_crAAAAANKT2DablQJxd1MbEryy3O7KJp8N"; // reCAPTCHA v2
-const STORAGE = "discover.discoins.v1";
+/* ========== CONFIG ========== */
+const STORAGE_KEY = "discover.discoins.v1";
+const ENTRY_KEY = "discover.entryPassed.v1";
 const DAILY_AMOUNT = 20;
 const NITRO_COST = 300;
-const DECO_COST  = 400;
+const DECO_COST = 400;
+const DAY_MS = 24*60*60*1000; // 1 dia
 
 /* ========= Partículas ========= */
-particlesJS("particles-js",{
-  particles:{number:{value:60},color:{value:["#4f8cff","#7c4dff","#00d2ff"]},opacity:{value:.22,random:true},
-    size:{value:3,random:true},line_linked:{enable:true,distance:140,color:"#4f8cff",opacity:.18,width:1},
-    move:{enable:true,speed:1.3,out_mode:"out"}},
-  interactivity:{detect_on:"canvas",events:{onhover:{enable:true,mode:"grab"}},
-  modes:{grab:{distance:120,line_linked:{opacity:.28}}}}
+particlesJS("particles-js", {
+  particles: {
+    number: { value: 40 },
+    color: { value: ["#4f8cff","#7c4dff","#00d2ff"] },
+    opacity: { value: .18 },
+    size: { value: 3, random: true },
+    line_linked: { enable: true, distance: 160, color: "#4f8cff", opacity: .06, width: 1 },
+    move: { enable: true, speed: 1, out_mode: "out" }
+  },
+  interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "grab" } }, modes: { grab: { distance: 120, line_linked: { opacity: .18 } } } }
 });
 
 /* ========= Estado local ========= */
-const nowUTC = () => new Date(Date.now());
-function todayKey(d=new Date()){const x=new Date(d); x.setHours(0,0,0,0); return x.toISOString().slice(0,10);}
-
+function defaultState(){
+  return { balance:0, lifetime:0, history:[], lastClaimAt:0, lastClaimedAmount:0 };
+}
 function loadState(){
   try{
-    const raw=localStorage.getItem(STORAGE);
-    if(!raw) return {balance:0, lastClaimDay:null, lifetime:0, todayClaimed:0, history:[]};
-    const s=JSON.parse(raw);
-    const t=todayKey();
-    if(s.lastClaimDay!==t){s.todayClaimed=0;}
-    return s;
-  }catch{return {balance:0, lastClaimDay:null, lifetime:0, todayClaimed:0, history:[]};}
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultState();
+    return Object.assign(defaultState(), JSON.parse(raw));
+  }catch{return defaultState();}
 }
-function saveState(s){ localStorage.setItem(STORAGE, JSON.stringify(s)); }
+function saveState(s){ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
 
-/* ========= UI helpers ========= */
-const $ = (q)=>document.querySelector(q);
+/* ========= Entry flag ========= */
+function hasPassedEntry(){ return localStorage.getItem(ENTRY_KEY) === "1"; }
+function setPassedEntry(){ localStorage.setItem(ENTRY_KEY, "1"); }
+
+/* ========= UI helper ========= */
+const $ = (sel)=>document.querySelector(sel);
 function fmtTime(ms){
-  const sec=Math.max(0,Math.floor(ms/1000));
-  const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60), s=sec%60;
+  if(ms<=0) return "00:00:00";
+  const sec = Math.floor(ms/1000);
+  const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;
   return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
 }
-function toast(msg){ const el=document.createElement('div');
-  el.textContent=msg; el.style.position='fixed';el.style.left='50%';el.style.top='20px';el.style.transform='translateX(-50%)';
-  el.style.background='rgba(0,0,0,.75)';el.style.color='#fff';el.style.padding='10px 14px';el.style.borderRadius='10px';
-  el.style.zIndex=99999;document.body.appendChild(el); setTimeout(()=>el.remove(),1800); }
+function toast(msg){
+  const el = document.createElement("div");
+  el.textContent = msg;
+  el.style.position = "fixed"; el.style.left="50%"; el.style.top="18px"; el.style.transform="translateX(-50%)";
+  el.style.background="linear-gradient(90deg,#11182a,#06203a)"; el.style.color="#fff"; el.style.padding="10px 14px";
+  el.style.borderRadius="10px"; el.style.zIndex=99999; el.style.boxShadow="0 8px 30px rgba(2,6,20,.6)";
+  document.body.appendChild(el); setTimeout(()=>el.remove(),1800);
+}
 
-/* ========= Render inicial ========= */
+/* ========= Render ========= */
 let S = loadState();
+
 function render(){
   $("#balance").textContent = S.balance;
   $("#lifetime").textContent = S.lifetime;
-  $("#claimedToday").textContent = S.todayClaimed;
+  $("#claimedAmount").textContent = S.lastClaimedAmount || 0;
 
-  const t = todayKey();
-  if(S.lastClaimDay===t && S.todayClaimed>0){
-    const midnight = new Date(); midnight.setHours(24,0,0,0);
-    $("#nextClaim").textContent = fmtTime(midnight - new Date());
-  }else{
+  // cooldown: 24h since lastClaimAt
+  const now = Date.now();
+  if(S.lastClaimAt && (now - S.lastClaimAt) < DAY_MS){
+    const rem = DAY_MS - (now - S.lastClaimAt);
+    $("#nextClaim").textContent = fmtTime(rem);
+    $("#btnDaily").classList.add("btn-disabled");
+    $("#btnDaily").setAttribute("disabled","disabled");
+  } else {
     $("#nextClaim").textContent = "Disponível";
+    $("#btnDaily").classList.remove("btn-disabled");
+    $("#btnDaily").removeAttribute("disabled");
   }
 
-  const n = Math.min(100,(S.balance/NITRO_COST)*100);
-  const d = Math.min(100,(S.balance/DECO_COST)*100);
-  $("#barNitro").style.width = n+"%";
-  $("#barDeco").style.width = d+"%";
-  $("#pbNitro").textContent = Math.min(S.balance,NITRO_COST);
-  $("#pbDeco").textContent  = Math.min(S.balance,DECO_COST);
+  // progress bars
+  const nitroPct = Math.min(100, (S.balance / NITRO_COST) * 100);
+  const decoPct  = Math.min(100, (S.balance / DECO_COST) * 100);
+  $("#barNitro").style.width = nitroPct + "%";
+  $("#barDeco").style.width = decoPct + "%";
+  $("#pbNitro").textContent = Math.min(S.balance, NITRO_COST);
+  $("#pbDeco").textContent  = Math.min(S.balance, DECO_COST);
 
-  const nitroBtn=$("#redeemNitro"), decoBtn=$("#redeemDeco");
-  if(S.balance>=NITRO_COST){nitroBtn.removeAttribute('disabled');nitroBtn.classList.remove('bad');}
-  else{nitroBtn.setAttribute('disabled','disabled');nitroBtn.classList.add('bad');}
-  if(S.balance>=DECO_COST){decoBtn.removeAttribute('disabled');decoBtn.classList.remove('bad');}
-  else{decoBtn.setAttribute('disabled','disabled');decoBtn.classList.add('bad');}
+  // shop buttons
+  if(S.balance >= NITRO_COST){ $("#redeemNitro").classList.remove("btn-disabled"); $("#redeemNitro").removeAttribute("disabled"); } else { $("#redeemNitro").classList.add("btn-disabled"); $("#redeemNitro").setAttribute("disabled","disabled"); }
+  if(S.balance >= DECO_COST){ $("#redeemDeco").classList.remove("btn-disabled"); $("#redeemDeco").removeAttribute("disabled"); } else { $("#redeemDeco").classList.add("btn-disabled"); $("#redeemDeco").setAttribute("disabled","disabled"); }
 
-  const ul=$("#history"); ul.innerHTML="";
-  if(!S.history.length){ ul.innerHTML='<li><span>Sem movimentos ainda</span><span>—</span></li>'; }
-  else{
+  // history
+  const ul = $("#history"); ul.innerHTML = "";
+  if(!S.history.length){ ul.innerHTML = '<li><span>Sem movimentos ainda</span><span>—</span></li>'; }
+  else {
     S.history.slice().reverse().forEach(h=>{
-      const li=document.createElement('li');
-      li.innerHTML=`<span>${h.label}</span><span>${h.value>0?'+':''}${h.value} • <small>${new Date(h.ts).toLocaleString()}</small></span>`;
+      const li = document.createElement("li");
+      li.innerHTML = `<span>${h.label}</span><span>${h.value>0?'+':''}${h.value} • <small style="color:var(--muted)">${new Date(h.ts).toLocaleString()}</small></span>`;
       ul.appendChild(li);
     });
   }
 }
 render();
-setInterval(()=>{
-  const t = todayKey();
-  if(S.lastClaimDay===t && S.todayClaimed>0){
-    const midnight = new Date(); midnight.setHours(24,0,0,0);
-    $("#nextClaim").textContent = fmtTime(midnight - new Date());
-  }
-},1000);
 
-/* ========= Lógica Diário ========= */
-$("#btnDaily").addEventListener("click",()=>{
-  const t=todayKey();
-  if(S.lastClaimDay===t && S.todayClaimed>0){toast("Você já resgatou hoje.");return;}
-  S.balance+=DAILY_AMOUNT;
-  S.lifetime+=DAILY_AMOUNT;
-  S.todayClaimed=DAILY_AMOUNT;
-  S.lastClaimDay=t;
-  S.history.push({label:"Daily +20",value:+20,ts:Date.now()});
-  saveState(S);render();toast("Daily coletado! +20 Discoins");
+/* Atualiza contagem a cada segundo (próximo resgate) */
+setInterval(render, 1000);
+
+/* ========= Daily logic (24h cooldown) ========= */
+$("#btnDaily").addEventListener("click", ()=>{
+  const now = Date.now();
+  if(S.lastClaimAt && (now - S.lastClaimAt) < DAY_MS){ toast("Ainda não passou 24 horas desde o último resgate."); return; }
+  S.balance += DAILY_AMOUNT;
+  S.lifetime += DAILY_AMOUNT;
+  S.lastClaimAt = now;
+  S.lastClaimedAmount = DAILY_AMOUNT;
+  S.history.push({ label: "Daily +20", value: +DAILY_AMOUNT, ts: now });
+  saveState(S); render(); toast("Daily coletado! +20 Discoins");
 });
 
-/* ========= Resgates ========= */
+/* ========= Redeem / Loja ========= */
 function redeem(cost,label){
-  if(S.balance<cost)return;
-  if(!confirm(`Confirmar resgate de ${label} por ${cost} Discoins?`))return;
-  S.balance-=cost;
-  S.history.push({label:`Resgate: ${label}`,value:-cost,ts:Date.now()});
-  saveState(S);render();toast("Resgate solicitado! Você receberá instruções por e-mail.");
+  if(S.balance < cost){ toast("Saldo insuficiente."); return; }
+  if(!confirm(`Confirmar resgate de ${label} por ${cost} Discoins?`)) return;
+  S.balance -= cost;
+  S.history.push({ label: `Resgate: ${label}`, value: -cost, ts: Date.now() });
+  saveState(S); render(); toast("Resgate solicitado! Você receberá instruções por e-mail.");
 }
-$("#redeemNitro").addEventListener("click",()=>redeem(NITRO_COST,"Nitro mensal"));
-$("#redeemDeco").addEventListener("click",()=>redeem(DECO_COST,"Decorações Discord"));
+$("#redeemNitro").addEventListener("click", ()=>redeem(NITRO_COST,"Nitro mensal"));
+$("#redeemDeco").addEventListener("click", ()=>redeem(DECO_COST,"Decorações Discord"));
 
-/* ========= reCAPTCHA: Gate de entrada ========= */
-let entryWidgetId=null;
-function onEntrySolved(){document.getElementById("entryGate").style.display="none";}
-function renderEntryCaptcha(){
-  if(!window.grecaptcha||typeof grecaptcha.render!=="function")return false;
-  if(entryWidgetId===null){
-    entryWidgetId=grecaptcha.render("entryCaptcha",{
-      sitekey:SITE_KEY_V2,
-      callback:onEntrySolved,
-      "expired-callback":()=>{document.getElementById("entryGate").style.display="flex";}
-    });
+/* ========= Gate (desafio) ========= */
+const gate = $("#entryGate");
+const slider = $("#challengeSlider");
+const sliderVal = $("#sliderVal");
+const sliderReset = $("#sliderReset");
+const mathQ = $("#mathQuestion");
+const mathAns = $("#mathAnswer");
+const mathCheck = $("#mathCheck");
+const mathNew = $("#mathNew");
+const entryMsg = $("#entryMsg");
+
+function showGateIfNeeded(){
+  if(!hasPassedEntry()){
+    gate.style.display = "flex";
+    entryMsg.textContent = "Complete um dos desafios para liberar o acesso.";
+    initChallenges();
+  } else {
+    gate.style.display = "none";
   }
-  return true;
-}
-(function waitEntry(){if(!renderEntryCaptcha())setTimeout(waitEntry,150);})();
-
-/* ========= reCAPTCHA: Painel ========= */
-let rcSolvedToken="",rcWidgetId=null,rcHref="https://discloud.com/";
-function onRcOk(token){rcSolvedToken=token;const b=$("#rc-continue");b.classList.remove("rc-continue");b.removeAttribute("disabled");$("#rc-error").style.display="none";}
-function onRcExpired(){
-  rcSolvedToken="";
-  const b=$("#rc-continue");
-  b.classList.add("rc-continue");
-  b.setAttribute("disabled","disabled");
 }
 
-function renderRcCaptcha(){
-  if(!window.grecaptcha||typeof grecaptcha.render!=="function")return false;
-  if(rcWidgetId===null){
-    rcWidgetId=grecaptcha.render("recaptchaMount",{
-      sitekey:SITE_KEY_V2,
-      callback:onRcOk,
-      "expired-callback":onRcExpired
-    });
+/* Slider challenge: precisa levar até 100 sem soltar? aceitaremos 100 por precisão */
+slider.addEventListener("input", ()=>{
+  const v = Number(slider.value);
+  sliderVal.textContent = v + "%";
+  slider.style.background = `linear-gradient(90deg, var(--brand) ${v}%, rgba(255,255,255,.04) ${v}%)`;
+  if(v >= 100){
+    passEntry("Desafio do slider concluído");
   }
-  return true;
-}
-(function waitRc(){if(!renderRcCaptcha())setTimeout(waitRc,150);})();
-
-const rcModal=$("#rc-modal");
-const rcCancel=$("#rc-cancel");
-const rcContinue=$("#rc-continue");
-
-document.querySelectorAll(".js-panel").forEach(el=>{
-  el.addEventListener("click",ev=>{
-    ev.preventDefault();
-    rcHref=el.getAttribute("data-href")||"https://discloud.com/";
-    rcModal.classList.add("open");
-    rcModal.setAttribute("aria-hidden","false");
-    rcSolvedToken="";
-    const b=$("#rc-continue");
-    b.classList.add("rc-continue");
-    b.setAttribute("disabled","disabled");
-    $("#rc-error").style.display="none";
-  });
+});
+sliderReset.addEventListener("click", ()=>{
+  slider.value = 0;
+  sliderVal.textContent = "0%";
+  slider.style.transition = "none";
+  setTimeout(()=>slider.style.transition = "",50);
 });
 
-rcCancel.addEventListener("click",()=>{
-  rcModal.classList.remove("open");
-  rcModal.setAttribute("aria-hidden","true");
-});
-
-rcContinue.addEventListener("click",()=>{
-  if(!rcSolvedToken){
-    $("#rc-error").style.display="block";
-    $("#rc-error").textContent="Verifique o reCAPTCHA antes de continuar.";
-    return;
+/* Math challenge: gerar pequena operação aleatória */
+let currentAnswer = 0;
+function newMath(){
+  const a = Math.floor(Math.random()*9)+2; // 2..10
+  const b = Math.floor(Math.random()*9)+2;
+  const op = ["+","-","*"][Math.floor(Math.random()*3)];
+  let q = `${a} ${op} ${b}`;
+  let ans = 0;
+  if(op==="+") ans = a+b;
+  if(op==="-") ans = a-b;
+  if(op==="*") ans = a*b;
+  currentAnswer = ans;
+  mathQ.textContent = q + " = ?";
+  mathAns.value = "";
+}
+mathCheck.addEventListener("click", ()=>{
+  const val = Number(mathAns.value.trim());
+  if(Number.isNaN(val)){ entryMsg.textContent = "Digite um número válido."; return; }
+  if(val === currentAnswer){
+    passEntry("Desafio matemático concluído");
+  } else {
+    entryMsg.textContent = "Resposta incorreta — tente novamente ou gere uma nova pergunta.";
   }
-  $("#rc-error").style.display="none";
-  toast("Acessando painel...");
-  setTimeout(()=>{
-    window.open(rcHref,"_blank");
-    rcModal.classList.remove("open");
-  },800);
+});
+mathNew.addEventListener("click", ()=>{ newMath(); entryMsg.textContent = "Nova questão gerada."; });
+
+function initChallenges(){
+  slider.value = 0; sliderVal.textContent = "0%";
+  newMath();
+  entryMsg.textContent = "Escolha: arraste até 100% ou resolva a operação.";
+}
+
+/* Ao passar no desafio */
+function passEntry(msg){
+  setPassedEntry();
+  gate.style.display = "none";
+  entryMsg.textContent = "";
+  toast(msg || "Verificação concluída");
+}
+
+/* Painel (botão) — apenas demonstração (abre nova aba) */
+$("#openPanelBtn").addEventListener("click", ()=> {
+  // se desejar, você pode exigir o desafio antes de abrir painel
+  if(!hasPassedEntry()){ entryMsg.textContent = "Complete o desafio inicial para acessar o painel."; gate.style.display="flex"; return; }
+  window.open("https://discloud.com/","_blank");
 });
 
-/* ========= Ano automático ========= */
-$("#year").textContent=new Date().getFullYear();
+/* Inicialização do gate */
+showGateIfNeeded();
+
+/* ========= Ano no rodapé ========= */
+document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
 </body>
