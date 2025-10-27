@@ -67,6 +67,9 @@
             width: 100%;
             height: auto;
             border-radius: 5px 5px 0 0;
+            /* Garante que o placeholder não estique */
+            min-height: 225px; 
+            object-fit: cover;
         }
 
         .details-btn {
@@ -102,7 +105,7 @@
             background-color: #1c1c1c;
             padding: 30px;
             border-radius: 8px;
-            max-width: 800px; /* Aumentado para melhor visualização do player */
+            max-width: 800px;
             width: 90%;
             max-height: 90%;
             overflow-y: auto;
@@ -124,10 +127,11 @@
         /* Player de Vídeo */
         #modal-video {
             width: 100%;
-            aspect-ratio: 16 / 9; /* Mantém a proporção de um vídeo */
+            aspect-ratio: 16 / 9;
             height: auto;
             border: none;
             margin-top: 15px;
+            background-color: #000;
         }
 
         /* Estilos para Séries */
@@ -136,7 +140,7 @@
             align-items: center;
             gap: 15px;
             margin-bottom: 15px;
-            flex-wrap: wrap; /* Para telas menores */
+            flex-wrap: wrap; 
         }
         #series-controls label, #series-controls select {
             padding: 5px;
@@ -198,8 +202,8 @@
 
     <script>
         // --- CONFIGURAÇÕES ---
-        // **IMPORTANTE**: Use a sua chave de API do TMDb.
-        const TMDB_API_KEY = '6d326c6165f963f78b528d76e49f358c'; 
+        // SUA Chave de API v3 do TMDb.
+        const TMDB_API_KEY = '3c3861e421720adb868d69c409ef2ab5'; 
         const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
         const WAREZCDN_BASE_URL = 'https://embed.warezcdn.net';
         const LANGUAGE = 'pt-BR';
@@ -233,6 +237,13 @@
                 }
 
                 const response = await fetch(url);
+                
+                // Trata o erro 401 (Não Autorizado) caso a chave esteja inválida
+                if (response.status === 401) {
+                    container.innerHTML = `<p class="error-message">Erro 401: Sua chave de API do TMDb parece ser inválida ou expirou. Por favor, verifique a chave: <code>${TMDB_API_KEY}</code></p>`;
+                    return;
+                }
+                
                 const data = await response.json();
                 
                 container.innerHTML = '';
@@ -245,7 +256,7 @@
                 }
             } catch (error) {
                 console.error(`Erro ao buscar ${mediaType}:`, error);
-                container.innerHTML = '<p>Erro ao carregar os dados.</p>';
+                container.innerHTML = '<p class="error-message">Erro ao carregar os dados. Verifique sua conexão ou o console para detalhes.</p>';
             }
         }
         
@@ -255,7 +266,8 @@
             mediaCard.classList.add('media-card');
 
             const mediaPoster = document.createElement('img');
-            mediaPoster.src = media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : 'placeholder.png';
+            // Tenta usar a imagem, se não houver, usa um placeholder (opcional)
+            mediaPoster.src = media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : 'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="225" viewBox="0 0 150 225" fill="#333"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="16" fill="#ccc">Poster não disponível</text></svg>';
             mediaPoster.alt = media.title || media.name;
 
             const detailsBtn = document.createElement('button');
@@ -263,7 +275,6 @@
             detailsBtn.textContent = media.title || media.name;
 
             detailsBtn.addEventListener('click', () => {
-                // 'movie' ou 'tv'
                 const type = mediaType === 'filme' ? 'movie' : 'tv'; 
                 openModal(media.id, type);
             });
@@ -278,7 +289,6 @@
         /** Abre o modal e busca detalhes completos da mídia. */
         async function openModal(id, mediaType) {
             try {
-                // 1. Busca detalhes da mídia, incluindo IDs externos e temporadas
                 const append = mediaType === 'movie' ? 'external_ids' : 'external_ids,seasons';
                 const response = await fetch(`${TMDB_BASE_URL}/${mediaType}/${id}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}&append_to_response=${append}`);
                 currentMedia = await response.json();
@@ -298,10 +308,10 @@
                 }
 
                 if (mediaType === 'movie') {
-                    // 2a. Para Filmes: Monta a URL do embed diretamente
+                    // Para Filmes
                     setEmbedSource('filme', imdbID);
                 } else {
-                    // 2b. Para Séries: Configura a seleção de Temporada/Episódio
+                    // Para Séries
                     setupSeriesControls(currentMedia, imdbID);
                 }
                 
@@ -319,7 +329,6 @@
             seasonSelect.innerHTML = '';
             episodeSelect.innerHTML = '';
 
-            // Filtra temporadas válidas (geralmente season_number > 0)
             const seasons = mediaData.seasons.filter(s => s.season_number > 0);
             
             seasons.forEach(season => {
@@ -329,14 +338,13 @@
                 seasonSelect.appendChild(option);
             });
 
-            // Carrega episódios da primeira temporada disponível por padrão
             if (seasons.length > 0) {
+                // Carrega episódios da primeira temporada por padrão
                 loadEpisodes(currentMedia.id, seasons[0].season_number, imdbID);
             } else {
                 displayError('Nenhuma temporada principal encontrada para esta série.');
             }
             
-            // Event Listeners para Séries
             seasonSelect.onchange = () => loadEpisodes(currentMedia.id, seasonSelect.value, imdbID);
             episodeSelect.onchange = () => {
                 setEmbedSource('serie', imdbID, seasonSelect.value, episodeSelect.value);
@@ -359,7 +367,7 @@
                         episodeSelect.appendChild(option);
                     });
                     
-                    // Carrega o embed do primeiro episódio por padrão
+                    // Carrega o embed do primeiro episódio
                     setEmbedSource('serie', imdbID, seasonNumber, seasonData.episodes[0].episode_number);
                 } else {
                     displayError('Nenhum episódio encontrado para esta temporada.');
@@ -402,16 +410,19 @@
         // 1. Pesquisa em Tempo Real
         searchInput.addEventListener('input', () => {
             const query = searchInput.value.trim();
-            // Atraso para evitar muitas requisições
-            setTimeout(() => {
+            
+            if (searchInput.timer) {
+                clearTimeout(searchInput.timer);
+            }
+            
+            // Atraso de 300ms para evitar spam de requisições
+            searchInput.timer = setTimeout(() => {
                 if (query.length > 2) {
-                    // Limpa e busca o conteúdo pesquisado
                     filmesContainer.innerHTML = '<h4>Buscando...</h4>';
                     seriesContainer.innerHTML = '<h4>Buscando...</h4>';
                     fetchMedia(`search/movie`, filmesContainer, 'movie', query);
                     fetchMedia(`search/tv`, seriesContainer, 'tv', query);
-                } else {
-                    // Retorna aos populares
+                } else if (query.length === 0) {
                     loadPopularMedia();
                 }
             }, 300); 
@@ -425,7 +436,6 @@
 
         // 3. Carregar Mídias Populares ao Iniciar
         function loadPopularMedia() {
-            // endpoint, container, mediaType ('movie' ou 'tv')
             fetchMedia('movie/popular', filmesContainer, 'movie');
             fetchMedia('tv/popular', seriesContainer, 'tv');
         }
