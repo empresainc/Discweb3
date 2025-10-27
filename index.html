@@ -1,483 +1,438 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Discover Cloud — Discoins & Passe de Batalha</title>
-<meta name="theme-color" content="#0b122a" />
-<meta name="description" content="Resgate Discoins diariamente e troque por prêmios. Interface responsiva com desafio de entrada." />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 Catálogo de Mídias com API</title>
+    
+    <style>
+        /* Estilos CSS (Combinado) */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #141414;
+            color: #f5f5f5;
+        }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+        header {
+            background-color: #000;
+            padding: 20px;
+            text-align: center;
+        }
 
-<!-- partículas -->
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+        /* Barra de Pesquisa */
+        .search-bar {
+            margin-top: 15px;
+        }
+        #searchInput {
+            padding: 10px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background-color: #333;
+            color: #fff;
+        }
 
-<style>
-:root{
-  --bg1:#08102a; --bg2:#051026; --panel:rgba(10,14,30,.6);
-  --brand:#4f8cff; --brand2:#7c4dff; --accent:#00d2ff;
-  --text:#eaf0ff; --muted:#9aa7d4; --glass:rgba(255,255,255,.04);
-  --radius:16px; --ease:cubic-bezier(.2,.7,.2,1);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(900px 500px at 10% 10%, rgba(20,36,70,.6), transparent 30%),
-    linear-gradient(180deg,var(--bg1),var(--bg2));
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  overflow-x:hidden;
-  min-height:100vh;
-  position:relative;
-}
+        /* Seções de Mídia */
+        .media-section {
+            padding: 20px;
+        }
 
-/* Particles container behind content */
-#particles-js{position:fixed;inset:0;z-index:-2;opacity:.7}
+        .media-container {
+            display: flex;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            gap: 15px;
+        }
 
-/* layout */
-.container{width:min(1100px,94vw);margin:0 auto;padding:28px 0}
-.header{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:14px;z-index:50;padding:10px 0}
-.brand{display:flex;align-items:center;gap:12px;font-family:Poppins;font-weight:700}
-.brand img{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand2));padding:6px}
-.nav{display:flex;gap:18px;align-items:center}
-.nav a{color:var(--muted);font-weight:700;text-decoration:none}
-.actions .btn{padding:8px 16px;border-radius:999px}
+        .media-card {
+            flex: 0 0 auto;
+            width: 150px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #222;
+            border-radius: 5px;
+            padding-bottom: 10px;
+            transition: transform 0.2s;
+        }
+        
+        .media-card:hover {
+            transform: scale(1.05);
+        }
 
-/* main */
-main{padding:26px 0}
-.grid{display:grid;gap:18px}
-.grid-2{grid-template-columns:1.05fr .95fr}
-.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.card{
-  background:linear-gradient(180deg, rgba(12,18,36,.7), rgba(8,12,26,.6));
-  border:1px solid rgba(255,255,255,.05);
-  border-radius:var(--radius);
-  padding:20px;
-  box-shadow:0 20px 60px rgba(3,8,20,.5);
-  backdrop-filter: blur(6px);
-}
+        .media-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px 5px 0 0;
+        }
 
-/* wallet */
-.section-title{font-family:Poppins;font-weight:800;font-size:clamp(1.2rem,2.6vw,1.7rem);margin-bottom:6px}
-.section-sub{color:var(--muted);margin-bottom:12px}
-.wallet{display:flex;align-items:center;gap:12px}
-.chip{background:var(--glass);padding:6px 10px;border-radius:999px;font-weight:800;color:var(--muted);font-size:.9rem}
-.balance{font-family:Poppins;font-size:2rem;font-weight:800}
+        .details-btn {
+            background-color: #e50914;
+            color: white;
+            border: none;
+            padding: 8px 10px;
+            margin-top: 8px;
+            width: 90%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.9em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-/* stats */
-.stats{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
-.stat{flex:1;min-width:110px;background:rgba(255,255,255,.02);border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,.02);text-align:center}
-.stat strong{display:block;font-size:1.2rem}
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-/* buttons */
-.btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,var(--brand),var(--accent));color:#07102a;padding:10px 18px;border-radius:999px;font-weight:800;border:none;cursor:pointer;transition:transform .18s var(--ease),box-shadow .18s var(--ease)}
-.btn:active{transform:translateY(1px)}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.06);color:var(--muted);padding:8px 14px;border-radius:999px}
-.btn-disabled{opacity:.45;pointer-events:none}
+        .modal-content {
+            background-color: #1c1c1c;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 800px; /* Aumentado para melhor visualização do player */
+            width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+        }
 
-/* loja */
-.shop-item{border-radius:12px;padding:14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.03)}
+        #close-modal-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e50914;
+            color: white;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        /* Player de Vídeo */
+        #modal-video {
+            width: 100%;
+            aspect-ratio: 16 / 9; /* Mantém a proporção de um vídeo */
+            height: auto;
+            border: none;
+            margin-top: 15px;
+        }
 
-/* passe */
-.progress{height:10px;border-radius:999px;background:rgba(255,255,255,.04);overflow:hidden}
-.progress > span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .8s var(--ease)}
-
-/* history */
-.history{max-height:220px;overflow:auto;border-radius:8px;padding:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.03)}
-.history li{display:flex;justify-content:space-between;padding:8px;border-bottom:1px dashed rgba(255,255,255,.03)}
-.history li:last-child{border-bottom:0}
-
-/* gate (challenge) */
-.gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,18,.85),rgba(2,6,18,.92));z-index:9999}
-.gate-card{width:min(760px,94vw);max-width:820px;background:linear-gradient(180deg,rgba(9,14,30,.9),rgba(7,10,20,.9));border-radius:18px;padding:22px;border:1px solid rgba(255,255,255,.04);text-align:center;box-shadow:0 40px 120px rgba(2,6,20,.7)}
-.gate h2{font-family:Poppins;margin-bottom:6px}
-.gate p{color:var(--muted);margin-bottom:14px}
-.challenge{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap}
-.slider-wrap{width:360px;max-width:92%;background:rgba(255,255,255,.02);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.03)}
-#challengeSlider{width:100%}
-.slider-label{display:flex;justify-content:space-between;font-weight:700;color:var(--muted);font-size:.9rem;margin-bottom:8px}
-.math-wrap{width:260px;max-width:92%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.03);background:rgba(255,255,255,.02)}
-.math-input{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.06);background:transparent;color:var(--text);outline:none;font-weight:700}
-
-/* success */
-.success-badge{display:inline-block;padding:10px 14px;border-radius:999px;background:linear-gradient(90deg,#6cf0b2,#4f8cff);color:#05202a;font-weight:800;margin-top:12px;box-shadow:0 12px 30px rgba(79,140,255,.12)}
-
-/* animations and visual flourish */
-@keyframes floaty {0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
-.brand img{animation:floaty 6s ease-in-out infinite}
-
-/* responsiveness */
-@media (max-width:880px){
-  .grid-2{grid-template-columns:1fr}
-  .grid-3{grid-template-columns:1fr}
-  .header{padding:10px 6px}
-  .brand img{width:40px;height:40px}
-  .gate-card{padding:16px}
-  .challenge{flex-direction:column}
-}
-
-/* tiny decorative */
-.footer{margin-top:36px;color:var(--muted);font-size:.92rem;padding-bottom:36px}
-</style>
+        /* Estilos para Séries */
+        #series-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap; /* Para telas menores */
+        }
+        #series-controls label, #series-controls select {
+            padding: 5px;
+            border-radius: 3px;
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+        }
+        
+        .error-message {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #330000;
+            border: 1px solid #ff0000;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 
-<div id="particles-js" aria-hidden="true"></div>
+    <header>
+        <h1>Catálogo de Mídias</h1>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Pesquisar filmes ou séries...">
+        </div>
+    </header>
 
-<header class="container header">
-  <div class="brand">
-    <img src="https://i.ibb.co/21HWwywW/Gemini-Generated-Image-47non947non947no.png" alt="logo"/>
-    <div>
-      <div style="font-weight:800">Discover Cloud</div>
-      <div style="color:var(--muted);font-size:.85rem">Discoins & Passe de Batalha</div>
-    </div>
-  </div>
-  <nav class="nav">
-    <a href="#passe">Passe de Batalha</a>
-    <a href="#loja">Loja</a>
-    <a href="#historico">Histórico</a>
-  </nav>
-  <div class="actions">
-    <button class="btn btn-ghost" id="openPanelBtn">Painel</button>
-  </div>
-</header>
+    <main>
+        <section class="media-section" id="filmes-section">
+            <h2>Filmes Populares</h2>
+            <div class="media-container" id="filmes-container">
+                </div>
+        </section>
 
-<main class="container">
-  <section class="grid grid-2">
-    <div class="card">
-      <h2 class="section-title">Sua carteira</h2>
-      <p class="section-sub">Reivindique Discoins a cada 24 horas e troque por prêmios.</p>
+        <section class="media-section" id="series-section">
+            <h2>Séries Populares</h2>
+            <div class="media-container" id="series-container">
+                </div>
+        </section>
+    </main>
 
-      <div class="wallet" style="margin-top:8px">
-        <span class="chip">DISCOINS</span>
-        <span id="balance" class="balance">0</span>
-      </div>
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-content">
+            <button id="close-modal-btn">Fechar</button>
+            <h2 id="modal-title"></h2>
+            <p id="modal-overview"></p>
+            
+            <div id="series-controls" style="display:none;">
+                <label for="season-select">Temporada:</label>
+                <select id="season-select"></select>
+                <label for="episode-select">Episódio:</label>
+                <select id="episode-select"></select>
+            </div>
 
-      <div class="stats" style="margin-top:12px">
-        <div class="stat"><strong id="claimedAmount">0</strong><small style="display:block;color:var(--muted)">Último resgate</small></div>
-        <div class="stat"><strong id="nextClaim">Disponível</strong><small style="display:block;color:var(--muted)">Próximo</small></div>
-        <div class="stat"><strong id="lifetime">0</strong><small style="display:block;color:var(--muted)">Acumulado</small></div>
-      </div>
-
-      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-        <button id="btnDaily" class="btn">Resgatar 20 / dia</button>
-        <div style="color:var(--muted)">Limite: 1 x a cada 24h</div>
-      </div>
+            <iframe id="modal-video" src="" frameborder="0" allowfullscreen></iframe>
+            <p id="error-message" class="error-message" style="display:none;"></p>
+        </div>
     </div>
 
-    <div class="card" id="passe">
-      <h2 class="section-title">Passe de Batalha</h2>
-      <p class="section-sub">Progrida com seus Discoins. Metas abaixo.</p>
+    <script>
+        // --- CONFIGURAÇÕES ---
+        // **IMPORTANTE**: Use a sua chave de API do TMDb.
+        const TMDB_API_KEY = '6d326c6165f963f78b528d76e49f358c'; 
+        const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+        const WAREZCDN_BASE_URL = 'https://embed.warezcdn.net';
+        const LANGUAGE = 'pt-BR';
 
-      <div style="margin-bottom:12px">
-        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-          <strong>Nitro mensal</strong>
-          <strong><span id="pbNitro">0</span>/300</strong>
-        </div>
-        <div class="progress"><span id="barNitro" style="width:0%"></span></div>
-      </div>
+        // --- REFERÊNCIAS DOM ---
+        const searchInput = document.getElementById('searchInput');
+        const filmesContainer = document.getElementById('filmes-container');
+        const seriesContainer = document.getElementById('series-container');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const modalTitle = document.getElementById('modal-title');
+        const modalOverview = document.getElementById('modal-overview');
+        const modalVideo = document.getElementById('modal-video');
+        const errorMessage = document.getElementById('error-message');
+        const seriesControls = document.getElementById('series-controls');
+        const seasonSelect = document.getElementById('season-select');
+        const episodeSelect = document.getElementById('episode-select');
 
-      <div style="margin-top:14px">
-        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-          <strong>Decorações Discord</strong>
-          <strong><span id="pbDeco">0</span>/400</strong>
-        </div>
-        <div class="progress"><span id="barDeco" style="width:0%"></span></div>
-      </div>
-    </div>
-  </section>
+        let currentMedia = null; 
 
-  <section style="margin-top:20px" id="loja">
-    <div class="card">
-      <h2 class="section-title">Loja de prêmios</h2>
-      <p class="section-sub">Resgate quando atingir o saldo mínimo. Você receberá instruções por e-mail após a validação.</p>
-      <div class="grid grid-3" style="margin-top:14px">
-        <div class="shop-item card">
-          <h4 style="font-family:Poppins">Nitro mensal</h4>
-          <div style="color:var(--muted)">300 Discoins</div>
-          <div style="margin-top:12px"><button id="redeemNitro" class="btn btn-disabled">Resgatar</button></div>
-        </div>
+        // --- Funções Principais de API ---
 
-        <div class="shop-item card">
-          <h4 style="font-family:Poppins">Decorações Discord</h4>
-          <div style="color:var(--muted)">400 Discoins</div>
-          <div style="margin-top:12px"><button id="redeemDeco" class="btn btn-disabled">Resgatar</button></div>
-        </div>
+        /** Busca mídias (filmes ou séries) populares ou resultados de pesquisa. */
+        async function fetchMedia(endpoint, container, mediaType, query = '') {
+            try {
+                let url;
+                if (query) {
+                    url = `${TMDB_BASE_URL}/search/${mediaType}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}&query=${encodeURIComponent(query)}`;
+                } else {
+                    url = `${TMDB_BASE_URL}/${endpoint}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}`;
+                }
 
-        <div class="shop-item card">
-          <h4 style="font-family:Poppins">Bônus diário extra</h4>
-          <div style="color:var(--muted)">Em breve</div>
-          <div style="margin-top:12px"><button class="btn btn-ghost btn-disabled">Em breve</button></div>
-        </div>
-      </div>
-    </div>
-  </section>
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                container.innerHTML = '';
+                if (data.results && data.results.length > 0) {
+                    data.results.forEach(media => {
+                        createMediaCard(media, container, mediaType);
+                    });
+                } else {
+                    container.innerHTML = `<p>Nenhum ${mediaType === 'movie' ? 'filme' : 'série'} encontrado.</p>`;
+                }
+            } catch (error) {
+                console.error(`Erro ao buscar ${mediaType}:`, error);
+                container.innerHTML = '<p>Erro ao carregar os dados.</p>';
+            }
+        }
+        
+        /** Cria e anexa o card de mídia. */
+        function createMediaCard(media, container, mediaType) {
+            const mediaCard = document.createElement('div');
+            mediaCard.classList.add('media-card');
 
-  <section style="margin-top:20px" id="historico">
-    <div class="card">
-      <h2 class="section-title">Histórico</h2>
-      <ul id="history" class="history"></ul>
-    </div>
-  </section>
+            const mediaPoster = document.createElement('img');
+            mediaPoster.src = media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : 'placeholder.png';
+            mediaPoster.alt = media.title || media.name;
 
-  <div class="footer" style="text-align:center">
-    © <span id="year"></span> Discover Cloud • Parceiro: <a href="https://discloud.com/" target="_blank" rel="noopener" style="color:var(--muted)">Discloud</a>
-  </div>
-</main>
+            const detailsBtn = document.createElement('button');
+            detailsBtn.classList.add('details-btn');
+            detailsBtn.textContent = media.title || media.name;
 
-<!-- Gate inicial: substitui reCAPTCHA por desafio -->
-<div id="entryGate" class="gate" aria-modal="true" role="dialog" style="display:none">
-  <div class="gate-card">
-    <h2>Verificação rápida</h2>
-    <p style="margin-bottom:14px;color:var(--muted)">Faça um pequeno desafio para provar que você é humano e acesse o app. (Escolha um dos desafios)</p>
+            detailsBtn.addEventListener('click', () => {
+                // 'movie' ou 'tv'
+                const type = mediaType === 'filme' ? 'movie' : 'tv'; 
+                openModal(media.id, type);
+            });
 
-    <div class="challenge" style="justify-content:center">
-      <div class="slider-wrap card">
-        <div class="slider-label"><span>Arraste para liberar</span><span id="sliderVal">0%</span></div>
-        <input id="challengeSlider" type="range" min="0" max="100" value="0" />
-        <div style="margin-top:10px;text-align:center">
-          <button id="sliderReset" class="btn btn-ghost" style="padding:8px 12px">Resetar</button>
-        </div>
-      </div>
+            mediaCard.appendChild(mediaPoster);
+            mediaCard.appendChild(detailsBtn);
+            container.appendChild(mediaCard);
+        }
 
-      <div class="math-wrap card" aria-hidden="false">
-        <div style="font-weight:800;margin-bottom:8px">Ou resolva:</div>
-        <div id="mathQuestion" style="font-size:1.05rem;margin-bottom:8px;color:var(--muted)"></div>
-        <input id="mathAnswer" class="math-input" placeholder="Digite o resultado" inputmode="numeric" />
-        <div style="margin-top:10px;display:flex;gap:8px;justify-content:center">
-          <button id="mathCheck" class="btn">Verificar</button>
-          <button id="mathNew" class="btn btn-ghost">Nova</button>
-        </div>
-      </div>
-    </div>
+        // --- Funções do Modal e Embed ---
 
-    <div style="margin-top:14px" id="entryMsg" class="note" aria-live="polite"></div>
-  </div>
-</div>
+        /** Abre o modal e busca detalhes completos da mídia. */
+        async function openModal(id, mediaType) {
+            try {
+                // 1. Busca detalhes da mídia, incluindo IDs externos e temporadas
+                const append = mediaType === 'movie' ? 'external_ids' : 'external_ids,seasons';
+                const response = await fetch(`${TMDB_BASE_URL}/${mediaType}/${id}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}&append_to_response=${append}`);
+                currentMedia = await response.json();
+                
+                modalTitle.textContent = currentMedia.title || currentMedia.name;
+                modalOverview.textContent = currentMedia.overview || 'Sinopse não disponível.';
+                modalVideo.src = '';
+                errorMessage.style.display = 'none';
+                seriesControls.style.display = 'none';
 
-<script>
-/* ========== CONFIG ========== */
-const STORAGE_KEY = "discover.discoins.v1";
-const ENTRY_KEY = "discover.entryPassed.v1";
-const DAILY_AMOUNT = 20;
-const NITRO_COST = 300;
-const DECO_COST = 400;
-const DAY_MS = 24*60*60*1000; // 1 dia
+                const imdbID = currentMedia.external_ids?.imdb_id;
 
-/* ========= Partículas ========= */
-particlesJS("particles-js", {
-  particles: {
-    number: { value: 40 },
-    color: { value: ["#4f8cff","#7c4dff","#00d2ff"] },
-    opacity: { value: .18 },
-    size: { value: 3, random: true },
-    line_linked: { enable: true, distance: 160, color: "#4f8cff", opacity: .06, width: 1 },
-    move: { enable: true, speed: 1, out_mode: "out" }
-  },
-  interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "grab" } }, modes: { grab: { distance: 120, line_linked: { opacity: .18 } } } }
-});
+                if (!imdbID) {
+                    displayError('ID do IMDb não disponível para esta mídia, impossível gerar o link de embed.');
+                    modalOverlay.style.display = 'flex';
+                    return;
+                }
 
-/* ========= Estado local ========= */
-function defaultState(){
-  return { balance:0, lifetime:0, history:[], lastClaimAt:0, lastClaimedAmount:0 };
-}
-function loadState(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(!raw) return defaultState();
-    return Object.assign(defaultState(), JSON.parse(raw));
-  }catch{return defaultState();}
-}
-function saveState(s){ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
+                if (mediaType === 'movie') {
+                    // 2a. Para Filmes: Monta a URL do embed diretamente
+                    setEmbedSource('filme', imdbID);
+                } else {
+                    // 2b. Para Séries: Configura a seleção de Temporada/Episódio
+                    setupSeriesControls(currentMedia, imdbID);
+                }
+                
+                modalOverlay.style.display = 'flex';
+            } catch (error) {
+                console.error('Erro ao abrir o modal:', error);
+                displayError('Erro ao carregar detalhes da mídia.');
+                modalOverlay.style.display = 'flex';
+            }
+        }
 
-/* ========= Entry flag ========= */
-function hasPassedEntry(){ return localStorage.getItem(ENTRY_KEY) === "1"; }
-function setPassedEntry(){ localStorage.setItem(ENTRY_KEY, "1"); }
+        /** Configura o select de temporadas e episódios. */
+        function setupSeriesControls(mediaData, imdbID) {
+            seriesControls.style.display = 'flex';
+            seasonSelect.innerHTML = '';
+            episodeSelect.innerHTML = '';
 
-/* ========= UI helper ========= */
-const $ = (sel)=>document.querySelector(sel);
-function fmtTime(ms){
-  if(ms<=0) return "00:00:00";
-  const sec = Math.floor(ms/1000);
-  const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;
-  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-}
-function toast(msg){
-  const el = document.createElement("div");
-  el.textContent = msg;
-  el.style.position = "fixed"; el.style.left="50%"; el.style.top="18px"; el.style.transform="translateX(-50%)";
-  el.style.background="linear-gradient(90deg,#11182a,#06203a)"; el.style.color="#fff"; el.style.padding="10px 14px";
-  el.style.borderRadius="10px"; el.style.zIndex=99999; el.style.boxShadow="0 8px 30px rgba(2,6,20,.6)";
-  document.body.appendChild(el); setTimeout(()=>el.remove(),1800);
-}
+            // Filtra temporadas válidas (geralmente season_number > 0)
+            const seasons = mediaData.seasons.filter(s => s.season_number > 0);
+            
+            seasons.forEach(season => {
+                const option = document.createElement('option');
+                option.value = season.season_number;
+                option.textContent = `T${season.season_number} (${season.episode_count} episódios)`;
+                seasonSelect.appendChild(option);
+            });
 
-/* ========= Render ========= */
-let S = loadState();
+            // Carrega episódios da primeira temporada disponível por padrão
+            if (seasons.length > 0) {
+                loadEpisodes(currentMedia.id, seasons[0].season_number, imdbID);
+            } else {
+                displayError('Nenhuma temporada principal encontrada para esta série.');
+            }
+            
+            // Event Listeners para Séries
+            seasonSelect.onchange = () => loadEpisodes(currentMedia.id, seasonSelect.value, imdbID);
+            episodeSelect.onchange = () => {
+                setEmbedSource('serie', imdbID, seasonSelect.value, episodeSelect.value);
+            };
+        }
 
-function render(){
-  $("#balance").textContent = S.balance;
-  $("#lifetime").textContent = S.lifetime;
-  $("#claimedAmount").textContent = S.lastClaimedAmount || 0;
+        /** Busca e preenche os episódios de uma temporada específica. */
+        async function loadEpisodes(tvId, seasonNumber, imdbID) {
+            try {
+                const response = await fetch(`${TMDB_BASE_URL}/tv/${tvId}/season/${seasonNumber}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}`);
+                const seasonData = await response.json();
+                
+                episodeSelect.innerHTML = '';
+                
+                if (seasonData.episodes && seasonData.episodes.length > 0) {
+                    seasonData.episodes.forEach(episode => {
+                        const option = document.createElement('option');
+                        option.value = episode.episode_number;
+                        option.textContent = `E${episode.episode_number}: ${episode.name || 'Sem Título'}`;
+                        episodeSelect.appendChild(option);
+                    });
+                    
+                    // Carrega o embed do primeiro episódio por padrão
+                    setEmbedSource('serie', imdbID, seasonNumber, seasonData.episodes[0].episode_number);
+                } else {
+                    displayError('Nenhum episódio encontrado para esta temporada.');
+                    modalVideo.src = '';
+                }
+            } catch (error) {
+                console.error('Erro ao carregar episódios:', error);
+                displayError('Erro ao carregar os episódios da temporada.');
+            }
+        }
 
-  // cooldown: 24h since lastClaimAt
-  const now = Date.now();
-  if(S.lastClaimAt && (now - S.lastClaimAt) < DAY_MS){
-    const rem = DAY_MS - (now - S.lastClaimAt);
-    $("#nextClaim").textContent = fmtTime(rem);
-    $("#btnDaily").classList.add("btn-disabled");
-    $("#btnDaily").setAttribute("disabled","disabled");
-  } else {
-    $("#nextClaim").textContent = "Disponível";
-    $("#btnDaily").classList.remove("btn-disabled");
-    $("#btnDaily").removeAttribute("disabled");
-  }
+        /** Define a URL do embed no iframe (CORRIGIDA para o WarezCDN). */
+        function setEmbedSource(mediaType, imdbID, season = 0, episode = 0) {
+            let src = '';
+            
+            if (mediaType === 'filme') {
+                // Formato Filme: https://embed.warezcdn.net/filme/tt...
+                src = `${WAREZCDN_BASE_URL}/filme/${imdbID}`;
+            } else if (mediaType === 'serie' && season > 0 && episode > 0) {
+                // Formato Série (corrigido): https://embed.warezcdn.net/serie/tt.../S01E01
+                const s = String(season).padStart(2, '0');
+                const e = String(episode).padStart(2, '0');
+                src = `${WAREZCDN_BASE_URL}/serie/${imdbID}/S${s}E${e}`;
+            }
 
-  // progress bars
-  const nitroPct = Math.min(100, (S.balance / NITRO_COST) * 100);
-  const decoPct  = Math.min(100, (S.balance / DECO_COST) * 100);
-  $("#barNitro").style.width = nitroPct + "%";
-  $("#barDeco").style.width = decoPct + "%";
-  $("#pbNitro").textContent = Math.min(S.balance, NITRO_COST);
-  $("#pbDeco").textContent  = Math.min(S.balance, DECO_COST);
+            modalVideo.src = src;
+            errorMessage.style.display = 'none'; 
+            console.log("URL de Embed Usada:", src);
+        }
 
-  // shop buttons
-  if(S.balance >= NITRO_COST){ $("#redeemNitro").classList.remove("btn-disabled"); $("#redeemNitro").removeAttribute("disabled"); } else { $("#redeemNitro").classList.add("btn-disabled"); $("#redeemNitro").setAttribute("disabled","disabled"); }
-  if(S.balance >= DECO_COST){ $("#redeemDeco").classList.remove("btn-disabled"); $("#redeemDeco").removeAttribute("disabled"); } else { $("#redeemDeco").classList.add("btn-disabled"); $("#redeemDeco").setAttribute("disabled","disabled"); }
+        /** Exibe uma mensagem de erro no modal. */
+        function displayError(message) {
+            modalVideo.src = '';
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
 
-  // history
-  const ul = $("#history"); ul.innerHTML = "";
-  if(!S.history.length){ ul.innerHTML = '<li><span>Sem movimentos ainda</span><span>—</span></li>'; }
-  else {
-    S.history.slice().reverse().forEach(h=>{
-      const li = document.createElement("li");
-      li.innerHTML = `<span>${h.label}</span><span>${h.value>0?'+':''}${h.value} • <small style="color:var(--muted)">${new Date(h.ts).toLocaleString()}</small></span>`;
-      ul.appendChild(li);
-    });
-  }
-}
-render();
+        // --- Event Listeners Globais ---
 
-/* Atualiza contagem a cada segundo (próximo resgate) */
-setInterval(render, 1000);
+        // 1. Pesquisa em Tempo Real
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim();
+            // Atraso para evitar muitas requisições
+            setTimeout(() => {
+                if (query.length > 2) {
+                    // Limpa e busca o conteúdo pesquisado
+                    filmesContainer.innerHTML = '<h4>Buscando...</h4>';
+                    seriesContainer.innerHTML = '<h4>Buscando...</h4>';
+                    fetchMedia(`search/movie`, filmesContainer, 'movie', query);
+                    fetchMedia(`search/tv`, seriesContainer, 'tv', query);
+                } else {
+                    // Retorna aos populares
+                    loadPopularMedia();
+                }
+            }, 300); 
+        });
 
-/* ========= Daily logic (24h cooldown) ========= */
-$("#btnDaily").addEventListener("click", ()=>{
-  const now = Date.now();
-  if(S.lastClaimAt && (now - S.lastClaimAt) < DAY_MS){ toast("Ainda não passou 24 horas desde o último resgate."); return; }
-  S.balance += DAILY_AMOUNT;
-  S.lifetime += DAILY_AMOUNT;
-  S.lastClaimAt = now;
-  S.lastClaimedAmount = DAILY_AMOUNT;
-  S.history.push({ label: "Daily +20", value: +DAILY_AMOUNT, ts: now });
-  saveState(S); render(); toast("Daily coletado! +20 Discoins");
-});
+        // 2. Fechar Modal
+        closeModalBtn.addEventListener('click', () => {
+            modalOverlay.style.display = 'none';
+            modalVideo.src = ''; 
+        });
 
-/* ========= Redeem / Loja ========= */
-function redeem(cost,label){
-  if(S.balance < cost){ toast("Saldo insuficiente."); return; }
-  if(!confirm(`Confirmar resgate de ${label} por ${cost} Discoins?`)) return;
-  S.balance -= cost;
-  S.history.push({ label: `Resgate: ${label}`, value: -cost, ts: Date.now() });
-  saveState(S); render(); toast("Resgate solicitado! Você receberá instruções por e-mail.");
-}
-$("#redeemNitro").addEventListener("click", ()=>redeem(NITRO_COST,"Nitro mensal"));
-$("#redeemDeco").addEventListener("click", ()=>redeem(DECO_COST,"Decorações Discord"));
+        // 3. Carregar Mídias Populares ao Iniciar
+        function loadPopularMedia() {
+            // endpoint, container, mediaType ('movie' ou 'tv')
+            fetchMedia('movie/popular', filmesContainer, 'movie');
+            fetchMedia('tv/popular', seriesContainer, 'tv');
+        }
 
-/* ========= Gate (desafio) ========= */
-const gate = $("#entryGate");
-const slider = $("#challengeSlider");
-const sliderVal = $("#sliderVal");
-const sliderReset = $("#sliderReset");
-const mathQ = $("#mathQuestion");
-const mathAns = $("#mathAnswer");
-const mathCheck = $("#mathCheck");
-const mathNew = $("#mathNew");
-const entryMsg = $("#entryMsg");
-
-function showGateIfNeeded(){
-  if(!hasPassedEntry()){
-    gate.style.display = "flex";
-    entryMsg.textContent = "Complete um dos desafios para liberar o acesso.";
-    initChallenges();
-  } else {
-    gate.style.display = "none";
-  }
-}
-
-/* Slider challenge: precisa levar até 100 sem soltar? aceitaremos 100 por precisão */
-slider.addEventListener("input", ()=>{
-  const v = Number(slider.value);
-  sliderVal.textContent = v + "%";
-  slider.style.background = `linear-gradient(90deg, var(--brand) ${v}%, rgba(255,255,255,.04) ${v}%)`;
-  if(v >= 100){
-    passEntry("Desafio do slider concluído");
-  }
-});
-sliderReset.addEventListener("click", ()=>{
-  slider.value = 0;
-  sliderVal.textContent = "0%";
-  slider.style.transition = "none";
-  setTimeout(()=>slider.style.transition = "",50);
-});
-
-/* Math challenge: gerar pequena operação aleatória */
-let currentAnswer = 0;
-function newMath(){
-  const a = Math.floor(Math.random()*9)+2; // 2..10
-  const b = Math.floor(Math.random()*9)+2;
-  const op = ["+","-","*"][Math.floor(Math.random()*3)];
-  let q = `${a} ${op} ${b}`;
-  let ans = 0;
-  if(op==="+") ans = a+b;
-  if(op==="-") ans = a-b;
-  if(op==="*") ans = a*b;
-  currentAnswer = ans;
-  mathQ.textContent = q + " = ?";
-  mathAns.value = "";
-}
-mathCheck.addEventListener("click", ()=>{
-  const val = Number(mathAns.value.trim());
-  if(Number.isNaN(val)){ entryMsg.textContent = "Digite um número válido."; return; }
-  if(val === currentAnswer){
-    passEntry("Desafio matemático concluído");
-  } else {
-    entryMsg.textContent = "Resposta incorreta — tente novamente ou gere uma nova pergunta.";
-  }
-});
-mathNew.addEventListener("click", ()=>{ newMath(); entryMsg.textContent = "Nova questão gerada."; });
-
-function initChallenges(){
-  slider.value = 0; sliderVal.textContent = "0%";
-  newMath();
-  entryMsg.textContent = "Escolha: arraste até 100% ou resolva a operação.";
-}
-
-/* Ao passar no desafio */
-function passEntry(msg){
-  setPassedEntry();
-  gate.style.display = "none";
-  entryMsg.textContent = "";
-  toast(msg || "Verificação concluída");
-}
-
-/* Painel (botão) — apenas demonstração (abre nova aba) */
-$("#openPanelBtn").addEventListener("click", ()=> {
-  // se desejar, você pode exigir o desafio antes de abrir painel
-  if(!hasPassedEntry()){ entryMsg.textContent = "Complete o desafio inicial para acessar o painel."; gate.style.display="flex"; return; }
-  window.open("https://discloud.com/","_blank");
-});
-
-/* Inicialização do gate */
-showGateIfNeeded();
-
-/* ========= Ano no rodapé ========= */
-document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+        // Inicia a aplicação
+        document.addEventListener("DOMContentLoaded", loadPopularMedia);
+    </script>
 
 </body>
 </html>
