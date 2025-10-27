@@ -1,210 +1,416 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎬 Catálogo de Mídias Profissional</title>
-    
+    <title>Discover Movies</title>
+    <meta name="theme-color" content="#0A0F1F">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>
+
     <style>
-        /* Estilos Globais e Reset */
+        /* --- 1. Reset e Variáveis de Design --- */
         :root {
-            --primary-color: #E50914; /* Vermelho Destaque */
-            --background-dark: #141414;
-            --card-background: #1C1C1C;
-            --text-light: #f5f5f5;
-            --text-muted: #aaa;
+            --bg-primary: #0A0F1F;
+            --bg-secondary: #10182C;
+            --bg-modal: rgba(10, 15, 31, 0.9);
+            --panel: #1A233A;
+            --brand: #4f8cff;
+            --brand-2: #00d2ff;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a7b4d4;
+            --border: rgba(79, 140, 255, 0.2);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            --font-main: 'Inter', sans-serif;
+            --font-head: 'Poppins', sans-serif;
+            --red-notify: #e50914;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: var(--background-dark);
-            color: var(--text-light);
-            line-height: 1.6;
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            background-image: radial-gradient(ellipse at top, #1b2735 0%, #090a0f 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
         }
 
-        /* Header e Busca */
-        header {
-            background-color: #000;
-            padding: 30px 20px;
-            text-align: center;
+        a {
+            color: var(--brand);
+            text-decoration: none;
         }
 
-        header h1 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-size: 2.5em;
+        /* --- 2. Portões de Bloqueio (Login e Disclaimer) --- */
+
+        /* Estilo que desfoca o conteúdo principal */
+        body.auth-locked main,
+        body.disclaimer-locked main,
+        body.auth-locked header,
+        body.disclaimer-locked header {
+            filter: blur(8px);
+            pointer-events: none;
+            user-select: none;
         }
 
-        .search-bar {
-            margin-top: 15px;
-        }
-        #searchInput {
-            padding: 12px 20px;
-            width: 90%;
-            max-width: 600px;
-            border-radius: 25px;
-            border: none;
-            background-color: #333;
-            color: var(--text-light);
-            font-size: 1em;
-            outline: none;
-            transition: background-color 0.3s;
-        }
-        #searchInput:focus {
-            background-color: #444;
-            box-shadow: 0 0 0 2px var(--primary-color);
-        }
-
-        /* Seções de Mídia */
-        .media-section {
+        /* O Portão de Autenticação (Login Google + reCAPTCHA) */
+        #auth-gate {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none; /* Controlado por JS */
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
             padding: 20px;
         }
 
-        .media-section h2 {
-            font-size: 1.8em;
+        .auth-card {
+            width: min(460px, 100%);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            display: grid;
+            gap: 18px;
+            text-align: center;
+        }
+
+        .auth-card .brand {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+        }
+        .auth-card .g_id_signin, .auth-card #gsi-btn {
+            display: flex;
+            justify-content: center;
+        }
+        .auth-card .rc-mount {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        #auth-error {
+            color: #ff9d45;
+            font-weight: 700;
+            display: none;
+        }
+
+        /* O Portão de Aviso (Disclaimer) */
+        #disclaimer-gate {
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+            display: none; /* Controlado por JS */
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+        }
+        .disclaimer-card {
+            width: min(600px, 100%);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .disclaimer-card h2 {
+            font-family: var(--font-head);
+            color: var(--text-primary);
             margin-bottom: 15px;
-            border-left: 4px solid var(--primary-color);
-            padding-left: 10px;
-            color: var(--text-light);
+        }
+        .disclaimer-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .disclaimer-card strong {
+            color: var(--text-primary);
+        }
+        .disclaimer-card .btn-primary {
+            margin-top: 20px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* --- 3. Cabeçalho e Navegação --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(10, 15, 31, 0.6);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+        }
+
+        .container {
+            width: min(1200px, 92vw);
+            margin: 0 auto;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand {
+            font-family: var(--font-head);
+            font-weight: 800;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            max-width: 500px;
+        }
+
+        #searchInput {
+            padding: 12px 16px;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: var(--font-main);
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        #searchInput:focus {
+            border-color: var(--brand);
+            box-shadow: 0 0 15px rgba(79, 140, 255, 0.2);
+        }
+
+        .auth-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #welcomeMessage {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-family: var(--font-main);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+            color: #06102b;
+            box-shadow: 0 8px 20px rgba(79, 140, 255, 0.25);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(79, 140, 255, 0.35);
+        }
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        .btn-ghost:hover {
+            background: rgba(79, 140, 255, 0.1);
+            border-color: rgba(79, 140, 255, 0.4);
+            color: var(--text-primary);
+        }
+
+
+        /* --- 4. Conteúdo Principal e Cards --- */
+        main {
+            padding: 30px 0;
+            transition: filter 0.3s;
+        }
+
+        .media-section {
+            margin-bottom: 40px;
+        }
+        .media-section h2 {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
         }
 
         .media-container {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             gap: 20px;
-            justify-content: center;
-            padding-bottom: 20px;
         }
 
         .media-card {
-            flex: 0 0 160px; /* Largura fixa para manter o alinhamento */
-            text-align: center;
-            cursor: pointer;
-            background-color: var(--card-background);
+            background-color: var(--panel);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid transparent;
         }
-        
         .media-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--border);
         }
 
         .media-card img {
             width: 100%;
-            height: 240px; /* Altura fixa para todos os pôsteres */
+            height: auto;
+            aspect-ratio: 2 / 3; /* Proporção clássica de pôster */
             object-fit: cover;
-            border-bottom: 1px solid #333;
+            background-color: var(--bg-secondary);
+            display: block;
         }
 
-        .details-btn {
-            background: none;
-            color: var(--text-light);
-            border: none;
-            padding: 10px 5px;
-            width: 100%;
-            font-size: 0.9em;
+        .media-card h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            padding: 12px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            cursor: pointer;
-            transition: color 0.3s;
         }
-        .details-btn:hover {
-            color: var(--primary-color);
+        .media-card:hover h3 {
+            color: var(--text-primary);
         }
-        
-        /* Controles de Paginação */
+
+        /* --- 5. Paginação --- */
         .pagination-controls {
+            text-align: center;
+            margin: 30px 0 10px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin: 30px 0;
+            justify-content: center;
             gap: 15px;
         }
         .pagination-controls button {
-            background-color: #444;
-            color: white;
-            border: none;
+            background-color: var(--panel);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
         }
         .pagination-controls button:hover:not(:disabled) {
-            background-color: var(--primary-color);
+            background-color: var(--brand);
+            color: var(--bg-primary);
+            border-color: var(--brand);
         }
         .pagination-controls button:disabled {
-            background-color: #222;
+            background-color: rgba(30, 40, 65, 0.5);
             cursor: not-allowed;
-            color: #777;
+            color: #556080;
+            border-color: transparent;
         }
         .current-page-info {
-            color: var(--text-muted);
-            font-size: 1.1em;
-            min-width: 150px;
-            text-align: center;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            padding: 20px;
         }
 
-        /* Modal Overlay */
+        /* --- 6. Modal do Player --- */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            display: none; 
+            background-color: var(--bg-modal);
+            backdrop-filter: blur(10px);
+            display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            padding: 20px;
         }
 
         .modal-content {
-            background-color: #1c1c1c;
-            padding: 30px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 20px;
             border-radius: 12px;
             max-width: 900px;
-            width: 90%;
-            max-height: 90%;
+            width: 100%;
+            max-height: 95vh;
             overflow-y: auto;
             position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+            box-shadow: var(--shadow);
         }
 
         #close-modal-btn {
             position: absolute;
             top: 15px;
             right: 15px;
-            background: var(--primary-color);
+            background: var(--red-notify);
             color: white;
             border: none;
-            padding: 10px;
-            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            line-height: 1;
-            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 30px;
+            text-align: center;
+            z-index: 2;
         }
-        
+
+        #modal-title {
+            font-family: var(--font-head);
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            padding-right: 40px; /* Espaço para o botão fechar */
+        }
+        #modal-overview {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
         #modal-video {
             width: 100%;
             aspect-ratio: 16 / 9;
             height: auto;
-            border: 2px solid #333;
-            border-radius: 5px;
-            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
             background-color: #000;
         }
 
@@ -212,66 +418,107 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            margin: 15px 0;
-            flex-wrap: wrap; 
+            margin-bottom: 15px;
+            flex-wrap: wrap;
         }
         #series-controls label {
-            color: var(--text-muted);
+            color: var(--text-secondary);
+            font-weight: 600;
         }
         #series-controls select {
-            padding: 8px;
-            border-radius: 5px;
-            background-color: #333;
-            color: #fff;
-            border: 1px solid #555;
-            outline: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background-color: var(--panel);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            font-family: var(--font-main);
+            font-size: 0.9rem;
         }
-        
+
         .error-message {
             margin-top: 10px;
-            padding: 15px;
-            background-color: #330000;
-            border: 1px solid var(--primary-color);
-            border-radius: 5px;
-            color: #fff;
-            font-weight: bold;
+            padding: 12px;
+            background-color: rgba(229, 9, 20, 0.1);
+            border: 1px solid var(--red-notify);
+            color: #ffc4c8;
+            border-radius: 8px;
+            font-weight: 600;
         }
     </style>
 </head>
-<body>
+<body class="auth-locked">
+
+    <div id="auth-gate" role="dialog" aria-modal="true">
+        <div class="auth-card">
+            <h1 class="brand">Discover Movies</h1>
+            <h2 style="font-family: var(--font-head); font-weight: 600;">Login Necessário</h2>
+            <p style="color: var(--text-secondary); line-height: 1.6;">Por favor, faça login com sua conta Google e complete a verificação de segurança para continuar.</p>
+
+            <div id="gsi-btn" style="margin-top: 8px;"></div>
+            
+            <div id="recaptchaMount" class="rc-mount"></div>
+
+            <button class="btn btn-ghost" id="auth-continue" type="button" disabled>Continuar</button>
+            <p id="auth-error" role="alert"></p>
+        </div>
+    </div>
+    
+    <div id="disclaimer-gate" role="dialog" aria-modal="true">
+        <div class="disclaimer-card">
+            <h2>Aviso Importante e Termos de Uso</h2>
+            <p>Bem-vindo ao <strong>Discover Movies</strong>. Este site utiliza a API pública do TMDB para indexação de metadados (pôsteres, sinopses, etc).</p>
+            <p>Todo o conteúdo de vídeo é fornecido por <strong>fontes de terceiros</strong>, publicamente disponíveis na internet. O Discover Movies não armazena nenhum arquivo de vídeo em seus servidores.</p>
+            <p>É <strong>responsabilidade do usuário</strong> verificar a legalidade do acesso a este conteúdo em seu país. Cumpra as leis locais antes de assistir.</p>
+            <p>Para manter o serviço, o player de vídeo pode conter <strong>anúncios</strong>, que podem exigir alguns cliques para serem fechados.</p>
+            <button class="btn btn-primary" id="disclaimer-accept-btn" type="button">Eu entendo e aceito os termos</button>
+        </div>
+    </div>
+
 
     <header>
-        <h1>CATÁLOGO PRO</h1>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Pesquisar por Título...">
+        <div class="container navbar">
+            <a href="/" class="brand">Discover Movies</a>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Pesquisar filmes ou séries...">
+            </div>
+
+            <div class="auth-actions">
+                <span id="welcomeMessage"></span>
+                <button id="logoutButton" class="btn btn-ghost" type="button" style="display:none">Sair</button>
+            </div>
         </div>
     </header>
 
     <main>
-        <section class="media-section" id="filmes-section">
-            <h2>🎥 Filmes Mais Bem Avaliados</h2>
-            <div class="media-container" id="filmes-container"></div>
-            <div class="pagination-controls" id="filmes-pagination">
-                <button id="prev-filmes">← Anterior</button>
-                <span class="current-page-info" id="current-filmes-page">Página 1</span>
-                <button id="next-filmes">Próxima →</button>
-            </div>
-        </section>
+        <div class="container">
+            <section class="media-section" id="filmes-section">
+                <h2>Filmes Populares</h2>
+                <div class="media-container" id="filmes-container">
+                    </div>
+                <div class="pagination-controls" id="filmes-pagination" style="display: none;">
+                    <button id="prev-filmes">Anterior</button>
+                    <span class="current-page-info" id="current-filmes-page">Página 1</span>
+                    <button id="next-filmes">Próxima Página</button>
+                </div>
+            </section>
 
-        <section class="media-section" id="series-section">
-            <h2>📺 Séries Mais Bem Avaliadas</h2>
-            <div class="media-container" id="series-container"></div>
-            <div class="pagination-controls" id="series-pagination">
-                <button id="prev-series">← Anterior</button>
-                <span class="current-page-info" id="current-series-page">Página 1</span>
-                <button id="next-series">Próxima →</button>
-            </div>
-        </section>
+            <section class="media-section" id="series-section">
+                <h2>Séries Populares</h2>
+                <div class="media-container" id="series-container">
+                    </div>
+                <div class="pagination-controls" id="series-pagination" style="display: none;">
+                    <button id="prev-series">Anterior</button>
+                    <span class="current-page-info" id="current-series-page">Página 1</span>
+                    <button id="next-series">Próxima Página</button>
+                </div>
+            </section>
+        </div>
     </main>
 
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal-content">
-            <button id="close-modal-btn">X</button>
+            <button id="close-modal-btn">&times;</button>
             <h2 id="modal-title"></h2>
             <p id="modal-overview"></p>
             
@@ -288,154 +535,259 @@
     </div>
 
     <script>
-        // --- CONFIGURAÇÕES E ESTADO GLOBAL ---
-        const TMDB_API_KEY = '3c3861e421720adb868d69c409ef2ab5'; // SUA CHAVE
+        // --- 1. CONFIGURAÇÕES E ESTADO GLOBAL ---
+        const TMDB_API_KEY = '3c3861e421720adb868d69c409ef2ab5'; // SUA CHAVE TMDB
         const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
-        const WAREZCDN_BASE_URL = 'https://embed.warezcdn.net';
+        const WAREZCDN_BASE_URL = 'https://embed.warezcdn.net'; // Fonte do Embed
         const LANGUAGE = 'pt-BR';
 
-        // Estado da Paginação. O TMDb limita a 500 páginas para a maioria das listagens.
+        // --- NOVO: Configurações de Autenticação ---
+        const GOOGLE_CLIENT_ID = "1094888827715-pn7tdvs4dhjclj13iefh48f90met93al.apps.googleusercontent.com"; // SEU CLIENT ID DO GOOGLE
+        const RECAPTCHA_SITE_KEY = "6LenS_crAAAAANKT2DablQJxd1MbEryy3O7KJp8N"; // SUA CHAVE reCAPTCHA v2
+        const STORAGE_KEY_AUTH = "discover.auth";
+        const STORAGE_KEY_DISCLAIMER = "discover.disclaimer_accepted";
+
+        // Estado da Paginação
         let currentPage = { movie: 1, tv: 1 };
-        let totalPages = { movie: 500, tv: 500 }; 
-        const ITEMS_PER_PAGE = 20;
+        let totalPages = { movie: 500, tv: 500 }; // O TMDb limita a 500 páginas
 
-        // --- REFERÊNCIAS DOM ---
-        const searchInput = document.getElementById('searchInput');
-        const filmesContainer = document.getElementById('filmes-container');
-        const seriesContainer = document.getElementById('series-container');
-        const modalOverlay = document.getElementById('modal-overlay');
-        const closeModalBtn = document.getElementById('close-modal-btn');
-        const modalVideo = document.getElementById('modal-video');
-        const errorMessage = document.getElementById('error-message');
-        const seriesControls = document.getElementById('series-controls');
-        const seasonSelect = document.getElementById('season-select');
-        const episodeSelect = document.getElementById('episode-select');
-        const prevFilmesBtn = document.getElementById('prev-filmes');
-        const nextFilmesBtn = document.getElementById('next-filmes');
-        const currentFilmesPageSpan = document.getElementById('current-filmes-page');
-        const prevSeriesBtn = document.getElementById('prev-series');
-        const nextSeriesBtn = document.getElementById('next-series');
-        const currentSeriesPageSpan = document.getElementById('current-series-page');
+        // --- 2. REFERÊNCIAS DOM ---
+        const $ = (s) => document.querySelector(s);
+        const $$ = (s) => document.querySelectorAll(s);
 
-        let currentMedia = null; 
-        let isSearching = false; // Flag para controlar se está em modo busca
+        // Elementos da Aplicação
+        const searchInput = $('#searchInput');
+        const filmesContainer = $('#filmes-container');
+        const seriesContainer = $('#series-container');
+        const modalOverlay = $('#modal-overlay');
+        const closeModalBtn = $('#close-modal-btn');
+        const modalVideo = $('#modal-video');
+        const errorMessage = $('#error-message');
+        const seriesControls = $('#series-controls');
+        const seasonSelect = $('#season-select');
+        const episodeSelect = $('#episode-select');
 
-        // --- Funções de API e Carregamento ---
+        // Paginação
+        const prevFilmesBtn = $('#prev-filmes');
+        const nextFilmesBtn = $('#next-filmes');
+        const currentFilmesPageSpan = $('#current-filmes-page');
+        const prevSeriesBtn = $('#prev-series');
+        const nextSeriesBtn = $('#next-series');
+        const currentSeriesPageSpan = $('#current-series-page');
+        const filmesPagination = $('#filmes-pagination');
+        const seriesPagination = $('#series-pagination');
+        
+        // Elementos de Autenticação
+        const authGate = $('#auth-gate');
+        const disclaimerGate = $('#disclaimer-gate');
+        const authContinueBtn = $('#auth-continue');
+        const authError = $('#auth-error');
+        const disclaimerAcceptBtn = $('#disclaimer-accept-btn');
+        const welcomeMessage = $('#welcomeMessage');
+        const logoutButton = $('#logoutButton');
 
-        /** Busca e exibe filmes/séries. Usando top_rated para mais conteúdo estável. */
-        async function fetchMediaList(container, mediaType, page = 1, endpoint = 'top_rated') {
-            const tmdbType = mediaType === 'filme' ? 'movie' : 'tv';
-            const tmdbEndpoint = `${tmdbType}/${endpoint}`;
-            
-            container.innerHTML = '<h4>Carregando...</h4>';
+        let currentMedia = null;
+        let rcSolvedToken = ""; // reCAPTCHA token
+        let rcWidgetId = null;
 
-            try {
-                const url = `${TMDB_BASE_URL}/${tmdbEndpoint}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}&page=${page}`;
-                const response = await fetch(url);
-                
-                if (response.status === 401) {
-                    container.innerHTML = `<p class="error-message">Erro 401: Chave de API inválida. Verifique sua chave.</p>`;
-                    return;
+        // --- 3. LÓGICA DE AUTENTICAÇÃO E GATES (NOVO) ---
+
+        // Helpers de Sessão
+        function setAuthError(msg) { authError.textContent = msg || ""; authError.style.display = msg ? "block" : "none"; }
+        function decodeJwt(t) { try { const p = t.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"); return JSON.parse(decodeURIComponent(atob(p).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))); } catch { return {}; } }
+        function saveSession({ token, profile }) { localStorage.setItem(STORAGE_KEY_AUTH, JSON.stringify({ token, profile, ts: Date.now() })); }
+        function readSession() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY_AUTH) || "null"); } catch { return null; } }
+        function clearSession() { localStorage.removeItem(STORAGE_KEY_AUTH); localStorage.removeItem(STORAGE_KEY_DISCLAIMER); }
+
+        // Controla o "Portão de Login"
+        function lockUI(locked) {
+            document.body.classList.toggle("auth-locked", !!locked);
+            authGate.style.display = locked ? "flex" : "none";
+            if (!locked) {
+                const sess = readSession();
+                if (sess?.profile) {
+                    welcomeMessage.textContent = `Olá, ${sess.profile.name || sess.profile.email}`;
+                    logoutButton.style.display = "inline-flex";
                 }
+            } else {
+                welcomeMessage.textContent = "";
+                logoutButton.style.display = "none";
+            }
+        }
+
+        // Controla o "Portão de Aviso"
+        function lockDisclaimer(locked) {
+            document.body.classList.toggle("disclaimer-locked", !!locked);
+            disclaimerGate.style.display = locked ? "flex" : "none";
+        }
+
+        // Callback do Google (Global)
+        window.handleCredentialResponse = function(resp) {
+            try {
+                if (!resp || !resp.credential) { setAuthError("Não foi possível obter a credencial do Google."); return; }
+                const token = resp.credential;
+                const p = decodeJwt(token);
+                const profile = { sub: p.sub, email: p.email, name: p.name || p.given_name || "", picture: p.picture || "" };
+                saveSession({ token, profile });
+                setAuthError("");
                 
+                // Se o reCAPTCHA estiver OK, prossiga. Senão, espere.
+                if (rcSolvedToken) {
+                    authContinueBtn.click();
+                } else {
+                    setAuthError("Login Google OK. Por favor, complete o reCAPTCHA.");
+                }
+            } catch (e) { console.error(e); setAuthError("Erro ao processar credencial."); }
+        }
+
+        // Callbacks do reCAPTCHA (Global)
+        window.onRecaptchaOk = function(token) {
+            rcSolvedToken = token;
+            authContinueBtn.removeAttribute("disabled");
+            setAuthError("");
+        }
+        window.onRecaptchaExpired = function() {
+            rcSolvedToken = "";
+            authContinueBtn.setAttribute("disabled", "disabled");
+        }
+
+        // Renderiza o reCAPTCHA
+        function renderRecaptchaIfNeeded() {
+            const el = document.getElementById('recaptchaMount');
+            if (!window.grecaptcha || typeof grecaptcha.render !== 'function') return false;
+            if (el && !el.getAttribute('data-rendered')) {
+                rcWidgetId = grecaptcha.render(el, {
+                    'sitekey': RECAPTCHA_SITE_KEY,
+                    'callback': onRecaptchaOk,
+                    'expired-callback': onRecaptchaExpired
+                });
+                el.setAttribute('data-rendered', '1');
+            }
+            return true;
+        }
+
+        // Inicializa o Google Sign-In (Imperativo)
+        function initGISImperative() {
+            if (!(window.google && google.accounts && google.accounts.id)) return false;
+            try {
+                google.accounts.id.initialize({
+                    client_id: GOOGLE_CLIENT_ID,
+                    callback: handleCredentialResponse,
+                    ux_mode: "popup",
+                    auto_select: false,
+                    context: "signin"
+                });
+                const mount = document.getElementById("gsi-btn");
+                if (mount && !mount.firstChild) {
+                    google.accounts.id.renderButton(mount, {
+                        type: "standard", theme: "outline", size: "large",
+                        text: "continue_with", shape: "pill", logo_alignment: "left", width: 280
+                    });
+                }
+                return true;
+            } catch (e) { console.error(e); return false; }
+        }
+
+        // Função para carregar o conteúdo da aplicação
+        function loadApplicationContent() {
+            filmesContainer.innerHTML = '<h4 class="loading-text">Carregando filmes populares...</h4>';
+            seriesContainer.innerHTML = '<h4 class="loading-text">Carregando séries populares...</h4>';
+            filmesPagination.style.display = 'flex';
+            seriesPagination.style.display = 'flex';
+            fetchPopularMedia(filmesContainer, 'movie', currentPage.movie);
+            fetchPopularMedia(seriesContainer, 'tv', currentPage.tv);
+        }
+
+        // --- 4. LÓGICA PRINCIPAL DA APLICAÇÃO (Filmes, Séries) ---
+
+        /** Busca mídias (filmes ou séries) populares. */
+        async function fetchPopularMedia(container, mediaType, page = 1) {
+            const endpoint = `${mediaType}/popular`;
+            try {
+                const url = `${TMDB_BASE_URL}/${endpoint}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}&page=${page}`;
+                const response = await fetch(url);
+                if (response.status === 401) { container.innerHTML = `<p class="error-message">Erro 401: Chave de API inválida.</p>`; return; }
                 const data = await response.json();
                 
-                // Atualiza o estado da paginação
-                if (!isSearching) {
-                    totalPages[tmdbType] = Math.min(data.total_pages, 500); 
-                    currentPage[tmdbType] = data.page;
-                }
+                totalPages[mediaType] = Math.min(data.total_pages, 500);
+                currentPage[mediaType] = data.page;
 
                 container.innerHTML = '';
                 if (data.results && data.results.length > 0) {
                     data.results.forEach(media => {
-                        createMediaCard(media, container, tmdbType);
+                        createMediaCard(media, container, mediaType === 'movie' ? 'filme' : 'serie');
                     });
                 } else {
-                    container.innerHTML = `<p>Nenhum ${mediaType} encontrado.</p>`;
+                    container.innerHTML = `<p>Nenhum ${mediaType === 'movie' ? 'filme' : 'série'} encontrado.</p>`;
                 }
-                
-                if (!isSearching) {
-                   updatePaginationControls(tmdbType);
-                }
-
+                updatePaginationControls(mediaType);
             } catch (error) {
                 console.error(`Erro ao buscar ${mediaType}:`, error);
                 container.innerHTML = '<p class="error-message">Erro ao carregar os dados.</p>';
             }
         }
-        
-        /** Busca por termo (usada para pesquisa em tempo real). */
-        async function searchMedia(container, mediaType, query) {
-            const tmdbType = mediaType === 'filme' ? 'movie' : 'tv';
-            container.innerHTML = '<h4>Buscando...</h4>';
-            
+
+        /** Busca mídias por pesquisa. */
+        async function fetchSearchMedia(endpoint, container, mediaType, query) {
             try {
-                const url = `${TMDB_BASE_URL}/search/${tmdbType}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}&query=${encodeURIComponent(query)}`;
+                const url = `${TMDB_BASE_URL}/${endpoint}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}&query=${encodeURIComponent(query)}`;
                 const response = await fetch(url);
                 const data = await response.json();
                 
                 container.innerHTML = '';
                 if (data.results && data.results.length > 0) {
-                    data.results.forEach(media => {
-                        createMediaCard(media, container, tmdbType);
-                    });
+                    data.results.forEach(media => createMediaCard(media, container, mediaType === 'movie' ? 'filme' : 'serie'));
                 } else {
-                    container.innerHTML = `<p>Nenhum resultado de pesquisa encontrado para "${query}".</p>`;
+                    container.innerHTML = `<p>Nenhum resultado de pesquisa encontrado.</p>`;
                 }
             } catch (error) {
-                console.error('Erro na pesquisa:', error);
-                container.innerHTML = '<p class="error-message">Erro ao realizar a pesquisa.</p>';
+                console.error(`Erro ao pesquisar ${mediaType}:`, error);
             }
         }
-
-        /** Cria e anexa o card de mídia. */
-        function createMediaCard(media, container, tmdbType) {
+        
+        /** Cria e anexa o card de mídia. (MODIFICADO) */
+        function createMediaCard(media, container, mediaType) {
             const mediaCard = document.createElement('div');
             mediaCard.classList.add('media-card');
 
             const mediaPoster = document.createElement('img');
-            const posterPath = media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : 'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="240" viewBox="0 0 160 240" fill="#333"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="14" fill="#777">Sem Pôster</text></svg>';
-            mediaPoster.src = posterPath;
+            mediaPoster.src = media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : 'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="240" viewBox="0 0 160 240" fill="%231A233A"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="14" fill="%23a7b4d4">Sem Pôster</text></svg>';
             mediaPoster.alt = media.title || media.name;
+            mediaPoster.loading = "lazy";
 
-            const detailsBtn = document.createElement('button');
-            detailsBtn.classList.add('details-btn');
-            detailsBtn.textContent = media.title || media.name;
+            const mediaTitle = document.createElement('h3');
+            mediaTitle.textContent = media.title || media.name;
 
-            detailsBtn.addEventListener('click', () => openModal(media.id, tmdbType));
+            // Adiciona o clique ao card inteiro
+            mediaCard.addEventListener('click', () => {
+                const type = mediaType === 'filme' ? 'movie' : 'tv';
+                openModal(media.id, type);
+            });
 
             mediaCard.appendChild(mediaPoster);
-            mediaCard.appendChild(detailsBtn);
+            mediaCard.appendChild(mediaTitle);
             container.appendChild(mediaCard);
         }
 
-        // --- Funções de Paginação ---
+        // --- 5. Funções de Paginação ---
 
-        function updatePaginationControls(tmdbType) {
-            const isMovie = tmdbType === 'movie';
+        function updatePaginationControls(mediaType) {
+            const isMovie = mediaType === 'movie';
             const prevBtn = isMovie ? prevFilmesBtn : prevSeriesBtn;
             const nextBtn = isMovie ? nextFilmesBtn : nextSeriesBtn;
             const currentSpan = isMovie ? currentFilmesPageSpan : currentSeriesPageSpan;
 
-            const current = currentPage[tmdbType];
-            const total = totalPages[tmdbType];
-
-            prevBtn.disabled = current === 1;
-            nextBtn.disabled = current >= total;
-            currentSpan.textContent = `Página ${current} de ${total}`;
-            
-            // Garante que os controles estão visíveis quando não está buscando
-            const paginationDiv = isMovie ? document.getElementById('filmes-pagination') : document.getElementById('series-pagination');
-            paginationDiv.style.display = isSearching ? 'none' : 'flex';
+            prevBtn.disabled = currentPage[mediaType] === 1;
+            nextBtn.disabled = currentPage[mediaType] >= totalPages[mediaType];
+            currentSpan.textContent = `Página ${currentPage[mediaType]} de ${totalPages[mediaType]}`;
         }
 
         function loadNextPage(mediaType) {
             if (currentPage[mediaType] < totalPages[mediaType]) {
                 const newPage = currentPage[mediaType] + 1;
                 const container = mediaType === 'movie' ? filmesContainer : seriesContainer;
-                fetchMediaList(container, mediaType === 'movie' ? 'filme' : 'serie', newPage, 'top_rated');
-                window.scrollTo(0, 0); // Volta para o topo da página
+                container.innerHTML = '<h4 class="loading-text">Carregando página...</h4>';
+                fetchPopularMedia(container, mediaType, newPage);
             }
         }
 
@@ -443,24 +795,23 @@
             if (currentPage[mediaType] > 1) {
                 const newPage = currentPage[mediaType] - 1;
                 const container = mediaType === 'movie' ? filmesContainer : seriesContainer;
-                fetchMediaList(container, mediaType === 'movie' ? 'filme' : 'serie', newPage, 'top_rated');
-                window.scrollTo(0, 0); // Volta para o topo da página
+                container.innerHTML = '<h4 class="loading-text">Carregando página...</h4>';
+                fetchPopularMedia(container, mediaType, newPage);
             }
         }
 
-        // --- Funções do Modal e Embed (Corrigidas) ---
+        // --- 6. Funções do Modal e Embed ---
 
         async function openModal(id, mediaType) {
             try {
-                // ... (lógica de buscar detalhes e IMDb ID)
                 const append = mediaType === 'movie' ? 'external_ids' : 'external_ids,seasons';
                 const response = await fetch(`${TMDB_BASE_URL}/${mediaType}/${id}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}&append_to_response=${append}`);
                 
                 if (response.status === 401) { displayError('Erro 401: Chave de API inválida.'); modalOverlay.style.display = 'flex'; return; }
                 currentMedia = await response.json();
                 
-                document.getElementById('modal-title').textContent = currentMedia.title || currentMedia.name;
-                document.getElementById('modal-overview').textContent = currentMedia.overview || 'Sinopse não disponível.';
+                $('#modal-title').textContent = currentMedia.title || currentMedia.name;
+                $('#modal-overview').textContent = currentMedia.overview || 'Sinopse não disponível.';
                 modalVideo.src = '';
                 errorMessage.style.display = 'none';
                 seriesControls.style.display = 'none';
@@ -468,7 +819,7 @@
                 const imdbID = currentMedia.external_ids?.imdb_id;
 
                 if (!imdbID) {
-                    displayError('ID do IMDb não disponível para esta mídia, impossível gerar o link de embed.');
+                    displayError('ID do IMDb não disponível, impossível gerar o link de embed.');
                     modalOverlay.style.display = 'flex';
                     return;
                 }
@@ -488,13 +839,11 @@
         }
 
         function setupSeriesControls(mediaData, imdbID) {
-            // ... (lógica de setupSeriesControls)
             seriesControls.style.display = 'flex';
             seasonSelect.innerHTML = '';
             episodeSelect.innerHTML = '';
 
             const seasons = mediaData.seasons.filter(s => s.season_number > 0);
-            
             if (seasons.length === 0) { displayError('Nenhuma temporada principal encontrada.'); return; }
 
             seasons.forEach(season => {
@@ -513,7 +862,6 @@
         }
 
         async function loadEpisodes(tvId, seasonNumber, imdbID) {
-            // ... (lógica de loadEpisodes)
             try {
                 const response = await fetch(`${TMDB_BASE_URL}/tv/${tvId}/season/${seasonNumber}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}`);
                 const seasonData = await response.json();
@@ -539,22 +887,17 @@
             }
         }
 
-
-        /** Define a URL do embed no iframe (CORRIGIDA para o WarezCDN). */
         function setEmbedSource(mediaType, imdbID, season = 0, episode = 0) {
             let src = '';
-            
             if (mediaType === 'filme') {
-                src = `${WAREZCDN_BASE_URL}/filme/${imdbID}`; 
+                src = `${WAREZCDN_BASE_URL}/filme/${imdbID}`;
             } else if (mediaType === 'serie' && season > 0 && episode > 0) {
                 const s = String(season).padStart(2, '0');
                 const e = String(episode).padStart(2, '0');
                 src = `${WAREZCDN_BASE_URL}/serie/${imdbID}/S${s}E${e}`;
             }
-
             modalVideo.src = src;
-            errorMessage.style.display = 'none'; 
-            console.warn(`URL DE EMBED GERADA: ${src}`);
+            errorMessage.style.display = 'none';
         }
 
         function displayError(message) {
@@ -563,51 +906,136 @@
             errorMessage.style.display = 'block';
         }
 
-        // --- Event Listeners Globais ---
+        // --- 7. Event Listeners Globais ---
 
-        // 1. Paginação
+        // Paginação
         nextFilmesBtn.addEventListener('click', () => loadNextPage('movie'));
         prevFilmesBtn.addEventListener('click', () => loadPrevPage('movie'));
         nextSeriesBtn.addEventListener('click', () => loadNextPage('tv'));
         prevSeriesBtn.addEventListener('click', () => loadPrevPage('tv'));
 
-        // 2. Pesquisa em Tempo Real
+        // Pesquisa
         searchInput.addEventListener('input', () => {
             const query = searchInput.value.trim();
-            
             if (searchInput.timer) clearTimeout(searchInput.timer);
             
             searchInput.timer = setTimeout(() => {
                 if (query.length > 2) {
-                    isSearching = true;
-                    // Oculta paginação ao pesquisar
-                    document.getElementById('filmes-pagination').style.display = 'none';
-                    document.getElementById('series-pagination').style.display = 'none';
-                    
-                    searchMedia(filmesContainer, 'filme', query);
-                    searchMedia(seriesContainer, 'serie', query);
+                    filmesPagination.style.display = 'none';
+                    seriesPagination.style.display = 'none';
+                    filmesContainer.innerHTML = '<h4 class="loading-text">Buscando filmes...</h4>';
+                    seriesContainer.innerHTML = '<h4 class="loading-text">Buscando séries...</h4>';
+                    fetchSearchMedia(`search/movie`, filmesContainer, 'movie', query);
+                    fetchSearchMedia(`search/tv`, seriesContainer, 'tv', query);
                 } else if (query.length === 0) {
-                    isSearching = false;
-                    // Volta aos populares e mostra paginação
-                    loadPopularMedia();
+                    filmesPagination.style.display = 'flex';
+                    seriesPagination.style.display = 'flex';
+                    loadApplicationContent(); // Recarrega os populares
                 }
-            }, 300); 
+            }, 300);
         });
 
-        // 3. Fechar Modal
+        // Fechar Modal
         closeModalBtn.addEventListener('click', () => {
             modalOverlay.style.display = 'none';
-            modalVideo.src = ''; 
+            modalVideo.src = '';
+        });
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.style.display = 'none';
+                modalVideo.src = '';
+            }
+        });
+        
+        // --- 8. INICIALIZAÇÃO DA PÁGINA (NOVO) ---
+        
+        // Botão "Continuar" do Auth Gate
+        authContinueBtn.addEventListener('click', () => {
+            const sess = readSession();
+            if (!sess) {
+                setAuthError("Por favor, faça login com o Google primeiro.");
+                return;
+            }
+            if (!rcSolvedToken) {
+                setAuthError("Por favor, complete a verificação reCAPTCHA.");
+                return;
+            }
+
+            // Tudo OK! Esconde o login.
+            lockUI(false);
+
+            // Agora, verifica o disclaimer
+            const disclaimerAccepted = localStorage.getItem(STORAGE_KEY_DISCLAIMER);
+            if (!disclaimerAccepted) {
+                lockDisclaimer(true);
+            } else {
+                loadApplicationContent(); // Usuário já logado E já aceitou
+            }
         });
 
-        // 4. Carregar Mídias Iniciais
-        function loadPopularMedia() {
-            // Carrega os "Melhor Avaliados" (top_rated) para o catálogo principal, que tem 500 páginas.
-            fetchMediaList(filmesContainer, 'filme', currentPage.movie, 'top_rated');
-            fetchMediaList(seriesContainer, 'serie', currentPage.tv, 'top_rated');
-        }
+        // Botão "Aceitar" do Disclaimer
+        disclaimerAcceptBtn.addEventListener('click', () => {
+            localStorage.setItem(STORAGE_KEY_DISCLAIMER, 'true');
+            lockDisclaimer(false);
+            loadApplicationContent(); // Carrega o app pela primeira vez
+        });
+        
+        // Logout
+        logoutButton.addEventListener('click', () => {
+            const sess = readSession();
+            clearSession();
+            lockUI(true);
+            lockDisclaimer(false);
+            
+            // Limpa o conteúdo da página
+            filmesContainer.innerHTML = '';
+            seriesContainer.innerHTML = '';
+            filmesPagination.style.display = 'none';
+            seriesPagination.style.display = 'none';
 
-        document.addEventListener("DOMContentLoaded", loadPopularMedia);
+            // Revoga o token do Google
+            if (window.google?.accounts?.id) {
+                google.accounts.id.disableAutoSelect();
+                if (sess?.profile?.email) {
+                    google.accounts.id.revoke(sess.profile.email, () => {});
+                }
+            }
+            // Reseta o reCAPTCHA
+            if (window.grecaptcha && typeof grecaptcha.reset === 'function' && rcWidgetId !== null) {
+                grecaptcha.reset(rcWidgetId);
+            }
+        });
+
+
+        // Ao carregar o DOM
+        document.addEventListener("DOMContentLoaded", () => {
+            // Tenta renderizar o Google Sign-In
+            let gisTries = 0;
+            const waitGIS = setInterval(() => {
+                if (initGISImperative() || gisTries++ > 40) { clearInterval(waitGIS); }
+            }, 100);
+
+            // Tenta renderizar o reCAPTCHA
+            let rcTries = 0;
+            const waitRC = setInterval(() => {
+                if (renderRecaptchaIfNeeded() || rcTries++ > 40) { clearInterval(waitRC); }
+            }, 100);
+
+            // Verifica o estado da sessão
+            const authSession = readSession();
+            const disclaimerAccepted = localStorage.getItem(STORAGE_KEY_DISCLAIMER);
+
+            if (!authSession) {
+                lockUI(true); // Força Login
+            } else if (!disclaimerAccepted) {
+                lockUI(false); // Logado, mas não aceitou
+                lockDisclaimer(true); // Força Disclaimer
+            } else {
+                lockUI(false); // Logado e aceitou
+                lockDisclaimer(false);
+                loadApplicationContent(); // Carrega o app
+            }
+        });
     </script>
 
 </body>
