@@ -4,36 +4,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎬 Catálogo de Mídias - Paginação</title>
+    <title>🎬 Catálogo de Mídias Profissional</title>
     
     <style>
-        /* Estilos CSS (Combinado) */
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #141414;
-            color: #f5f5f5;
+        /* Estilos Globais e Reset */
+        :root {
+            --primary-color: #E50914; /* Vermelho Destaque */
+            --background-dark: #141414;
+            --card-background: #1C1C1C;
+            --text-light: #f5f5f5;
+            --text-muted: #aaa;
         }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Header e Busca */
         header {
             background-color: #000;
-            padding: 20px;
+            padding: 30px 20px;
             text-align: center;
         }
 
-        /* Barra de Pesquisa */
+        header h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
         .search-bar {
             margin-top: 15px;
         }
         #searchInput {
-            padding: 10px;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 5px;
-            border: 1px solid #333;
+            padding: 12px 20px;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 25px;
+            border: none;
             background-color: #333;
-            color: #fff;
+            color: var(--text-light);
+            font-size: 1em;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+        #searchInput:focus {
+            background-color: #444;
+            box-shadow: 0 0 0 2px var(--primary-color);
         }
 
         /* Seções de Mídia */
@@ -41,68 +67,82 @@
             padding: 20px;
         }
 
+        .media-section h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+            color: var(--text-light);
+        }
+
         .media-container {
             display: flex;
-            flex-wrap: wrap; /* Permite que os cards pulem de linha */
-            gap: 15px;
+            flex-wrap: wrap;
+            gap: 20px;
             justify-content: center;
+            padding-bottom: 20px;
         }
 
         .media-card {
-            flex: 0 0 auto;
-            width: 150px;
+            flex: 0 0 160px; /* Largura fixa para manter o alinhamento */
             text-align: center;
             cursor: pointer;
-            background-color: #222;
-            border-radius: 5px;
-            padding-bottom: 10px;
-            transition: transform 0.2s;
+            background-color: var(--card-background);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         
         .media-card:hover {
             transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
         }
 
         .media-card img {
             width: 100%;
-            height: auto;
-            border-radius: 5px 5px 0 0;
-            min-height: 225px; 
+            height: 240px; /* Altura fixa para todos os pôsteres */
             object-fit: cover;
+            border-bottom: 1px solid #333;
         }
 
         .details-btn {
-            background-color: #e50914;
-            color: white;
+            background: none;
+            color: var(--text-light);
             border: none;
-            padding: 8px 10px;
-            margin-top: 8px;
-            width: 90%;
-            border-radius: 3px;
-            cursor: pointer;
+            padding: 10px 5px;
+            width: 100%;
             font-size: 0.9em;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            cursor: pointer;
+            transition: color 0.3s;
         }
-
+        .details-btn:hover {
+            color: var(--primary-color);
+        }
+        
         /* Controles de Paginação */
         .pagination-controls {
-            text-align: center;
-            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+            gap: 15px;
         }
         .pagination-controls button {
             background-color: #444;
             color: white;
             border: none;
             padding: 10px 20px;
-            margin: 0 10px;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 1em;
             transition: background-color 0.2s;
         }
         .pagination-controls button:hover:not(:disabled) {
-            background-color: #e50914;
+            background-color: var(--primary-color);
         }
         .pagination-controls button:disabled {
             background-color: #222;
@@ -110,17 +150,20 @@
             color: #777;
         }
         .current-page-info {
-            color: #ccc;
+            color: var(--text-muted);
+            font-size: 1.1em;
+            min-width: 150px;
+            text-align: center;
         }
 
-        /* Modal Overlay (Estilos mantidos do código anterior) */
+        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             display: none; 
             justify-content: center;
             align-items: center;
@@ -130,32 +173,38 @@
         .modal-content {
             background-color: #1c1c1c;
             padding: 30px;
-            border-radius: 8px;
-            max-width: 800px;
+            border-radius: 12px;
+            max-width: 900px;
             width: 90%;
             max-height: 90%;
             overflow-y: auto;
             position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
         }
 
         #close-modal-btn {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #e50914;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-color);
             color: white;
             border: none;
-            padding: 8px;
+            padding: 10px;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            line-height: 1;
+            font-weight: bold;
         }
         
         #modal-video {
             width: 100%;
             aspect-ratio: 16 / 9;
             height: auto;
-            border: none;
-            margin-top: 15px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            margin-top: 20px;
             background-color: #000;
         }
 
@@ -163,60 +212,66 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 15px;
+            margin: 15px 0;
             flex-wrap: wrap; 
         }
-        #series-controls label, #series-controls select {
-            padding: 5px;
-            border-radius: 3px;
+        #series-controls label {
+            color: var(--text-muted);
+        }
+        #series-controls select {
+            padding: 8px;
+            border-radius: 5px;
             background-color: #333;
             color: #fff;
             border: 1px solid #555;
+            outline: none;
         }
         
         .error-message {
             margin-top: 10px;
-            padding: 10px;
+            padding: 15px;
             background-color: #330000;
-            border: 1px solid #ff0000;
+            border: 1px solid var(--primary-color);
             border-radius: 5px;
+            color: #fff;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Catálogo de Mídias</h1>
+        <h1>CATÁLOGO PRO</h1>
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Pesquisar filmes ou séries...">
+            <input type="text" id="searchInput" placeholder="Pesquisar por Título...">
         </div>
     </header>
 
     <main>
         <section class="media-section" id="filmes-section">
-            <h2>Filmes Populares</h2>
+            <h2>🎥 Filmes Mais Bem Avaliados</h2>
             <div class="media-container" id="filmes-container"></div>
             <div class="pagination-controls" id="filmes-pagination">
-                <button id="prev-filmes">Anterior</button>
+                <button id="prev-filmes">← Anterior</button>
                 <span class="current-page-info" id="current-filmes-page">Página 1</span>
-                <button id="next-filmes">Próxima Página</button>
+                <button id="next-filmes">Próxima →</button>
             </div>
         </section>
 
         <section class="media-section" id="series-section">
-            <h2>Séries Populares</h2>
+            <h2>📺 Séries Mais Bem Avaliadas</h2>
             <div class="media-container" id="series-container"></div>
             <div class="pagination-controls" id="series-pagination">
-                <button id="prev-series">Anterior</button>
+                <button id="prev-series">← Anterior</button>
                 <span class="current-page-info" id="current-series-page">Página 1</span>
-                <button id="next-series">Próxima Página</button>
+                <button id="next-series">Próxima →</button>
             </div>
         </section>
     </main>
 
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal-content">
-            <button id="close-modal-btn">Fechar</button>
+            <button id="close-modal-btn">X</button>
             <h2 id="modal-title"></h2>
             <p id="modal-overview"></p>
             
@@ -234,16 +289,17 @@
 
     <script>
         // --- CONFIGURAÇÕES E ESTADO GLOBAL ---
-        const TMDB_API_KEY = '3c3861e421720adb868d69c409ef2ab5'; // Sua chave
+        const TMDB_API_KEY = '3c3861e421720adb868d69c409ef2ab5'; // SUA CHAVE
         const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
         const WAREZCDN_BASE_URL = 'https://embed.warezcdn.net';
         const LANGUAGE = 'pt-BR';
 
-        // Estado da Paginação
+        // Estado da Paginação. O TMDb limita a 500 páginas para a maioria das listagens.
         let currentPage = { movie: 1, tv: 1 };
-        let totalPages = { movie: 500, tv: 500 }; // O TMDb limita a 500 páginas
+        let totalPages = { movie: 500, tv: 500 }; 
+        const ITEMS_PER_PAGE = 20;
 
-        // --- REFERÊNCIAS DOM (Adicionadas) ---
+        // --- REFERÊNCIAS DOM ---
         const searchInput = document.getElementById('searchInput');
         const filmesContainer = document.getElementById('filmes-container');
         const seriesContainer = document.getElementById('series-container');
@@ -254,8 +310,6 @@
         const seriesControls = document.getElementById('series-controls');
         const seasonSelect = document.getElementById('season-select');
         const episodeSelect = document.getElementById('episode-select');
-        
-        // Paginação
         const prevFilmesBtn = document.getElementById('prev-filmes');
         const nextFilmesBtn = document.getElementById('next-filmes');
         const currentFilmesPageSpan = document.getElementById('current-filmes-page');
@@ -263,60 +317,93 @@
         const nextSeriesBtn = document.getElementById('next-series');
         const currentSeriesPageSpan = document.getElementById('current-series-page');
 
-
         let currentMedia = null; 
+        let isSearching = false; // Flag para controlar se está em modo busca
 
-        // --- Funções Principais de API ---
+        // --- Funções de API e Carregamento ---
 
-        /** Busca mídias (filmes ou séries) populares. */
-        async function fetchPopularMedia(container, mediaType, page = 1) {
-            const endpoint = `${mediaType}/popular`;
+        /** Busca e exibe filmes/séries. Usando top_rated para mais conteúdo estável. */
+        async function fetchMediaList(container, mediaType, page = 1, endpoint = 'top_rated') {
+            const tmdbType = mediaType === 'filme' ? 'movie' : 'tv';
+            const tmdbEndpoint = `${tmdbType}/${endpoint}`;
+            
+            container.innerHTML = '<h4>Carregando...</h4>';
+
             try {
-                const url = `${TMDB_BASE_URL}/${endpoint}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}&page=${page}`;
+                const url = `${TMDB_BASE_URL}/${tmdbEndpoint}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}&page=${page}`;
                 const response = await fetch(url);
                 
                 if (response.status === 401) {
-                    container.innerHTML = `<p class="error-message">Erro 401: Chave de API inválida.</p>`;
+                    container.innerHTML = `<p class="error-message">Erro 401: Chave de API inválida. Verifique sua chave.</p>`;
                     return;
                 }
                 
                 const data = await response.json();
                 
-                totalPages[mediaType] = Math.min(data.total_pages, 500); // Limite do TMDb
-                currentPage[mediaType] = data.page;
+                // Atualiza o estado da paginação
+                if (!isSearching) {
+                    totalPages[tmdbType] = Math.min(data.total_pages, 500); 
+                    currentPage[tmdbType] = data.page;
+                }
 
                 container.innerHTML = '';
                 if (data.results && data.results.length > 0) {
                     data.results.forEach(media => {
-                        createMediaCard(media, container, mediaType === 'movie' ? 'filme' : 'serie');
+                        createMediaCard(media, container, tmdbType);
                     });
                 } else {
-                    container.innerHTML = `<p>Nenhum ${mediaType === 'movie' ? 'filme' : 'série'} encontrado.</p>`;
+                    container.innerHTML = `<p>Nenhum ${mediaType} encontrado.</p>`;
                 }
-                updatePaginationControls(mediaType);
+                
+                if (!isSearching) {
+                   updatePaginationControls(tmdbType);
+                }
+
             } catch (error) {
                 console.error(`Erro ao buscar ${mediaType}:`, error);
                 container.innerHTML = '<p class="error-message">Erro ao carregar os dados.</p>';
             }
         }
         
+        /** Busca por termo (usada para pesquisa em tempo real). */
+        async function searchMedia(container, mediaType, query) {
+            const tmdbType = mediaType === 'filme' ? 'movie' : 'tv';
+            container.innerHTML = '<h4>Buscando...</h4>';
+            
+            try {
+                const url = `${TMDB_BASE_URL}/search/${tmdbType}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}&query=${encodeURIComponent(query)}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                container.innerHTML = '';
+                if (data.results && data.results.length > 0) {
+                    data.results.forEach(media => {
+                        createMediaCard(media, container, tmdbType);
+                    });
+                } else {
+                    container.innerHTML = `<p>Nenhum resultado de pesquisa encontrado para "${query}".</p>`;
+                }
+            } catch (error) {
+                console.error('Erro na pesquisa:', error);
+                container.innerHTML = '<p class="error-message">Erro ao realizar a pesquisa.</p>';
+            }
+        }
+
         /** Cria e anexa o card de mídia. */
-        function createMediaCard(media, container, mediaType) {
+        function createMediaCard(media, container, tmdbType) {
             const mediaCard = document.createElement('div');
             mediaCard.classList.add('media-card');
 
             const mediaPoster = document.createElement('img');
-            mediaPoster.src = media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : 'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="225" viewBox="0 0 150 225" fill="#333"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="16" fill="#ccc">Poster não disponível</text></svg>';
+            const posterPath = media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : 'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="240" viewBox="0 0 160 240" fill="#333"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="14" fill="#777">Sem Pôster</text></svg>';
+            mediaPoster.src = posterPath;
             mediaPoster.alt = media.title || media.name;
 
             const detailsBtn = document.createElement('button');
             detailsBtn.classList.add('details-btn');
             detailsBtn.textContent = media.title || media.name;
 
-            detailsBtn.addEventListener('click', () => {
-                const type = mediaType === 'filme' ? 'movie' : 'tv'; 
-                openModal(media.id, type);
-            });
+            detailsBtn.addEventListener('click', () => openModal(media.id, tmdbType));
 
             mediaCard.appendChild(mediaPoster);
             mediaCard.appendChild(detailsBtn);
@@ -325,23 +412,30 @@
 
         // --- Funções de Paginação ---
 
-        function updatePaginationControls(mediaType) {
-            const isMovie = mediaType === 'movie';
+        function updatePaginationControls(tmdbType) {
+            const isMovie = tmdbType === 'movie';
             const prevBtn = isMovie ? prevFilmesBtn : prevSeriesBtn;
             const nextBtn = isMovie ? nextFilmesBtn : nextSeriesBtn;
             const currentSpan = isMovie ? currentFilmesPageSpan : currentSeriesPageSpan;
 
-            prevBtn.disabled = currentPage[mediaType] === 1;
-            nextBtn.disabled = currentPage[mediaType] >= totalPages[mediaType];
-            currentSpan.textContent = `Página ${currentPage[mediaType]} de ${totalPages[mediaType]}`;
+            const current = currentPage[tmdbType];
+            const total = totalPages[tmdbType];
+
+            prevBtn.disabled = current === 1;
+            nextBtn.disabled = current >= total;
+            currentSpan.textContent = `Página ${current} de ${total}`;
+            
+            // Garante que os controles estão visíveis quando não está buscando
+            const paginationDiv = isMovie ? document.getElementById('filmes-pagination') : document.getElementById('series-pagination');
+            paginationDiv.style.display = isSearching ? 'none' : 'flex';
         }
 
         function loadNextPage(mediaType) {
             if (currentPage[mediaType] < totalPages[mediaType]) {
                 const newPage = currentPage[mediaType] + 1;
                 const container = mediaType === 'movie' ? filmesContainer : seriesContainer;
-                container.innerHTML = '<h4>Carregando página...</h4>';
-                fetchPopularMedia(container, mediaType, newPage);
+                fetchMediaList(container, mediaType === 'movie' ? 'filme' : 'serie', newPage, 'top_rated');
+                window.scrollTo(0, 0); // Volta para o topo da página
             }
         }
 
@@ -349,15 +443,16 @@
             if (currentPage[mediaType] > 1) {
                 const newPage = currentPage[mediaType] - 1;
                 const container = mediaType === 'movie' ? filmesContainer : seriesContainer;
-                container.innerHTML = '<h4>Carregando página...</h4>';
-                fetchPopularMedia(container, mediaType, newPage);
+                fetchMediaList(container, mediaType === 'movie' ? 'filme' : 'serie', newPage, 'top_rated');
+                window.scrollTo(0, 0); // Volta para o topo da página
             }
         }
 
-        // --- Funções do Modal e Embed (Mantidas do Código Anterior) ---
+        // --- Funções do Modal e Embed (Corrigidas) ---
 
         async function openModal(id, mediaType) {
             try {
+                // ... (lógica de buscar detalhes e IMDb ID)
                 const append = mediaType === 'movie' ? 'external_ids' : 'external_ids,seasons';
                 const response = await fetch(`${TMDB_BASE_URL}/${mediaType}/${id}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}&append_to_response=${append}`);
                 
@@ -373,7 +468,7 @@
                 const imdbID = currentMedia.external_ids?.imdb_id;
 
                 if (!imdbID) {
-                    displayError('ID do IMDb não disponível, impossível gerar o link de embed.');
+                    displayError('ID do IMDb não disponível para esta mídia, impossível gerar o link de embed.');
                     modalOverlay.style.display = 'flex';
                     return;
                 }
@@ -393,6 +488,7 @@
         }
 
         function setupSeriesControls(mediaData, imdbID) {
+            // ... (lógica de setupSeriesControls)
             seriesControls.style.display = 'flex';
             seasonSelect.innerHTML = '';
             episodeSelect.innerHTML = '';
@@ -417,6 +513,7 @@
         }
 
         async function loadEpisodes(tvId, seasonNumber, imdbID) {
+            // ... (lógica de loadEpisodes)
             try {
                 const response = await fetch(`${TMDB_BASE_URL}/tv/${tvId}/season/${seasonNumber}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}`);
                 const seasonData = await response.json();
@@ -442,15 +539,14 @@
             }
         }
 
+
         /** Define a URL do embed no iframe (CORRIGIDA para o WarezCDN). */
         function setEmbedSource(mediaType, imdbID, season = 0, episode = 0) {
             let src = '';
             
             if (mediaType === 'filme') {
-                // Tenta o formato Filmes
                 src = `${WAREZCDN_BASE_URL}/filme/${imdbID}`; 
             } else if (mediaType === 'serie' && season > 0 && episode > 0) {
-                // Tenta o formato Séries
                 const s = String(season).padStart(2, '0');
                 const e = String(episode).padStart(2, '0');
                 src = `${WAREZCDN_BASE_URL}/serie/${imdbID}/S${s}E${e}`;
@@ -458,11 +554,7 @@
 
             modalVideo.src = src;
             errorMessage.style.display = 'none'; 
-            console.warn("--- URL DE EMBED GERADA ---");
-            console.warn(`URL: ${src}`);
-            console.warn("---------------------------");
-            
-            // Se o link do WarezCDN não funcionar, o problema é o WarezCDN ou o conteúdo não existe lá.
+            console.warn(`URL DE EMBED GERADA: ${src}`);
         }
 
         function displayError(message) {
@@ -487,41 +579,20 @@
             
             searchInput.timer = setTimeout(() => {
                 if (query.length > 2) {
+                    isSearching = true;
                     // Oculta paginação ao pesquisar
                     document.getElementById('filmes-pagination').style.display = 'none';
                     document.getElementById('series-pagination').style.display = 'none';
-
-                    filmesContainer.innerHTML = '<h4>Buscando filmes...</h4>';
-                    seriesContainer.innerHTML = '<h4>Buscando séries...</h4>';
                     
-                    // A função de busca usa um endpoint diferente do popular
-                    fetchMedia(`search/movie`, filmesContainer, 'movie', query);
-                    fetchMedia(`search/tv`, seriesContainer, 'tv', query);
+                    searchMedia(filmesContainer, 'filme', query);
+                    searchMedia(seriesContainer, 'serie', query);
                 } else if (query.length === 0) {
+                    isSearching = false;
                     // Volta aos populares e mostra paginação
-                    document.getElementById('filmes-pagination').style.display = 'flex';
-                    document.getElementById('series-pagination').style.display = 'flex';
                     loadPopularMedia();
                 }
             }, 300); 
         });
-
-        // A função fetchMedia foi simplificada para a busca e a fetchPopularMedia para o carregamento inicial/paginação
-        async function fetchMedia(endpoint, container, mediaType, query) {
-            // Lógica de busca de pesquisa (igual a antes, sem paginação aqui)
-            const url = `${TMDB_BASE_URL}/${endpoint}?api_key=${TMDB_API_KEY}&language=${LANGUAGE}&query=${encodeURIComponent(query)}`;
-            // ... (resto da lógica de fetchMedia)
-            const response = await fetch(url);
-            const data = await response.json();
-            
-            container.innerHTML = '';
-            if (data.results && data.results.length > 0) {
-                data.results.forEach(media => createMediaCard(media, container, mediaType === 'movie' ? 'filme' : 'serie'));
-            } else {
-                container.innerHTML = `<p>Nenhum resultado de pesquisa encontrado.</p>`;
-            }
-        }
-
 
         // 3. Fechar Modal
         closeModalBtn.addEventListener('click', () => {
@@ -529,12 +600,11 @@
             modalVideo.src = ''; 
         });
 
-        // 4. Carregar Mídias Populares ao Iniciar
+        // 4. Carregar Mídias Iniciais
         function loadPopularMedia() {
-            filmesContainer.innerHTML = '<h4>Carregando filmes populares...</h4>';
-            seriesContainer.innerHTML = '<h4>Carregando séries populares...</h4>';
-            fetchPopularMedia(filmesContainer, 'movie', currentPage.movie);
-            fetchPopularMedia(seriesContainer, 'tv', currentPage.tv);
+            // Carrega os "Melhor Avaliados" (top_rated) para o catálogo principal, que tem 500 páginas.
+            fetchMediaList(filmesContainer, 'filme', currentPage.movie, 'top_rated');
+            fetchMediaList(seriesContainer, 'serie', currentPage.tv, 'top_rated');
         }
 
         document.addEventListener("DOMContentLoaded", loadPopularMedia);
